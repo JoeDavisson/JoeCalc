@@ -128,3 +128,99 @@ void Calc::key_f()
   append("F");
 }
 
+void Calc::key_add()
+{
+}
+
+void Calc::key_sub()
+{
+}
+
+void Calc::key_mul()
+{
+}
+
+void Calc::key_div()
+{
+}
+
+void Calc::key_sign()
+{
+}
+
+void Calc::key_invert()
+{
+}
+
+void Calc::key_and()
+{
+}
+
+void Calc::key_or()
+{
+}
+
+void Calc::key_xor()
+{
+}
+
+void Calc::key_mod()
+{
+}
+
+void Calc::key_shl()
+{
+}
+
+void Calc::key_shr()
+{
+}
+
+void Calc::key_dec()
+{
+}
+
+void Calc::key_hex()
+{
+}
+
+void Calc::key_oct()
+{
+}
+
+void Calc::key_bin()
+{
+}
+
+void Calc::key_sqrt()
+{
+}
+
+void Calc::key_recip()
+{
+}
+
+void Calc::key_int()
+{
+}
+
+void Calc::key_ceil()
+{
+}
+
+void Calc::key_pow()
+{
+}
+
+void Calc::key_twos()
+{
+}
+
+void Calc::key_frac()
+{
+}
+
+void Calc::key_floor()
+{
+}
+
