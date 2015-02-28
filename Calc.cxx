@@ -32,8 +32,8 @@ namespace
 {
   bool op_started = false;
   int op = Calc::OP_NONE;
-  float value1 = 0;
-  float value2 = 0;
+  double value1 = 0;
+  double value2 = 0;
 
   void clear()
   {
@@ -117,14 +117,22 @@ void Calc::key_equals()
 {
   static char buf[256];
 
+  if(!op_started)
+    value2 = atof(Gui::getInput()->value());
+  else
+    value2 = 0;
+
   switch(op)
   {
     case OP_ADD:
-      value2 = atof(Gui::getInput()->value());
       sprintf(buf, "%f", value1 + value2);
-      Gui::getInput()->value(buf);
       break;
   }
+
+  Gui::getInput()->value(buf);
+  setOp(OP_NONE);
+  value1 = 0;
+  value2 = 0;
 }
 
 void Calc::key_dot()
