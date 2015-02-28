@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #ifndef GUI_H
 #define GUI_H
 
-class Fl_Float_Input;
+class Fl_Input;
 
 namespace Gui
 {
   void init();
-  Fl_Float_Input *getInput();
+  Fl_Input *getInput();
 }
 
 #endif

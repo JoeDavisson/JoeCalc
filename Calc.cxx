@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #include <cmath>
 #include <cstring>
 
-#include <FL/Fl_Float_Input.H>
+#include <FL/Fl_Input.H>
 
 #include "Calc.H"
 #include "Gui.H"
@@ -96,5 +96,35 @@ void Calc::key_equals()
 void Calc::key_dot()
 {
   append(".");
+}
+
+void Calc::key_a()
+{
+  append("A");
+}
+
+void Calc::key_b()
+{
+  append("B");
+}
+
+void Calc::key_c()
+{
+  append("C");
+}
+
+void Calc::key_d()
+{
+  append("D");
+}
+
+void Calc::key_e()
+{
+  append("E");
+}
+
+void Calc::key_f()
+{
+  append("F");
 }
 

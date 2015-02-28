@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Double_Window.H>
-#include <FL/Fl_Float_Input.H>
+#include <FL/Fl_Input.H>
 #include <FL/Fl_Output.H>
 #include <FL/Fl_Menu_Bar.H>
 #include <FL/Fl_Tooltip.H>
@@ -41,7 +41,7 @@ namespace
   Fl_Menu_Bar *menubar;
 
   // stuff
-  Fl_Float_Input *input;
+  Fl_Input *input;
   Fl_Output *binary;
 
   Fl_Group *group_num;
@@ -136,7 +136,7 @@ void Gui::init()
   menubar->add("&Help/&About...", 0,
     (Fl_Callback *)0, 0, 0);
 
-  input = new Fl_Float_Input(8, 32, 480, 32, "");
+  input = new Fl_Input(8, 32, 480, 32, "");
   input->textsize(18);
   input->value("0");
   binary = new Fl_Output(8, 68, 480, 24, "");
@@ -175,11 +175,17 @@ void Gui::init()
   group_hex = new Fl_Group(8, 280, 176, 88, "");
   group_hex->box(FL_ENGRAVED_FRAME);
   key_a = new Fl_Button(16, 288, 48, 32, "A");
+  key_a->callback((Fl_Callback *)Calc::key_a);
   key_b = new Fl_Button(72, 288, 48, 32, "B");
+  key_b->callback((Fl_Callback *)Calc::key_b);
   key_c = new Fl_Button(128, 288, 48, 32, "C");
+  key_c->callback((Fl_Callback *)Calc::key_c);
   key_d = new Fl_Button(16, 328, 48, 32, "D");
+  key_d->callback((Fl_Callback *)Calc::key_d);
   key_e = new Fl_Button(72, 328, 48, 32, "E");
+  key_e->callback((Fl_Callback *)Calc::key_e);
   key_f = new Fl_Button(128, 328, 48, 32, "F");
+  key_f->callback((Fl_Callback *)Calc::key_f);
   group_hex->end();
   
   group_arith = new Fl_Group(192, 102, 64, 172, "");
@@ -228,7 +234,7 @@ void Gui::init()
   window->show();
 }
 
-Fl_Float_Input *Gui::getInput()
+Fl_Input *Gui::getInput()
 {
   return input;
 }
