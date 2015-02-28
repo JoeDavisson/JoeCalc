@@ -43,6 +43,7 @@ namespace
   // stuff
   Fl_Input *input;
   Fl_Output *binary;
+  Fl_Button *key_clear;
 
   Fl_Group *group_num;
   Fl_Button *key_0;
@@ -136,13 +137,15 @@ void Gui::init()
   menubar->add("&Help/&About...", 0,
     (Fl_Callback *)0, 0, 0);
 
-  input = new Fl_Input(8, 32, 480, 32, "");
+  input = new Fl_Input(8, 32, 376, 32, "");
   input->textsize(18);
   input->value("0");
   binary = new Fl_Output(8, 68, 480, 24, "");
   binary->textsize(11);
   binary->box(FL_NO_BOX);
   binary->value("00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000");
+  key_clear = new Fl_Button(400, 32, 80, 32, "Clear");
+  key_clear->callback((Fl_Callback *)Calc::key_clear);
 
   group_num = new Fl_Group(8, 102, 176, 172, "");
   group_num->box(FL_ENGRAVED_FRAME);

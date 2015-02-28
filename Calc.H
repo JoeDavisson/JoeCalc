@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
 namespace Calc
 {
+  void key_clear();
+
   void key_0();
   void key_1();
   void key_2();

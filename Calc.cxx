@@ -39,6 +39,11 @@ namespace
   }
 }
 
+void Calc::key_clear()
+{
+  clear();
+}
+
 void Calc::key_0()
 {
   append("0");
