@@ -20,6 +20,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
 #include <cmath>
 #include <cstring>
+#include <cstdlib>
+#include <cstdio>
 
 #include <FL/Fl_Input.H>
 
@@ -28,14 +30,31 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
 namespace
 {
-  void append(const char *s)
-  {
-    Gui::getInput()->insert(s);
-  }
+  bool op_started = false;
+  int op = Calc::OP_NONE;
+  float value1 = 0;
+  float value2 = 0;
 
   void clear()
   {
-    Gui::getInput()->value("0");
+    Gui::getInput()->value("");
+  }
+
+  void append(const char *s)
+  {
+    if(op_started)
+    {
+      clear();
+      op_started = false;
+    }
+
+    Gui::getInput()->insert(s);
+  }
+
+  void setOp(int type)
+  {
+    op = type;
+    op_started = true;
   }
 }
 
@@ -96,6 +115,16 @@ void Calc::key_9()
 
 void Calc::key_equals()
 {
+  static char buf[256];
+
+  switch(op)
+  {
+    case OP_ADD:
+      value2 = atof(Gui::getInput()->value());
+      sprintf(buf, "%f", value1 + value2);
+      Gui::getInput()->value(buf);
+      break;
+  }
 }
 
 void Calc::key_dot()
@@ -135,6 +164,8 @@ void Calc::key_f()
 
 void Calc::key_add()
 {
+  setOp(OP_ADD);
+  value1 = atof(Gui::getInput()->value());
 }
 
 void Calc::key_sub()

@@ -31,6 +31,22 @@ namespace Calc
     MODE_BIN
   };
 
+  enum
+  {
+    OP_NONE,
+    OP_ADD,
+    OP_SUB,
+    OP_MUL,
+    OP_DIV,
+    OP_SIGN,
+    OP_INVERT,
+    OP_AND,
+    OP_OR,
+    OP_XOR,
+    OP_MOD,
+    OP_POW
+  };
+
   void key_clear();
 
   void key_0();

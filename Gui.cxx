@@ -140,7 +140,7 @@ void Gui::init()
 
   input = new Fl_Input(8, 32, 376, 32, "");
   input->textsize(18);
-  input->value("0");
+  input->value("");
   binary = new Fl_Output(8, 68, 480, 24, "");
   binary->textsize(11);
   binary->box(FL_NO_BOX);
