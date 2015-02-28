@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Output.H>
+#include <FL/Fl_Toggle_Button.H>
 #include <FL/Fl_Menu_Bar.H>
 #include <FL/Fl_Tooltip.H>
 
@@ -84,10 +85,10 @@ namespace
   Fl_Button *key_shr;
 
   Fl_Group *group_mode;
-  Fl_Button *key_dec;
-  Fl_Button *key_hex;
-  Fl_Button *key_oct;
-  Fl_Button *key_bin;
+  Fl_Toggle_Button *key_dec;
+  Fl_Toggle_Button *key_hex;
+  Fl_Toggle_Button *key_oct;
+  Fl_Toggle_Button *key_bin;
 
   Fl_Group *group_misc;
   Fl_Button *key_sqrt;
@@ -225,14 +226,18 @@ void Gui::init()
 
   group_mode = new Fl_Group(392, 102, 96, 172, "");
   group_mode->box(FL_ENGRAVED_FRAME);
-  key_dec = new Fl_Button(400, 112, 80, 32, "Dec");
+  key_dec = new Fl_Toggle_Button(400, 112, 80, 32, "Dec");
   key_dec->callback((Fl_Callback *)Calc::key_dec);
-  key_hex = new Fl_Button(400, 152, 80, 32, "Hex");
+  key_dec->down_box(FL_UP_BOX);
+  key_hex = new Fl_Toggle_Button(400, 152, 80, 32, "Hex");
   key_hex->callback((Fl_Callback *)Calc::key_hex);
-  key_oct = new Fl_Button(400, 192, 80, 32, "Oct");
+  key_hex->down_box(FL_UP_BOX);
+  key_oct = new Fl_Toggle_Button(400, 192, 80, 32, "Oct");
   key_oct->callback((Fl_Callback *)Calc::key_oct);
-  key_bin = new Fl_Button(400, 232, 80, 32, "Bin");
+  key_oct->down_box(FL_UP_BOX);
+  key_bin = new Fl_Toggle_Button(400, 232, 80, 32, "Bin");
   key_bin->callback((Fl_Callback *)Calc::key_bin);
+  key_bin->down_box(FL_UP_BOX);
   group_mode->end();
 
   group_misc = new Fl_Group(192, 280, 296, 88, "");
@@ -259,10 +264,50 @@ void Gui::init()
 //  window->resizable(view);
   window->end();
   window->show();
+
+  setMode(Calc::MODE_DEC);
 }
 
 Fl_Input *Gui::getInput()
 {
   return input;
+}
+
+void Gui::setMode(int mode)
+{
+  key_dec->value(0);
+  key_hex->value(0);
+  key_oct->value(0);
+  key_bin->value(0);
+
+  key_dec->color(FL_BACKGROUND_COLOR);
+  key_hex->color(FL_BACKGROUND_COLOR);
+  key_oct->color(FL_BACKGROUND_COLOR);
+  key_bin->color(FL_BACKGROUND_COLOR);
+
+  switch(mode)
+  {
+    case Calc::MODE_DEC:
+      key_dec->value(1);
+      key_dec->color(FL_BACKGROUND2_COLOR, FL_BACKGROUND2_COLOR);
+      break;
+    case Calc::MODE_HEX:
+      key_hex->value(1);
+      key_hex->color(FL_BACKGROUND2_COLOR, FL_BACKGROUND2_COLOR);
+      break;
+    case Calc::MODE_OCT:
+      key_oct->value(1);
+      key_oct->color(FL_BACKGROUND2_COLOR, FL_BACKGROUND2_COLOR);
+      break;
+    case Calc::MODE_BIN:
+      key_bin->value(1);
+      key_bin->color(FL_BACKGROUND2_COLOR, FL_BACKGROUND2_COLOR);
+      break;
+  }
+
+  key_dec->redraw();
+  key_hex->redraw();
+  key_oct->redraw();
+  key_bin->redraw();
 }
 

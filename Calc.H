@@ -23,6 +23,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
 namespace Calc
 {
+  enum
+  {
+    MODE_DEC,
+    MODE_HEX,
+    MODE_OCT,
+    MODE_BIN
+  };
+
   void key_clear();
 
   void key_0();

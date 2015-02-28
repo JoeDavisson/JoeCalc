@@ -183,18 +183,22 @@ void Calc::key_shr()
 
 void Calc::key_dec()
 {
+  Gui::setMode(Calc::MODE_DEC);
 }
 
 void Calc::key_hex()
 {
+  Gui::setMode(Calc::MODE_HEX);
 }
 
 void Calc::key_oct()
 {
+  Gui::setMode(Calc::MODE_OCT);
 }
 
 void Calc::key_bin()
 {
+  Gui::setMode(Calc::MODE_BIN);
 }
 
 void Calc::key_sqrt()
