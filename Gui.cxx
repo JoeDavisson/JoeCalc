@@ -142,7 +142,7 @@ void Gui::init()
   binary = new Fl_Output(8, 68, 480, 24, "");
   binary->textsize(11);
   binary->box(FL_NO_BOX);
-  binary->value("");
+  binary->value("00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000");
 
   group_num = new Fl_Group(8, 102, 176, 172, "");
   group_num->box(FL_ENGRAVED_FRAME);
