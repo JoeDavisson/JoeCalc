@@ -35,6 +35,12 @@ namespace
   double value1 = 0;
   double value2 = 0;
 
+  void setOp(int type)
+  {
+    op = type;
+    op_started = true;
+  }
+
   void clear()
   {
     Gui::getInput()->value("");
@@ -51,10 +57,22 @@ namespace
     Gui::getInput()->insert(s);
   }
 
-  void setOp(int type)
+  void replace(double val)
   {
-    op = type;
-    op_started = true;
+    static char buf[256];
+
+    sprintf(buf, "%f", val);
+
+    op_started = false;
+    Gui::getInput()->value(buf);
+    setOp(Calc::OP_NONE);
+    value1 = 0;
+    value2 = 0;
+  }
+
+  void setValue(double *value)
+  {
+    *value = atof(Gui::getInput()->value());
   }
 }
 
@@ -118,7 +136,7 @@ void Calc::key_equals()
   static char buf[256];
 
   if(!op_started)
-    value2 = atof(Gui::getInput()->value());
+    setValue(&value2);
   else
     value2 = 0;
 
@@ -185,25 +203,25 @@ void Calc::key_f()
 void Calc::key_add()
 {
   setOp(OP_ADD);
-  value1 = atof(Gui::getInput()->value());
+  setValue(&value1);
 }
 
 void Calc::key_sub()
 {
   setOp(OP_SUB);
-  value1 = atof(Gui::getInput()->value());
+  setValue(&value1);
 }
 
 void Calc::key_mul()
 {
   setOp(OP_MUL);
-  value1 = atof(Gui::getInput()->value());
+  setValue(&value1);
 }
 
 void Calc::key_div()
 {
   setOp(OP_DIV);
-  value1 = atof(Gui::getInput()->value());
+  setValue(&value1);
 }
 
 void Calc::key_sign()
@@ -260,6 +278,10 @@ void Calc::key_bin()
 
 void Calc::key_sqrt()
 {
+
+  value1 = atof(Gui::getInput()->value());
+  value1 = sqrt(value1);
+  replace(value1);
 }
 
 void Calc::key_recip()
