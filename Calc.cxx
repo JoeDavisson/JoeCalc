@@ -127,6 +127,18 @@ void Calc::key_equals()
     case OP_ADD:
       sprintf(buf, "%f", value1 + value2);
       break;
+    case OP_SUB:
+      sprintf(buf, "%f", value1 - value2);
+      break;
+    case OP_MUL:
+      sprintf(buf, "%f", value1 * value2);
+      break;
+    case OP_DIV:
+      if(value2 > 0)
+        sprintf(buf, "%f", value1 / value2);
+      else
+        sprintf(buf, "Divide By Zero Error");
+      break;
   }
 
   Gui::getInput()->value(buf);
@@ -178,14 +190,20 @@ void Calc::key_add()
 
 void Calc::key_sub()
 {
+  setOp(OP_SUB);
+  value1 = atof(Gui::getInput()->value());
 }
 
 void Calc::key_mul()
 {
+  setOp(OP_MUL);
+  value1 = atof(Gui::getInput()->value());
 }
 
 void Calc::key_div()
 {
+  setOp(OP_DIV);
+  value1 = atof(Gui::getInput()->value());
 }
 
 void Calc::key_sign()
