@@ -35,10 +35,21 @@ namespace
   double value1 = 0;
   double value2 = 0;
 
+  void getValue(double *value)
+  {
+    *value = atof(Gui::getInput()->value());
+  }
+
   void setOp(int type)
   {
     op = type;
-    op_started = true;
+    getValue(&value1);
+
+    if(type == Calc::OP_NONE)
+      op_started = false;
+    else
+      op_started = true;
+
   }
 
   void clear()
@@ -69,16 +80,28 @@ namespace
     value1 = 0;
     value2 = 0;
   }
+}
 
-  void setValue(double *value)
+void Calc::changed()
+{
+  const char *old = Gui::getInput()->value();
+  char last[2];
+
+  last[0] = old[strlen(old) - 1];
+  last[1] = '\0';
+
+  if(op_started)
   {
-    *value = atof(Gui::getInput()->value());
+    op_started = false;
+    clear();
+    Gui::getInput()->insert(last);
   }
 }
 
 void Calc::key_clear()
 {
   clear();
+  setOp(Calc::OP_NONE);
 }
 
 void Calc::key_0()
@@ -135,10 +158,10 @@ void Calc::key_equals()
 {
   static char buf[256];
 
-  if(!op_started)
-    setValue(&value2);
-  else
+  if(op == OP_NONE)
     value2 = 0;
+  else
+    getValue(&value2);
 
   switch(op)
   {
@@ -203,25 +226,21 @@ void Calc::key_f()
 void Calc::key_add()
 {
   setOp(OP_ADD);
-  setValue(&value1);
 }
 
 void Calc::key_sub()
 {
   setOp(OP_SUB);
-  setValue(&value1);
 }
 
 void Calc::key_mul()
 {
   setOp(OP_MUL);
-  setValue(&value1);
 }
 
 void Calc::key_div()
 {
   setOp(OP_DIV);
-  setValue(&value1);
 }
 
 void Calc::key_sign()

@@ -47,6 +47,8 @@ namespace Calc
     OP_POW
   };
 
+  void changed();
+
   void key_clear();
 
   void key_0();

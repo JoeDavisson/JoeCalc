@@ -141,6 +141,8 @@ void Gui::init()
   input = new Fl_Input(8, 32, 376, 32, "");
   input->textsize(18);
   input->value("");
+  input->when(FL_WHEN_CHANGED | FL_WHEN_RELEASE | FL_WHEN_ENTER_KEY);
+  input->callback((Fl_Callback *)Calc::changed);
   binary = new Fl_Output(8, 68, 480, 24, "");
   binary->textsize(11);
   binary->box(FL_NO_BOX);
