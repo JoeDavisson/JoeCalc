@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
+#include <stdint.h>
 
 #include <FL/Fl_Input.H>
 
@@ -49,7 +50,6 @@ namespace
       op_started = false;
     else
       op_started = true;
-
   }
 
   void clear()
@@ -72,10 +72,19 @@ namespace
   {
     static char buf[256];
 
-    sprintf(buf, "%f", val);
+    sprintf(buf, "%.30f", val);
 
     op_started = false;
     Gui::getInput()->value(buf);
+    setOp(Calc::OP_NONE);
+    value1 = 0;
+    value2 = 0;
+  }
+
+  void replace(const char *s)
+  {
+    op_started = false;
+    Gui::getInput()->value(s);
     setOp(Calc::OP_NONE);
     value1 = 0;
     value2 = 0;
@@ -156,8 +165,6 @@ void Calc::key_9()
 
 void Calc::key_equals()
 {
-  static char buf[256];
-
   if(op == OP_NONE)
     value2 = 0;
   else
@@ -166,23 +173,40 @@ void Calc::key_equals()
   switch(op)
   {
     case OP_ADD:
-      sprintf(buf, "%f", value1 + value2);
+      replace(value1 + value2);
       break;
     case OP_SUB:
-      sprintf(buf, "%f", value1 - value2);
+      replace(value1 - value2);
       break;
     case OP_MUL:
-      sprintf(buf, "%f", value1 * value2);
+      replace(value1 * value2);
       break;
     case OP_DIV:
-      if(value2 > 0)
-        sprintf(buf, "%f", value1 / value2);
+      if(value2 != 0.0)
+        replace(value1 / value2);
       else
-        sprintf(buf, "Divide By Zero Error");
+        replace("Divide By Zero Error");
+      break;
+    case OP_POW:
+      replace(pow(value1, value2));
+      break;
+    case OP_AND:
+      replace((double)((uint64_t)value1 & (uint64_t)value2));
+      break;
+    case OP_OR:
+      replace((double)((uint64_t)value1 | (uint64_t)value2));
+      break;
+    case OP_XOR:
+      replace((double)((uint64_t)value1 ^ (uint64_t)value2));
+      break;
+    case OP_MOD:
+      if(value2 != 0.0)
+        replace(fmod(value1, value2));
+      else
+        replace("Divide By Zero Error");
       break;
   }
 
-  Gui::getInput()->value(buf);
   setOp(OP_NONE);
   value1 = 0;
   value2 = 0;
@@ -245,34 +269,52 @@ void Calc::key_div()
 
 void Calc::key_sign()
 {
+  value1 = -atof(Gui::getInput()->value());
+  replace(value1);
 }
 
 void Calc::key_invert()
 {
+  uint64_t temp = (uint64_t)atof(Gui::getInput()->value());
+  temp = ~temp;
+  value1 = temp;
+  replace(value1);
 }
 
 void Calc::key_and()
 {
+  setOp(OP_AND);
 }
 
 void Calc::key_or()
 {
+  setOp(OP_OR);
 }
 
 void Calc::key_xor()
 {
+  setOp(OP_XOR);
 }
 
 void Calc::key_mod()
 {
+  setOp(OP_MOD);
 }
 
 void Calc::key_shl()
 {
+  uint64_t temp = (uint64_t)atof(Gui::getInput()->value());
+  temp <<= 1;
+  value1 = temp;
+  replace(value1);
 }
 
 void Calc::key_shr()
 {
+  uint64_t temp = (uint64_t)atof(Gui::getInput()->value());
+  temp >>= 1;
+  value1 = temp;
+  replace(value1);
 }
 
 void Calc::key_dec()
@@ -297,37 +339,63 @@ void Calc::key_bin()
 
 void Calc::key_sqrt()
 {
-
-  value1 = atof(Gui::getInput()->value());
-  value1 = sqrt(value1);
+  value1 = sqrt(atof(Gui::getInput()->value()));
   replace(value1);
 }
 
 void Calc::key_recip()
 {
+  double temp = atof(Gui::getInput()->value());
+
+  if(temp != 0.0)
+  {
+    value1 = 1.0 / temp;
+    replace(value1);
+  }
+  else
+  {
+    value1 = 0;
+    replace("Divide By Zero Error");
+  }
 }
 
 void Calc::key_int()
 {
+  value1 = (float)(int)atof(Gui::getInput()->value());
+  replace(value1);
 }
 
 void Calc::key_ceil()
 {
+  value1 = ceil(atof(Gui::getInput()->value()));
+  replace(value1);
 }
 
 void Calc::key_pow()
 {
+  setOp(OP_POW);
 }
 
 void Calc::key_twos()
 {
+  value1 = atof(Gui::getInput()->value());
+  uint64_t temp = (uint64_t)value1;
+  temp = ~temp;
+  temp++;
+  value1 = temp;
+  replace(value1);
 }
 
 void Calc::key_frac()
 {
+  value1 = atof(Gui::getInput()->value());
+  value1 = value1 - (int)value1;
+  replace(value1);
 }
 
 void Calc::key_floor()
 {
+  value1 = floor(atof(Gui::getInput()->value()));
+  replace(value1);
 }
 
