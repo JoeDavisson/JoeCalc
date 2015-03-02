@@ -72,7 +72,7 @@ namespace
   {
     static char buf[256];
 
-    sprintf(buf, "%.30f", val);
+    sprintf(buf, "%.16g", val);
 
     op_started = false;
     Gui::getInput()->value(buf);
