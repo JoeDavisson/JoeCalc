@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 */
 
 #include <cmath>
+#include <stdint.h>
 
 #include <FL/fl_ask.H>
 #include <FL/Fl_Box.H>
@@ -144,9 +145,10 @@ void Gui::init()
   input->when(FL_WHEN_CHANGED | FL_WHEN_RELEASE | FL_WHEN_ENTER_KEY);
   input->callback((Fl_Callback *)Calc::changed);
   binary = new Fl_Output(8, 68, 480, 24, "");
-  binary->textsize(11);
-  binary->box(FL_NO_BOX);
-  binary->value("00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000");
+  binary->textsize(10);
+  binary->box(FL_FLAT_BOX);
+  binary->value("");
+  binary->color(FL_BACKGROUND_COLOR);
   key_clear = new Fl_Button(400, 32, 80, 32, "Clear");
   key_clear->callback((Fl_Callback *)Calc::key_clear);
 
@@ -268,6 +270,7 @@ void Gui::init()
   window->show();
 
   setMode(Calc::MODE_DEC);
+  setBinary(0);
 }
 
 Fl_Input *Gui::getInput()
@@ -312,4 +315,29 @@ void Gui::setMode(int mode)
   key_oct->redraw();
   key_bin->redraw();
 }
+
+void Gui::setBinary(double value)
+{
+  uint64_t temp = (uint64_t)value;
+
+  binary->value("");
+
+  int count = 0;
+
+  for(int i = 63; i >= 0; i--)
+  {
+    if(((temp >> i) & 1) == 1)
+      binary->insert("1");
+    else
+      binary->insert("0");
+
+    count++;
+    if(count > 7)
+    {
+      count = 0;
+      binary->insert(" ");
+    }
+  }
+}
+
 

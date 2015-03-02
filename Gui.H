@@ -28,6 +28,7 @@ namespace Gui
   void init();
   Fl_Input *getInput();
   void setMode(int);
+  void setBinary(double);
 }
 
 #endif

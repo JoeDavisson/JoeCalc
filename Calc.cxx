@@ -55,6 +55,7 @@ namespace
   void clear()
   {
     Gui::getInput()->value("");
+    Gui::setBinary(0);
   }
 
   void append(const char *s)
@@ -66,6 +67,7 @@ namespace
     }
 
     Gui::getInput()->insert(s);
+    Gui::setBinary(atof(Gui::getInput()->value()));
   }
 
   void replace(double val)
@@ -76,6 +78,7 @@ namespace
 
     op_started = false;
     Gui::getInput()->value(buf);
+    Gui::setBinary(atof(Gui::getInput()->value()));
     setOp(Calc::OP_NONE);
     value1 = 0;
     value2 = 0;
@@ -191,13 +194,13 @@ void Calc::key_equals()
       replace(pow(value1, value2));
       break;
     case OP_AND:
-      replace((double)((uint64_t)value1 & (uint64_t)value2));
+      replace((double)((int64_t)value1 & (int64_t)value2));
       break;
     case OP_OR:
-      replace((double)((uint64_t)value1 | (uint64_t)value2));
+      replace((double)((int64_t)value1 | (int64_t)value2));
       break;
     case OP_XOR:
-      replace((double)((uint64_t)value1 ^ (uint64_t)value2));
+      replace((double)((int64_t)value1 ^ (int64_t)value2));
       break;
     case OP_MOD:
       if(value2 != 0.0)
@@ -275,7 +278,7 @@ void Calc::key_sign()
 
 void Calc::key_invert()
 {
-  uint64_t temp = (uint64_t)atof(Gui::getInput()->value());
+  int64_t temp = (int64_t)atof(Gui::getInput()->value());
   temp = ~temp;
   value1 = temp;
   replace(value1);
@@ -303,7 +306,7 @@ void Calc::key_mod()
 
 void Calc::key_shl()
 {
-  uint64_t temp = (uint64_t)atof(Gui::getInput()->value());
+  int64_t temp = (int64_t)atof(Gui::getInput()->value());
   temp <<= 1;
   value1 = temp;
   replace(value1);
@@ -311,7 +314,7 @@ void Calc::key_shl()
 
 void Calc::key_shr()
 {
-  uint64_t temp = (uint64_t)atof(Gui::getInput()->value());
+  int64_t temp = (int64_t)atof(Gui::getInput()->value());
   temp >>= 1;
   value1 = temp;
   replace(value1);
@@ -379,7 +382,7 @@ void Calc::key_pow()
 void Calc::key_twos()
 {
   value1 = atof(Gui::getInput()->value());
-  uint64_t temp = (uint64_t)value1;
+  int64_t temp = (int64_t)value1;
   temp = ~temp;
   temp++;
   value1 = temp;
