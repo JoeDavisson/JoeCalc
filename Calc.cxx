@@ -364,7 +364,7 @@ void Calc::key_recip()
 
 void Calc::key_int()
 {
-  value1 = (float)(int)atof(Gui::getInput()->value());
+  value1 = (int64_t)atof(Gui::getInput()->value());
   replace(value1);
 }
 
@@ -392,7 +392,7 @@ void Calc::key_twos()
 void Calc::key_frac()
 {
   value1 = atof(Gui::getInput()->value());
-  value1 = value1 - (int)value1;
+  value1 = value1 - (int64_t)value1;
   replace(value1);
 }
 
