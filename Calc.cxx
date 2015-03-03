@@ -39,7 +39,25 @@ namespace
 
   void getValue(double *value)
   {
-    *value = atof(Gui::getInput()->value());
+//    char buf[256];
+    unsigned long long int temp = 0;
+
+    switch(mode)
+    {
+      case Calc::MODE_DEC:
+        *value = atof(Gui::getInput()->value());
+        break;
+      case Calc::MODE_HEX:
+        sscanf(Gui::getInput()->value(), "%llx", &temp);
+        *value = (double)temp;
+        break;
+      case Calc::MODE_OCT:
+        sscanf(Gui::getInput()->value(), "%llo", &temp);
+        *value = (double)temp;
+        break;
+      case Calc::MODE_BIN:
+        break;
+    }
   }
 
   void setOp(int type)
@@ -68,18 +86,38 @@ namespace
     }
 
     Gui::getInput()->insert(s);
-    Gui::setBinary(atof(Gui::getInput()->value()));
+
+    double temp_value = 0;
+    getValue(&temp_value);
+    Gui::setBinary(temp_value);
+//    Gui::setBinary(atof(Gui::getInput()->value()));
   }
 
-  void replace(double val)
+  void replace(double value)
   {
     static char buf[256];
 
-    sprintf(buf, "%.16g", val);
+    switch(mode)
+    {
+      case Calc::MODE_DEC:
+        sprintf(buf, "%.16g", value);
+        break;
+      case Calc::MODE_HEX:
+        sprintf(buf, "%llX", (unsigned long long int)value);
+        break;
+      case Calc::MODE_OCT:
+        sprintf(buf, "%llo", (unsigned long long int)value);
+        break;
+      case Calc::MODE_BIN:
+//change
+        sprintf(buf, "%.16g", value);
+        break;
+    }
 
     op_started = false;
     Gui::getInput()->value(buf);
-    Gui::setBinary(atof(Gui::getInput()->value()));
+    Gui::setBinary(value);
+//    Gui::setBinary(atof(Gui::getInput()->value()));
     setOp(Calc::OP_NONE);
     value1 = 0;
     value2 = 0;
@@ -361,25 +399,33 @@ void Calc::key_shr()
 
 void Calc::key_dec()
 {
+  getValue(&value1);
   mode = MODE_DEC;
+  replace(value1);
   Gui::setMode(mode);
 }
 
 void Calc::key_hex()
 {
+  getValue(&value1);
   mode = MODE_HEX;
+  replace(value1);
   Gui::setMode(mode);
 }
 
 void Calc::key_oct()
 {
+  getValue(&value1);
   mode = MODE_OCT;
+  replace(value1);
   Gui::setMode(mode);
 }
 
 void Calc::key_bin()
 {
+  getValue(&value1);
   mode = MODE_BIN;
+  replace(value1);
   Gui::setMode(mode);
 }
 
