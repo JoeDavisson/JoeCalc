@@ -33,6 +33,7 @@ namespace
 {
   bool op_started = false;
   int op = Calc::OP_NONE;
+  int mode = Calc::MODE_DEC;
   double value1 = 0;
   double value2 = 0;
 
@@ -92,6 +93,38 @@ namespace
     value1 = 0;
     value2 = 0;
   }
+
+  bool checkLast(char last)
+  {
+    switch(mode)
+    {
+      case Calc::MODE_DEC:
+        if((last >= '0' && last <= '9') ||
+           (last == '.'))
+          return true;
+        else
+          return false;
+      case Calc::MODE_HEX:
+        if((last >= '0' && last <= '9') ||
+           (last >= 'a' && last <= 'f') ||
+           (last >= 'A' && last <= 'F'))
+          return true;
+        else
+          return false;
+      case Calc::MODE_OCT:
+        if(last >= '0' && last <= '7')
+          return true;
+        else
+          return false;
+      case Calc::MODE_BIN:
+        if(last == '0' || last == '1')
+          return true;
+        else
+          return false;
+    }
+
+    return false;
+  }
 }
 
 void Calc::changed()
@@ -101,6 +134,12 @@ void Calc::changed()
 
   last[0] = old[strlen(old) - 1];
   last[1] = '\0';
+
+  if(!checkLast(last[0]))
+  {
+    Gui::getInput()->cut(-1);
+    return;
+  }
 
   if(op_started)
   {
@@ -322,22 +361,26 @@ void Calc::key_shr()
 
 void Calc::key_dec()
 {
-  Gui::setMode(Calc::MODE_DEC);
+  mode = MODE_DEC;
+  Gui::setMode(mode);
 }
 
 void Calc::key_hex()
 {
-  Gui::setMode(Calc::MODE_HEX);
+  mode = MODE_HEX;
+  Gui::setMode(mode);
 }
 
 void Calc::key_oct()
 {
-  Gui::setMode(Calc::MODE_OCT);
+  mode = MODE_OCT;
+  Gui::setMode(mode);
 }
 
 void Calc::key_bin()
 {
-  Gui::setMode(Calc::MODE_BIN);
+  mode = MODE_BIN;
+  Gui::setMode(mode);
 }
 
 void Calc::key_sqrt()
