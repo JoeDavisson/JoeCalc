@@ -138,7 +138,7 @@ namespace
     {
       case Calc::MODE_DEC:
         if((last >= '0' && last <= '9') ||
-           (last == '.'))
+           (last == '.') || (last == '-'))
           return true;
         else
           return false;
