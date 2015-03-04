@@ -58,9 +58,9 @@ namespace
     }
   }
 
-  unsigned long long int atob(const char *buf)
+  /*unsigned*/ long long int atob(const char *buf)
   {
-    unsigned long long int value = 0;
+    /*unsigned*/ long long int value = 0;
     int shift = 0;
 
     for(int i = strlen(buf) - 1; i >= 0; i--)
@@ -76,7 +76,7 @@ namespace
 
   void getValue(double *value)
   {
-    unsigned long long int temp = 0;
+    /*unsigned*/ long long int temp = 0;
 
     switch(mode)
     {
@@ -387,15 +387,16 @@ void Calc::key_div()
 
 void Calc::key_sign()
 {
-  value1 = -atof(Gui::getInput()->value());
+  getValue(&value1);
+  value1 = -value1;
   replace(value1);
 }
 
 void Calc::key_invert()
 {
-  int64_t temp = (int64_t)atof(Gui::getInput()->value());
-  temp = ~temp;
-  value1 = temp;
+  double temp = 0;
+  getValue(&temp);
+  value1 = (double)(~(int64_t)temp);
   replace(value1);
 }
 
@@ -421,17 +422,17 @@ void Calc::key_mod()
 
 void Calc::key_shl()
 {
-  int64_t temp = (int64_t)atof(Gui::getInput()->value());
-  temp <<= 1;
-  value1 = temp;
+  double temp = 0;
+  getValue(&temp);
+  value1 = (double)((int64_t)temp << 1);
   replace(value1);
 }
 
 void Calc::key_shr()
 {
-  int64_t temp = (int64_t)atof(Gui::getInput()->value());
-  temp >>= 1;
-  value1 = temp;
+  double temp = 0;
+  getValue(&temp);
+  value1 = (double)((int64_t)temp >> 1);
   replace(value1);
 }
 
@@ -469,13 +470,16 @@ void Calc::key_bin()
 
 void Calc::key_sqrt()
 {
-  value1 = sqrt(atof(Gui::getInput()->value()));
+  double temp;
+  getValue(&temp);
+  value1 = sqrt(temp);
   replace(value1);
 }
 
 void Calc::key_recip()
 {
-  double temp = atof(Gui::getInput()->value());
+  double temp = 0;
+  getValue(&temp);
 
   if(temp != 0.0)
   {
@@ -491,13 +495,16 @@ void Calc::key_recip()
 
 void Calc::key_int()
 {
-  value1 = (int64_t)atof(Gui::getInput()->value());
+  double temp = 0;
+  getValue(&temp);
+  value1 = (int64_t)temp;
   replace(value1);
 }
 
 void Calc::key_ceil()
 {
-  value1 = ceil(atof(Gui::getInput()->value()));
+  getValue(&value1);
+  value1 = ceil(value1);
   replace(value1);
 }
 
@@ -508,24 +515,20 @@ void Calc::key_pow()
 
 void Calc::key_twos()
 {
-  value1 = atof(Gui::getInput()->value());
-  int64_t temp = (int64_t)value1;
-  temp = ~temp;
-  temp++;
-  value1 = temp;
-  replace(value1);
 }
 
 void Calc::key_frac()
 {
-  value1 = atof(Gui::getInput()->value());
-  value1 = value1 - (int64_t)value1;
+  double temp = 0;
+  getValue(&temp);
+  value1 = temp - (int64_t)temp;
   replace(value1);
 }
 
 void Calc::key_floor()
 {
-  value1 = floor(atof(Gui::getInput()->value()));
+  getValue(&value1);
+  value1 = floor(value1);
   replace(value1);
 }
 
