@@ -37,15 +37,51 @@ namespace
   double value1 = 0;
   double value2 = 0;
 
+  void btoa(unsigned long long int value, char *buf)
+  {
+    static const char *digits = "01";
+    unsigned long long temp = value;
+    int max_digits = 0;
+
+    while(temp > 0)
+    {
+      temp /= 2;
+      max_digits++;
+    }
+
+    buf[max_digits] = '\0';
+
+    for(int i = max_digits - 1; i >= 0; i--)
+    {
+      buf[i] = digits[value & 1];
+      value /= 2;
+    }
+  }
+
+  unsigned long long int atob(const char *buf)
+  {
+    unsigned long long int value = 0;
+    int shift = 0;
+
+    for(int i = strlen(buf) - 1; i >= 0; i--)
+    {
+      if(buf[i] == '1')
+        value |= (1 << shift);
+
+      shift++;
+    }
+
+    return value;
+  }
+
   void getValue(double *value)
   {
-//    char buf[256];
     unsigned long long int temp = 0;
 
     switch(mode)
     {
       case Calc::MODE_DEC:
-        *value = atof(Gui::getInput()->value());
+        *value = (double)atof(Gui::getInput()->value());
         break;
       case Calc::MODE_HEX:
         sscanf(Gui::getInput()->value(), "%llx", &temp);
@@ -56,6 +92,7 @@ namespace
         *value = (double)temp;
         break;
       case Calc::MODE_BIN:
+        *value = (double)atob(Gui::getInput()->value());
         break;
     }
   }
@@ -90,14 +127,17 @@ namespace
     double temp_value = 0;
     getValue(&temp_value);
     Gui::setBinary(temp_value);
-//    Gui::setBinary(atof(Gui::getInput()->value()));
   }
 
   void replace(double value)
   {
     static char buf[256];
 
-    switch(mode)
+    if(value == 0.0)
+    {
+      buf[0] = '\0';
+    }
+    else switch(mode)
     {
       case Calc::MODE_DEC:
         sprintf(buf, "%.16g", value);
@@ -109,15 +149,13 @@ namespace
         sprintf(buf, "%llo", (unsigned long long int)value);
         break;
       case Calc::MODE_BIN:
-//change
-        sprintf(buf, "%.16g", value);
+        btoa((unsigned long long int)value, buf);
         break;
     }
 
     op_started = false;
     Gui::getInput()->value(buf);
     Gui::setBinary(value);
-//    Gui::setBinary(atof(Gui::getInput()->value()));
     setOp(Calc::OP_NONE);
     value1 = 0;
     value2 = 0;
@@ -288,8 +326,8 @@ void Calc::key_equals()
   }
 
   setOp(OP_NONE);
-  value1 = 0;
-  value2 = 0;
+//  value1 = 0;
+//  value2 = 0;
 }
 
 void Calc::key_dot()
