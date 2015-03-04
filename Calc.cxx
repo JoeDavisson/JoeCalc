@@ -37,30 +37,25 @@ namespace
   double value1 = 0;
   double value2 = 0;
 
-  void btoa(unsigned long long int value, char *buf)
+  void btoa(long long int value, char *buf)
   {
-    static const char *digits = "01";
-    unsigned long long int temp = value;
+    uint64_t temp = value;
     int max_digits = 0;
 
     while(temp > 0)
     {
-      temp /= 2;
+      temp >>= 1;
       max_digits++;
     }
 
     buf[max_digits] = '\0';
+    temp = value;
 
     for(int i = max_digits - 1; i >= 0; i--)
     {
-      buf[i] = digits[value & 1];
-      value >>= 1;
+      buf[i] = '0' + (temp & 1);
+      temp >>= 1;
     }
-  }
-
-  double atob(const char *buf)
-  {
-    return (double)strtoll(buf, 0, 2);
   }
 
   void getValue(double *value)
@@ -81,7 +76,7 @@ namespace
         *value = (double)temp;
         break;
       case Calc::MODE_BIN:
-        *value = (double)atob(Gui::getInput()->value());
+        *value = (double)strtoll(Gui::getInput()->value(), 0, 2);
         break;
     }
   }
@@ -132,13 +127,13 @@ namespace
         sprintf(buf, "%.16g", value);
         break;
       case Calc::MODE_HEX:
-        sprintf(buf, "%llX", (unsigned long long int)value);
+        sprintf(buf, "%llX", (long long int)value);
         break;
       case Calc::MODE_OCT:
-        sprintf(buf, "%llo", (unsigned long long int)value);
+        sprintf(buf, "%llo", (long long int)value);
         break;
       case Calc::MODE_BIN:
-        btoa((unsigned long long int)value, buf);
+        btoa((long long int)value, buf);
         break;
     }
 
@@ -298,13 +293,13 @@ void Calc::key_equals()
       replace(pow(value1, value2));
       break;
     case OP_AND:
-      replace((double)((uint64_t)value1 & (uint64_t)value2));
+      replace((double)((int64_t)value1 & (int64_t)value2));
       break;
     case OP_OR:
-      replace((double)((uint64_t)value1 | (uint64_t)value2));
+      replace((double)((int64_t)value1 | (int64_t)value2));
       break;
     case OP_XOR:
-      replace((double)((uint64_t)value1 ^ (uint64_t)value2));
+      replace((double)((int64_t)value1 ^ (int64_t)value2));
       break;
     case OP_MOD:
       if(value2 != 0.0)

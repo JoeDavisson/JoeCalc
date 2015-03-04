@@ -318,7 +318,7 @@ void Gui::setMode(int mode)
 
 void Gui::setBinary(double value)
 {
-  uint64_t temp = (uint64_t)value;
+  uint64_t temp = value;
 
   binary->value("");
 
