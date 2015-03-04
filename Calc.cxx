@@ -40,7 +40,7 @@ namespace
   void btoa(unsigned long long int value, char *buf)
   {
     static const char *digits = "01";
-    unsigned long long temp = value;
+    unsigned long long int temp = value;
     int max_digits = 0;
 
     while(temp > 0)
@@ -54,29 +54,18 @@ namespace
     for(int i = max_digits - 1; i >= 0; i--)
     {
       buf[i] = digits[value & 1];
-      value /= 2;
+      value >>= 1;
     }
   }
 
-  /*unsigned*/ long long int atob(const char *buf)
+  double atob(const char *buf)
   {
-    /*unsigned*/ long long int value = 0;
-    int shift = 0;
-
-    for(int i = strlen(buf) - 1; i >= 0; i--)
-    {
-      if(buf[i] == '1')
-        value |= (1 << shift);
-
-      shift++;
-    }
-
-    return value;
+    return (double)strtoll(buf, 0, 2);
   }
 
   void getValue(double *value)
   {
-    /*unsigned*/ long long int temp = 0;
+    long long int temp = 0;
 
     switch(mode)
     {
@@ -309,13 +298,13 @@ void Calc::key_equals()
       replace(pow(value1, value2));
       break;
     case OP_AND:
-      replace((double)((int64_t)value1 & (int64_t)value2));
+      replace((double)((uint64_t)value1 & (uint64_t)value2));
       break;
     case OP_OR:
-      replace((double)((int64_t)value1 | (int64_t)value2));
+      replace((double)((uint64_t)value1 | (uint64_t)value2));
       break;
     case OP_XOR:
-      replace((double)((int64_t)value1 ^ (int64_t)value2));
+      replace((double)((uint64_t)value1 ^ (uint64_t)value2));
       break;
     case OP_MOD:
       if(value2 != 0.0)
@@ -326,8 +315,6 @@ void Calc::key_equals()
   }
 
   setOp(OP_NONE);
-//  value1 = 0;
-//  value2 = 0;
 }
 
 void Calc::key_dot()
@@ -396,7 +383,7 @@ void Calc::key_invert()
 {
   double temp = 0;
   getValue(&temp);
-  value1 = (double)(~(int64_t)temp);
+  value1 = (double)(~((int64_t)temp));
   replace(value1);
 }
 
@@ -470,7 +457,7 @@ void Calc::key_bin()
 
 void Calc::key_sqrt()
 {
-  double temp;
+  double temp = 0;
   getValue(&temp);
   value1 = sqrt(temp);
   replace(value1);
