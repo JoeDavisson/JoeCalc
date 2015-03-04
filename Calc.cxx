@@ -76,7 +76,7 @@ namespace
         *value = (double)temp;
         break;
       case Calc::MODE_BIN:
-        *value = (double)strtoll(Gui::getInput()->value(), 0, 2);
+        *value = (double)(long long int)strtoull(Gui::getInput()->value(), 0, 2);
         break;
     }
   }
