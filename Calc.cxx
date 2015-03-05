@@ -160,7 +160,7 @@ namespace
     {
       case Calc::MODE_DEC:
         if((last >= '0' && last <= '9') ||
-           (last == '.') || (last == '-'))
+           (last == '.')/* || (last == '-')*/)
           return true;
         else
           return false;
@@ -198,6 +198,38 @@ void Calc::changed()
   if(!checkLast(last[0]))
   {
     Gui::getInput()->cut(-1);
+
+    switch(last[0])
+    {
+      case '+':
+        key_add();
+        break;
+      case '-':
+        key_sub();
+        break;
+      case '*':
+        key_mul();
+        break;
+      case '/':
+        key_div();
+        break;
+      case '&':
+        key_and();
+        break;
+      case '|':
+        key_or();
+        break;
+      case '^':
+        key_xor();
+        break;
+      case '%':
+        key_mod();
+        break;
+      case '=':
+        key_equals();
+        break;
+    }
+
     return;
   }
 
