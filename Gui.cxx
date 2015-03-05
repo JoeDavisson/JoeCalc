@@ -118,9 +118,13 @@ namespace
   // quit program
   void quit()
   {
-//    fl_message_title("Quit");
-//    if(fl_choice("Are You Sure?", "No", "Yes", NULL) == 1)
       exit(0);
+  }
+
+  void about()
+  {
+    fl_message_title("About");
+    fl_message("JoeCalc\nA Simple Calculator for Programmers.");
   }
 }
 
@@ -137,7 +141,7 @@ void Gui::init()
   menubar->add("&File/&Quit", 0,
     (Fl_Callback *)quit, 0, 0);
   menubar->add("&Help/&About...", 0,
-    (Fl_Callback *)0, 0, 0);
+    (Fl_Callback *)about, 0, 0);
 
   input = new Fl_Input(8, 32, 376, 32, "");
   input->textsize(18);

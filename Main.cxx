@@ -19,12 +19,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 */
 
 #include <Fl/Fl.H>
+#include <Fl/fl_ask.H>
 #include "Gui.H"
 
 int main(int argc, char *argv[])
 {
   Fl::visual(FL_DOUBLE | FL_RGB);
   Fl::scheme("gtk+");
+  fl_message_hotspot(0);
 
   Gui::init();
 
