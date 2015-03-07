@@ -124,7 +124,7 @@ namespace
   void about()
   {
     fl_message_title("About");
-    fl_message("JoeCalc\nA Simple Calculator for Programmers.");
+    fl_message("JoeCalc\nA Simple Calculator for Programmers.\nCopyright (c) 2015 Joe Davisson.");
   }
 }
 
