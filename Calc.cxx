@@ -135,6 +135,9 @@ namespace
         break;
     }
 
+    if(value == 0)
+      just_cleared = true;
+
     op_started = false;
     Gui::getInput()->value(buf);
     Gui::setBinary(value);
