@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
 namespace
 {
+  bool just_cleared = false;
   bool op_started = false;
   int op = Calc::OP_NONE;
   int mode = Calc::MODE_DEC;
@@ -99,17 +100,11 @@ namespace
       op_started = true;
   }
 
-  void clear()
-  {
-    Gui::getInput()->value("0");
-    Gui::setBinary(0);
-  }
-
   void append(const char *s)
   {
     if(op_started)
     {
-      clear();
+      Gui::getInput()->value("");
       op_started = false;
     }
 
@@ -236,18 +231,26 @@ void Calc::changed()
     return;
   }
 
-  if(op_started)
+  if(just_cleared)
+  {
+    just_cleared = false;
+    Gui::getInput()->value("");
+    Gui::getInput()->insert(last);
+  }
+  else if(op_started)
   {
     op_started = false;
-    clear();
+    Gui::getInput()->value("");
     Gui::getInput()->insert(last);
   }
 }
 
 void Calc::key_clear()
 {
-  clear();
+  Gui::getInput()->value("0");
+  Gui::setBinary(0);
   setOp(Calc::OP_NONE);
+  just_cleared = true;
 }
 
 void Calc::key_0()
