@@ -96,11 +96,11 @@ namespace
   Fl_Button *key_sqrt;
   Fl_Button *key_recip;
   Fl_Button *key_int;
-  Fl_Button *key_ceil;
+  Fl_Button *key_sin;
   Fl_Button *key_pow;
-  Fl_Button *key_twos;
+  Fl_Button *key_pi;
   Fl_Button *key_frac;
-  Fl_Button *key_floor;
+  Fl_Button *key_cos;
 
   // prevent escape from closing main window
   void closeCallback(Fl_Widget *widget, void *)
@@ -180,9 +180,9 @@ void Gui::init()
   key_8->callback((Fl_Callback *)Calc::key_8);
   key_9 = new Fl_Button(128, 112, 48, 32, "9");
   key_9->callback((Fl_Callback *)Calc::key_9);
-  key_equals = new Fl_Button(16, 232, 48, 32, "=");
+  key_equals = new Fl_Button(128, 232, 48, 32, "=");
   key_equals->callback((Fl_Callback *)Calc::key_equals);
-  key_dot = new Fl_Button(128, 232, 48, 32, ".");
+  key_dot = new Fl_Button(16, 232, 48, 32, ".");
   key_dot->callback((Fl_Callback *)Calc::key_dot);
   group_num->end();
 
@@ -277,21 +277,21 @@ void Gui::init()
   key_int = new Fl_Button(344, 288, 64, 32, "Int");
   key_int->callback((Fl_Callback *)Calc::key_int);
   key_int->tooltip("Integer Part");
-  key_ceil = new Fl_Button(416, 288, 64, 32, "Ceil");
-  key_ceil->callback((Fl_Callback *)Calc::key_ceil);
-  key_ceil->tooltip("Ceiling");
+  key_sin = new Fl_Button(416, 288, 64, 32, "Sin");
+  key_sin->callback((Fl_Callback *)Calc::key_sin);
+  key_sin->tooltip("Sine");
   key_pow = new Fl_Button(200, 328, 64, 32, "xⁿ");
   key_pow->callback((Fl_Callback *)Calc::key_pow);
   key_pow->tooltip("Power");
-  key_twos = new Fl_Button(272, 328, 64, 32, "2's");
-  key_twos->callback((Fl_Callback *)Calc::key_twos);
-  key_twos->tooltip("Two's Complement");
+  key_pi = new Fl_Button(272, 328, 64, 32, "π");
+  key_pi->callback((Fl_Callback *)Calc::key_pi);
+  key_pi->tooltip("Pi");
   key_frac = new Fl_Button(344, 328, 64, 32, "Frac");
   key_frac->callback((Fl_Callback *)Calc::key_frac);
   key_frac->tooltip("Fractional Part");
-  key_floor = new Fl_Button(416, 328, 64, 32, "Floor");
-  key_floor->callback((Fl_Callback *)Calc::key_floor);
-  key_floor->tooltip("Floor");
+  key_cos = new Fl_Button(416, 328, 64, 32, "Cos");
+  key_cos->callback((Fl_Callback *)Calc::key_cos);
+  key_cos->tooltip("Cosine");
   group_misc->end();
 
   window->end();

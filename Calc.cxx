@@ -521,10 +521,10 @@ void Calc::key_int()
   replace(value1);
 }
 
-void Calc::key_ceil()
+void Calc::key_sin()
 {
   getValue(&value1);
-  value1 = ceil(value1);
+  value1 = sin(value1);
   replace(value1);
 }
 
@@ -533,8 +533,10 @@ void Calc::key_pow()
   setOp(OP_POW);
 }
 
-void Calc::key_twos()
+void Calc::key_pi()
 {
+  value1 = M_PI;
+  replace(value1);
 }
 
 void Calc::key_frac()
@@ -545,10 +547,10 @@ void Calc::key_frac()
   replace(value1);
 }
 
-void Calc::key_floor()
+void Calc::key_cos()
 {
   getValue(&value1);
-  value1 = floor(value1);
+  value1 = cos(value1);
   replace(value1);
 }
 

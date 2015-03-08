@@ -5,8 +5,8 @@ code_name {.cxx}
 Function {make_window()} {open
 } {
   Fl_Window {} {
-    label JoeCalc open selected
-    xywh {575 383 495 375} type Double align 80 visible
+    label JoeCalc open
+    xywh {267 443 492 372} type Double align 80 visible
   } {
     Fl_Box {} {
       xywh {8 102 176 172} box ENGRAVED_FRAME align 6
@@ -64,7 +64,7 @@ Function {make_window()} {open
     }
     Fl_Button {} {
       label 0
-      xywh {72 232 48 32}
+      xywh {16 232 48 32}
     }
     Fl_Output {} {
       xywh {8 32 376 32} textsize 18
@@ -95,7 +95,7 @@ Function {make_window()} {open
     }
     Fl_Button {} {
       label {.}
-      xywh {128 232 48 32}
+      xywh {72 232 48 32}
     }
     Fl_Button {} {
       label {+}
@@ -169,19 +169,19 @@ Function {make_window()} {open
       label {xⁿ}
       xywh {200 328 64 32}
     }
-    Fl_Output {} {
+    Fl_Output {} {selected
       xywh {8 69 480 24} box NO_BOX
     }
     Fl_Button {} {
       label {=}
-      xywh {16 232 48 32}
+      xywh {128 232 48 32}
     }
     Fl_Button {} {
       label Int
       xywh {344 288 64 32}
     }
     Fl_Button {} {
-      label Ceil
+      label Sin
       xywh {416 288 64 32}
     }
     Fl_Button {} {
@@ -189,7 +189,7 @@ Function {make_window()} {open
       xywh {344 328 64 32}
     }
     Fl_Button {} {
-      label Floor
+      label Cos
       xywh {416 328 64 32}
     }
     Fl_Button {} {
@@ -197,7 +197,7 @@ Function {make_window()} {open
       xywh {272 288 64 32}
     }
     Fl_Button {} {
-      label {2'}
+      label {π}
       xywh {272 328 64 32}
     }
     Fl_Menu_Bar {} {open
