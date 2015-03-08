@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Output.H>
 #include <FL/Fl_Toggle_Button.H>
+#include <FL/Fl_Tooltip.H>
 #include <FL/Fl_Menu_Bar.H>
 #include <FL/Fl_Tooltip.H>
 
@@ -155,6 +156,7 @@ void Gui::init()
   binary->color(FL_BACKGROUND_COLOR);
   key_clear = new Fl_Button(400, 32, 80, 32, "Clear");
   key_clear->callback((Fl_Callback *)Calc::key_clear);
+  key_clear->tooltip("Clear Output");
 
   group_num = new Fl_Group(8, 102, 176, 172, "");
   group_num->box(FL_ENGRAVED_FRAME);
@@ -204,47 +206,63 @@ void Gui::init()
   group_arith->box(FL_ENGRAVED_FRAME);
   key_add = new Fl_Button(200, 112, 48, 32, "+");
   key_add->callback((Fl_Callback *)Calc::key_add);
+  key_add->tooltip("Add");
   key_sub = new Fl_Button(200, 152, 48, 32, "-");
   key_sub->callback((Fl_Callback *)Calc::key_sub);
+  key_sub->tooltip("Subtract");
   key_mul = new Fl_Button(200, 192, 48, 32, "*");
   key_mul->callback((Fl_Callback *)Calc::key_mul);
+  key_mul->tooltip("Multiply");
   key_div = new Fl_Button(200, 232, 48, 32, "/");
   key_div->callback((Fl_Callback *)Calc::key_div);
+  key_div->tooltip("Divide");
   group_arith->end();
 
   group_logic = new Fl_Group(264, 102, 120, 172, "");
   group_logic->box(FL_ENGRAVED_FRAME);
   key_sign = new Fl_Button(272, 112, 48, 32, "+/-");
   key_sign->callback((Fl_Callback *)Calc::key_sign);
+  key_sign->tooltip("Toggle Sign\n");
   key_invert = new Fl_Button(328, 112, 48, 32, "~");
   key_invert->callback((Fl_Callback *)Calc::key_invert);
+  key_invert->tooltip("One's Complement");
   key_and = new Fl_Button(272, 152, 48, 32, "&");
   key_and->callback((Fl_Callback *)Calc::key_and);
+  key_and->tooltip("And");
   key_or = new Fl_Button(328, 152, 48, 32, "|");
   key_or->callback((Fl_Callback *)Calc::key_or);
+  key_or->tooltip("Or");
   key_xor = new Fl_Button(272, 192, 48, 32, "^");
   key_xor->callback((Fl_Callback *)Calc::key_xor);
+  key_xor->tooltip("Exclusive-Or");
   key_mod = new Fl_Button(328, 192, 48, 32, "%");
   key_mod->callback((Fl_Callback *)Calc::key_mod);
+  key_mod->tooltip("Modulo");
   key_shl = new Fl_Button(272, 232, 48, 32, "<<");
   key_shl->callback((Fl_Callback *)Calc::key_shl);
+  key_shl->tooltip("Shift Left");
   key_shr = new Fl_Button(328, 232, 48, 32, ">>");
   key_shr->callback((Fl_Callback *)Calc::key_shr);
+  key_shr->tooltip("Shift Right");
   group_logic->end();
 
   group_mode = new Fl_Group(392, 102, 96, 172, "");
   group_mode->box(FL_ENGRAVED_FRAME);
   key_dec = new Fl_Toggle_Button(400, 112, 80, 32, "Dec");
   key_dec->callback((Fl_Callback *)Calc::key_dec);
+  key_dec->tooltip("Decimal Mode");
   key_dec->down_box(FL_UP_BOX);
   key_hex = new Fl_Toggle_Button(400, 152, 80, 32, "Hex");
   key_hex->callback((Fl_Callback *)Calc::key_hex);
+  key_hex->tooltip("Hexadecimal Mode");
   key_hex->down_box(FL_UP_BOX);
   key_oct = new Fl_Toggle_Button(400, 192, 80, 32, "Oct");
   key_oct->callback((Fl_Callback *)Calc::key_oct);
+  key_oct->tooltip("Octal Mode");
   key_oct->down_box(FL_UP_BOX);
   key_bin = new Fl_Toggle_Button(400, 232, 80, 32, "Bin");
   key_bin->callback((Fl_Callback *)Calc::key_bin);
+  key_bin->tooltip("Binary Mode");
   key_bin->down_box(FL_UP_BOX);
   group_mode->end();
 
@@ -252,25 +270,35 @@ void Gui::init()
   group_misc->box(FL_ENGRAVED_FRAME);
   key_sqrt = new Fl_Button(200, 288, 64, 32, "√");
   key_sqrt->callback((Fl_Callback *)Calc::key_sqrt);
+  key_sqrt->tooltip("Square Root");
   key_recip = new Fl_Button(272, 288, 64, 32, "1/x");
   key_recip->callback((Fl_Callback *)Calc::key_recip);
+  key_recip->tooltip("Reciprocal");
   key_int = new Fl_Button(344, 288, 64, 32, "Int");
   key_int->callback((Fl_Callback *)Calc::key_int);
+  key_int->tooltip("Integer Part");
   key_ceil = new Fl_Button(416, 288, 64, 32, "Ceil");
   key_ceil->callback((Fl_Callback *)Calc::key_ceil);
+  key_ceil->tooltip("Ceiling");
   key_pow = new Fl_Button(200, 328, 64, 32, "xⁿ");
   key_pow->callback((Fl_Callback *)Calc::key_pow);
+  key_pow->tooltip("Power");
   key_twos = new Fl_Button(272, 328, 64, 32, "2's");
   key_twos->callback((Fl_Callback *)Calc::key_twos);
+  key_twos->tooltip("Two's Complement");
   key_frac = new Fl_Button(344, 328, 64, 32, "Frac");
   key_frac->callback((Fl_Callback *)Calc::key_frac);
+  key_frac->tooltip("Fractional Part");
   key_floor = new Fl_Button(416, 328, 64, 32, "Floor");
   key_floor->callback((Fl_Callback *)Calc::key_floor);
+  key_floor->tooltip("Floor");
   group_misc->end();
 
-//  window->size_range(496, 376, 0, 0, 0, 0, 0);
-//  window->resizable(view);
   window->end();
+  Fl_Tooltip::enable(1);
+  Fl_Tooltip::color(fl_rgb_color(248, 224, 192));
+  Fl_Tooltip::textcolor(FL_BLACK);
+  
   window->show();
 
   setMode(Calc::MODE_DEC);
