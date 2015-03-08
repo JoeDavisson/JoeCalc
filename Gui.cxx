@@ -275,6 +275,7 @@ void Gui::init()
 
   setMode(Calc::MODE_DEC);
   setBinary(0);
+  Calc::key_clear();
 }
 
 Fl_Input *Gui::getInput()

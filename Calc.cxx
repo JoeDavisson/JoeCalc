@@ -42,6 +42,13 @@ namespace
     uint64_t temp = value;
     int max_digits = 0;
 
+    if(value == 0)
+    {
+      buf[0] = '0';
+      buf[1] = '\0';
+      return;
+    }
+
     while(temp > 0)
     {
       temp >>= 1;
@@ -94,7 +101,7 @@ namespace
 
   void clear()
   {
-    Gui::getInput()->value("");
+    Gui::getInput()->value("0");
     Gui::setBinary(0);
   }
 
@@ -117,11 +124,7 @@ namespace
   {
     static char buf[256];
 
-    if(value == 0.0)
-    {
-      buf[0] = '\0';
-    }
-    else switch(mode)
+    switch(mode)
     {
       case Calc::MODE_DEC:
         sprintf(buf, "%.16g", value);
@@ -316,7 +319,7 @@ void Calc::key_equals()
       replace(value1 * value2);
       break;
     case OP_DIV:
-      if(value2 != 0.0)
+      if(value2 != 0)
         replace(value1 / value2);
       else
         replace("Divide By Zero Error");
@@ -334,7 +337,7 @@ void Calc::key_equals()
       replace((double)((int64_t)value1 ^ (int64_t)value2));
       break;
     case OP_MOD:
-      if(value2 != 0.0)
+      if(value2 != 0)
         replace(fmod(value1, value2));
       else
         replace("Divide By Zero Error");
@@ -495,7 +498,7 @@ void Calc::key_recip()
   double temp = 0;
   getValue(&temp);
 
-  if(temp != 0.0)
+  if(temp != 0)
   {
     value1 = 1.0 / temp;
     replace(value1);
