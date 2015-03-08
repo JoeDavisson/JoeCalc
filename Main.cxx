@@ -27,6 +27,7 @@ int main(int argc, char *argv[])
   Fl::visual(FL_DOUBLE | FL_RGB);
   Fl::scheme("gtk+");
   fl_message_hotspot(0);
+  Fl::visible_focus(0);
 
   Gui::init();
 
