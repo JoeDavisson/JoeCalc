@@ -173,12 +173,12 @@ void Gui::init()
   display = new Fl_Box(8, 32, 376, 32, "");
   display->box(FL_DOWN_BOX);
   display->labelsize(18);
-  display->align(FL_ALIGN_LEFT | FL_ALIGN_INSIDE);
+  display->align(FL_ALIGN_RIGHT | FL_ALIGN_INSIDE);
   display->color(FL_WHITE);
   binary = new Fl_Box(8, 68, 480, 24, "");
   binary->box(FL_FLAT_BOX);
   binary->labelsize(10);
-  binary->align(FL_ALIGN_LEFT | FL_ALIGN_INSIDE);
+  binary->align(FL_ALIGN_CENTER/* | FL_ALIGN_INSIDE*/);
   binary->color(FL_BACKGROUND_COLOR);
   key_clear = new Fl_Button(400, 32, 80, 32, "Clear");
   key_clear->callback((Fl_Callback *)Calc::key_clear);
