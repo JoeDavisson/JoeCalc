@@ -175,11 +175,6 @@ namespace
     if(value == 0)
       just_cleared = true;
 
-    if(value < -9999999999999999)
-      value = -9999999999999999;
-    if(value > 9999999999999999)
-      value = 9999999999999999;
-
     switch(mode)
     {
       case Calc::MODE_DEC:
