@@ -40,7 +40,7 @@ namespace
   double value2 = 0;
   char display_buf[256];
 
-  void btoa(long long int value, char *buf)
+  void btoa(int64_t value, char *buf)
   {
     uint64_t temp = value;
     int max_digits = 0;
@@ -76,13 +76,13 @@ namespace
         *value = (double)atof(display_buf);
         break;
       case Calc::MODE_HEX:
-        *value = (double)strtoull(display_buf, 0, 16);
+        *value = (double)strtoll(display_buf, 0, 16);
         break;
       case Calc::MODE_OCT:
-        *value = (double)strtoull(display_buf, 0, 8);
+        *value = (double)strtoll(display_buf, 0, 8);
         break;
       case Calc::MODE_BIN:
-        *value = (double)strtoull(display_buf, 0, 2);
+        *value = (double)strtoll(display_buf, 0, 2);
         break;
     }
   }
@@ -172,6 +172,14 @@ namespace
 
   void replace(double value)
   {
+    if(value == 0)
+      just_cleared = true;
+
+    if(value < -9999999999999999)
+      value = -9999999999999999;
+    if(value > 9999999999999999)
+      value = 9999999999999999;
+
     switch(mode)
     {
       case Calc::MODE_DEC:
@@ -184,13 +192,9 @@ namespace
         sprintf(display_buf, "%llo", (long long int)value);
         break;
       case Calc::MODE_BIN:
-        btoa((long long int)value, display_buf);
+        btoa((int64_t)value, display_buf);
         break;
     }
-
-    if(value == 0)
-      just_cleared = true;
-
     op_started = false;
     Gui::updateDisplay(display_buf);
     Gui::setBinary(value);
