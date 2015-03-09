@@ -39,7 +39,6 @@ namespace
   double value1 = 0;
   double value2 = 0;
   char display_buf[256];
-  int current_key = 0;
 
   void btoa(long long int value, char *buf)
   {
@@ -148,10 +147,7 @@ namespace
       op_started = false;
     }
 
-    const int pos = strlen(display_buf);
-
-    if(pos < 0 || pos > 250)
-      return;
+    int pos = strlen(display_buf);
 
     if(c == FL_BackSpace)
     {
@@ -167,9 +163,12 @@ namespace
     if(!checkKey(c))
       return;
 
-    display_buf[pos] = (char)c;
-    display_buf[pos + 1] = '\0';
-    update();
+    if(pos < 32)
+    {
+      display_buf[pos] = (char)c;
+      display_buf[pos + 1] = '\0';
+      update();
+    } 
   }
 
   void replace(double value)
@@ -212,48 +211,26 @@ namespace
   }
 }
 
-int Calc::poll()
+void Calc::poll(int c)
 {
-  int c;
-
-  switch(Fl::event())
+  if(just_cleared)
   {
-    case FL_KEYDOWN:
-      c = Fl::event_key();
-
-      // detect repeating keys
-      if(c == current_key)
-        return 1;
-
-      if(just_cleared)
-      {
-        just_cleared = false;
-        strcpy(display_buf, "");
-        Gui::updateDisplay(display_buf);
-        append(c);
-      }
-      else if(op_started)
-      {
-        op_started = false;
-        strcpy(display_buf, "");
-        Gui::updateDisplay(display_buf);
-        append(c);
-      }
-      else
-      {
-        append(c);
-      }
-
-      current_key = c;
-      return 1;
-    case FL_KEYUP:
-    {
-      current_key = 0;
-      return 1;
-    }
+    just_cleared = false;
+    strcpy(display_buf, "");
+    Gui::updateDisplay(display_buf);
+    append(c);
   }
-
-  return 0;
+  else if(op_started)
+  {
+    op_started = false;
+    strcpy(display_buf, "");
+    Gui::updateDisplay(display_buf);
+    append(c);
+  }
+  else
+  {
+    append(c);
+  }
 }
 
 void Calc::key_clear()

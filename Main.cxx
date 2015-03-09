@@ -35,13 +35,7 @@ int main(int argc, char *argv[])
 
   Gui::init();
 
-  int ret;
-
-  while((ret = Fl::wait()))
-  {
-    Calc::poll();
-  }
-
+  int ret = Fl::run();
   return ret;
 }
 

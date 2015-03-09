@@ -35,10 +35,37 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #include "Calc.H"
 #include "Gui.H"
 
+class Win : public Fl_Double_Window
+{
+public:
+  Win(int w, int h, const char *label)
+  : Fl_Double_Window(w, h, label)
+  {
+  }
+
+  ~Win()
+  {
+  }
+  
+  int handle(int event)
+  {
+    switch(event)
+    {
+      case FL_FOCUS:
+        return 1;
+      case FL_KEYDOWN:
+        Calc::poll(Fl::event_key());
+        return 1;
+      default:
+        return Fl_Double_Window::handle(event);
+    }
+  }
+};
+
 namespace
 {
   // window
-  Fl_Double_Window *window;
+  Win *window;
 
   // main menu
   Fl_Menu_Bar *menubar;
@@ -132,7 +159,7 @@ namespace
 void Gui::init()
 {
   // main window
-  window = new Fl_Double_Window(496, 376, "JoeCalc");
+  window = new Win(496, 376, "JoeCalc");
   window->callback(closeCallback);
 
   // menu
