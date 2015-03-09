@@ -211,7 +211,7 @@ namespace
   }
 }
 
-void Calc::poll(int c)
+void Calc::keypress(int c)
 {
   if(just_cleared)
   {
