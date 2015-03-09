@@ -70,23 +70,19 @@ namespace
 
   void getValue(double *value)
   {
-    long long int temp = 0;
-
     switch(mode)
     {
       case Calc::MODE_DEC:
         *value = (double)atof(display_buf);
         break;
       case Calc::MODE_HEX:
-        sscanf(display_buf, "%llx", &temp);
-        *value = (double)temp;
+        *value = (double)strtoull(display_buf, 0, 16);
         break;
       case Calc::MODE_OCT:
-        sscanf(display_buf, "%llo", &temp);
-        *value = (double)temp;
+        *value = (double)strtoull(display_buf, 0, 8);
         break;
       case Calc::MODE_BIN:
-        *value = (double)(long long int)strtoull(display_buf, 0, 2);
+        *value = (double)strtoull(display_buf, 0, 2);
         break;
     }
   }
@@ -104,6 +100,9 @@ namespace
 
   void update()
   {
+    double temp_value = 0;
+    getValue(&temp_value);
+    Gui::setBinary(temp_value);
     Gui::updateDisplay(display_buf);
   }
 
@@ -236,6 +235,8 @@ void Calc::keypress(int c)
 void Calc::key_clear()
 {
   replace("");
+  value1 = 0;
+  Gui::setBinary(value1);
   just_cleared = true;
 }
 

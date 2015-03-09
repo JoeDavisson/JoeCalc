@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Input.H>
-#include <FL/Fl_Output.H>
 #include <FL/Fl_Toggle_Button.H>
 #include <FL/Fl_Tooltip.H>
 #include <FL/Fl_Menu_Bar.H>
@@ -72,7 +71,7 @@ namespace
 
   // stuff
   Fl_Box *display;
-  Fl_Output *binary;
+  Fl_Box *binary;
   Fl_Button *key_clear;
 
   Fl_Group *group_num;
@@ -175,10 +174,11 @@ void Gui::init()
   display->box(FL_DOWN_BOX);
   display->labelsize(18);
   display->align(FL_ALIGN_LEFT | FL_ALIGN_INSIDE);
-  binary = new Fl_Output(8, 68, 480, 24, "");
-  binary->textsize(10);
+  display->color(FL_WHITE);
+  binary = new Fl_Box(8, 68, 480, 24, "");
   binary->box(FL_FLAT_BOX);
-  binary->value("");
+  binary->labelsize(10);
+  binary->align(FL_ALIGN_LEFT | FL_ALIGN_INSIDE);
   binary->color(FL_BACKGROUND_COLOR);
   key_clear = new Fl_Button(400, 32, 80, 32, "Clear");
   key_clear->callback((Fl_Callback *)Calc::key_clear);
@@ -377,26 +377,30 @@ void Gui::setMode(int mode)
 
 void Gui::setBinary(double value)
 {
-  uint64_t temp = value;
-
-  binary->value("");
-
+  char buf[256];
   int count = 0;
+  int index = 0;
+  uint64_t temp = value;
 
   for(int i = 63; i >= 0; i--)
   {
     if(((temp >> i) & 1) == 1)
-      binary->insert("1");
+      buf[index] = '1';
     else
-      binary->insert("0");
+      buf[index] = '0';
 
     count++;
+
     if(count > 7)
     {
       count = 0;
-      binary->insert(" ");
+      buf[index] = ' ';
     }
-  }
-}
 
+    index++;
+  }
+
+  buf[index] = '\0';
+  binary->copy_label(buf);
+}
 
