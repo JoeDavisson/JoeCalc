@@ -26,7 +26,7 @@ class Fl_Input;
 namespace Gui
 {
   void init();
-  Fl_Input *getInput();
+  void updateDisplay(const char *);
   void setMode(int);
   void setBinary(double);
 }

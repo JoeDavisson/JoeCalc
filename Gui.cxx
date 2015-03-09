@@ -44,7 +44,7 @@ namespace
   Fl_Menu_Bar *menubar;
 
   // stuff
-  Fl_Input *input;
+  Fl_Box *display;
   Fl_Output *binary;
   Fl_Button *key_clear;
 
@@ -144,11 +144,10 @@ void Gui::init()
   menubar->add("&Help/&About...", 0,
     (Fl_Callback *)about, 0, 0);
 
-  input = new Fl_Input(8, 32, 376, 32, "");
-  input->textsize(18);
-  input->value("");
-  input->when(FL_WHEN_CHANGED | FL_WHEN_RELEASE | FL_WHEN_ENTER_KEY);
-  input->callback((Fl_Callback *)Calc::changed);
+  display = new Fl_Box(8, 32, 376, 32, "");
+  display->box(FL_DOWN_BOX);
+  display->labelsize(18);
+  display->align(FL_ALIGN_LEFT | FL_ALIGN_INSIDE);
   binary = new Fl_Output(8, 68, 480, 24, "");
   binary->textsize(10);
   binary->box(FL_FLAT_BOX);
@@ -306,9 +305,9 @@ void Gui::init()
   Calc::key_clear();
 }
 
-Fl_Input *Gui::getInput()
+void Gui::updateDisplay(const char *s)
 {
-  return input;
+  display->copy_label(s);
 }
 
 void Gui::setMode(int mode)

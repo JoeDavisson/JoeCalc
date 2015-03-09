@@ -45,6 +45,7 @@ namespace Calc
     OP_POW
   };
 
+  int poll();
   void changed();
 
   void key_clear();

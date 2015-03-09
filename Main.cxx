@@ -18,8 +18,12 @@ along with JoeCalc; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 */
 
+#include <unistd.h>
+
 #include <Fl/Fl.H>
 #include <Fl/fl_ask.H>
+
+#include "Calc.H"
 #include "Gui.H"
 
 int main(int argc, char *argv[])
@@ -31,7 +35,13 @@ int main(int argc, char *argv[])
 
   Gui::init();
 
-  int ret = Fl::run();
+  int ret;
+
+  while((ret = Fl::wait()))
+  {
+    Calc::poll();
+  }
+
   return ret;
 }
 

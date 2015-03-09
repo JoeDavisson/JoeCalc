@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #include <cstdio>
 #include <stdint.h>
 
+#include <FL/Fl.H>
 #include <FL/Fl_Input.H>
 
 #include "Calc.H"
@@ -37,6 +38,8 @@ namespace
   int mode = Calc::MODE_DEC;
   double value1 = 0;
   double value2 = 0;
+  char display_buf[256];
+  int current_key = 0;
 
   void btoa(long long int value, char *buf)
   {
@@ -73,18 +76,18 @@ namespace
     switch(mode)
     {
       case Calc::MODE_DEC:
-        *value = (double)atof(Gui::getInput()->value());
+        *value = (double)atof(display_buf);
         break;
       case Calc::MODE_HEX:
-        sscanf(Gui::getInput()->value(), "%llx", &temp);
+        sscanf(display_buf, "%llx", &temp);
         *value = (double)temp;
         break;
       case Calc::MODE_OCT:
-        sscanf(Gui::getInput()->value(), "%llo", &temp);
+        sscanf(display_buf, "%llo", &temp);
         *value = (double)temp;
         break;
       case Calc::MODE_BIN:
-        *value = (double)(long long int)strtoull(Gui::getInput()->value(), 0, 2);
+        *value = (double)(long long int)strtoull(display_buf, 0, 2);
         break;
     }
   }
@@ -100,38 +103,90 @@ namespace
       op_started = true;
   }
 
-  void append(const char *s)
+  void update()
+  {
+    Gui::updateDisplay(display_buf);
+  }
+
+  bool checkKey(char key)
+  {
+    switch(mode)
+    {
+      case Calc::MODE_DEC:
+        if((key >= '0' && key <= '9') ||
+           (key == '.')/* || (key == '-')*/)
+          return true;
+        else
+          return false;
+      case Calc::MODE_HEX:
+        if((key >= '0' && key <= '9') ||
+           (key >= 'a' && key <= 'f') ||
+           (key >= 'A' && key <= 'F'))
+          return true;
+        else
+          return false;
+      case Calc::MODE_OCT:
+        if(key >= '0' && key <= '7')
+          return true;
+        else
+          return false;
+      case Calc::MODE_BIN:
+        if(key == '0' || key == '1')
+          return true;
+        else
+          return false;
+    }
+
+    return false;
+  }
+
+  void append(const int c)
   {
     if(op_started)
     {
-      Gui::getInput()->value("");
+      strcpy(display_buf, "");
       op_started = false;
     }
 
-    Gui::getInput()->insert(s);
+    const int pos = strlen(display_buf);
 
-    double temp_value = 0;
-    getValue(&temp_value);
-    Gui::setBinary(temp_value);
+    if(pos < 0 || pos > 250)
+      return;
+
+    if(c == FL_BackSpace)
+    {
+      if(pos > 0)
+      {
+        display_buf[pos - 1] = '\0';
+        display_buf[pos] = '\0';
+        update();
+      }
+      return;
+    }
+
+    if(!checkKey(c))
+      return;
+
+    display_buf[pos] = (char)c;
+    display_buf[pos + 1] = '\0';
+    update();
   }
 
   void replace(double value)
   {
-    static char buf[256];
-
     switch(mode)
     {
       case Calc::MODE_DEC:
-        sprintf(buf, "%.16g", value);
+        sprintf(display_buf, "%.16g", value);
         break;
       case Calc::MODE_HEX:
-        sprintf(buf, "%llX", (long long int)value);
+        sprintf(display_buf, "%llX", (long long int)value);
         break;
       case Calc::MODE_OCT:
-        sprintf(buf, "%llo", (long long int)value);
+        sprintf(display_buf, "%llo", (long long int)value);
         break;
       case Calc::MODE_BIN:
-        btoa((long long int)value, buf);
+        btoa((long long int)value, display_buf);
         break;
     }
 
@@ -139,7 +194,7 @@ namespace
       just_cleared = true;
 
     op_started = false;
-    Gui::getInput()->value(buf);
+    Gui::updateDisplay(display_buf);
     Gui::setBinary(value);
     setOp(Calc::OP_NONE);
     value1 = 0;
@@ -149,161 +204,112 @@ namespace
   void replace(const char *s)
   {
     op_started = false;
-    Gui::getInput()->value(s);
+    strcpy(display_buf, s);
+    Gui::updateDisplay(display_buf);
     setOp(Calc::OP_NONE);
     value1 = 0;
     value2 = 0;
   }
-
-  bool checkLast(char last)
-  {
-    switch(mode)
-    {
-      case Calc::MODE_DEC:
-        if((last >= '0' && last <= '9') ||
-           (last == '.')/* || (last == '-')*/)
-          return true;
-        else
-          return false;
-      case Calc::MODE_HEX:
-        if((last >= '0' && last <= '9') ||
-           (last >= 'a' && last <= 'f') ||
-           (last >= 'A' && last <= 'F'))
-          return true;
-        else
-          return false;
-      case Calc::MODE_OCT:
-        if(last >= '0' && last <= '7')
-          return true;
-        else
-          return false;
-      case Calc::MODE_BIN:
-        if(last == '0' || last == '1')
-          return true;
-        else
-          return false;
-    }
-
-    return false;
-  }
 }
 
-void Calc::changed()
+int Calc::poll()
 {
-  const char *old = Gui::getInput()->value();
-  char last[2];
+  int c;
 
-  last[0] = old[strlen(old) - 1];
-  last[1] = '\0';
-
-  if(!checkLast(last[0]))
+  switch(Fl::event())
   {
-    Gui::getInput()->cut(-1);
+    case FL_KEYDOWN:
+      c = Fl::event_key();
 
-    switch(last[0])
+      // detect repeating keys
+      if(c == current_key)
+        return 1;
+
+      if(just_cleared)
+      {
+        just_cleared = false;
+        strcpy(display_buf, "");
+        Gui::updateDisplay(display_buf);
+        append(c);
+      }
+      else if(op_started)
+      {
+        op_started = false;
+        strcpy(display_buf, "");
+        Gui::updateDisplay(display_buf);
+        append(c);
+      }
+      else
+      {
+        append(c);
+      }
+
+      current_key = c;
+      return 1;
+    case FL_KEYUP:
     {
-      case '+':
-        key_add();
-        break;
-      case '-':
-        key_sub();
-        break;
-      case '*':
-        key_mul();
-        break;
-      case '/':
-        key_div();
-        break;
-      case '&':
-        key_and();
-        break;
-      case '|':
-        key_or();
-        break;
-      case '^':
-        key_xor();
-        break;
-      case '%':
-        key_mod();
-        break;
-      case '=':
-        key_equals();
-        break;
+      current_key = 0;
+      return 1;
     }
-
-    return;
   }
 
-  if(just_cleared)
-  {
-    just_cleared = false;
-    Gui::getInput()->value("");
-    Gui::getInput()->insert(last);
-  }
-  else if(op_started)
-  {
-    op_started = false;
-    Gui::getInput()->value("");
-    Gui::getInput()->insert(last);
-  }
+  return 0;
 }
 
 void Calc::key_clear()
 {
-  Gui::getInput()->value("0");
-  Gui::setBinary(0);
-  setOp(Calc::OP_NONE);
+  replace("");
   just_cleared = true;
 }
 
 void Calc::key_0()
 {
-  append("0");
+  append('0');
 }
 
 void Calc::key_1()
 {
-  append("1");
+  append('1');
 }
 
 void Calc::key_2()
 {
-  append("2");
+  append('2');
 }
 
 void Calc::key_3()
 {
-  append("3");
+  append('3');
 }
 
 void Calc::key_4()
 {
-  append("4");
+  append('4');
 }
 
 void Calc::key_5()
 {
-  append("5");
+  append('5');
 }
 
 void Calc::key_6()
 {
-  append("6");
+  append('6');
 }
 
 void Calc::key_7()
 {
-  append("7");
+  append('7');
 }
 
 void Calc::key_8()
 {
-  append("8");
+  append('8');
 }
 
 void Calc::key_9()
 {
-  append("9");
+  append('9');
 }
 
 void Calc::key_equals()
@@ -355,37 +361,37 @@ void Calc::key_equals()
 
 void Calc::key_dot()
 {
-  append(".");
+  append('.');
 }
 
 void Calc::key_a()
 {
-  append("A");
+  append('A');
 }
 
 void Calc::key_b()
 {
-  append("B");
+  append('B');
 }
 
 void Calc::key_c()
 {
-  append("C");
+  append('C');
 }
 
 void Calc::key_d()
 {
-  append("D");
+  append('D');
 }
 
 void Calc::key_e()
 {
-  append("E");
+  append('E');
 }
 
 void Calc::key_f()
 {
-  append("F");
+  append('F');
 }
 
 void Calc::key_add()
