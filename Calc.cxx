@@ -76,13 +76,13 @@ namespace
         *value = (double)atof(display_buf);
         break;
       case Calc::MODE_HEX:
-        *value = (double)strtoll(display_buf, 0, 16);
+        *value = (double)strtoull(display_buf, 0, 16);
         break;
       case Calc::MODE_OCT:
-        *value = (double)strtoll(display_buf, 0, 8);
+        *value = (double)strtoull(display_buf, 0, 8);
         break;
       case Calc::MODE_BIN:
-        *value = (double)strtoll(display_buf, 0, 2);
+        *value = (double)strtoull(display_buf, 0, 2);
         break;
     }
   }
@@ -96,14 +96,6 @@ namespace
       op_started = false;
     else
       op_started = true;
-  }
-
-  void update()
-  {
-    double temp_value = 0;
-    getValue(&temp_value);
-    Gui::setBinary(temp_value);
-    Gui::updateDisplay(display_buf);
   }
 
   bool checkKey(char key)
@@ -138,6 +130,29 @@ namespace
     return false;
   }
 
+  void update()
+  {
+    double temp_value = 0;
+    getValue(&temp_value);
+
+    if(temp_value > 9007199254740992 || temp_value < -9007199254740992)
+    {
+      Gui::setBinary(0);
+      Gui::updateDisplay("Result Out of Range");
+      op_started = false;
+      setOp(Calc::OP_NONE);
+      value1 = 0;
+      value2 = 0;
+      return;
+    }
+    else
+    {
+
+      Gui::setBinary(temp_value);
+      Gui::updateDisplay(display_buf);
+    }
+  }
+
   void append(const int c)
   {
     if(op_started)
@@ -170,12 +185,26 @@ namespace
     } 
   }
 
+  void replace(const char *s)
+  {
+    op_started = false;
+    strcpy(display_buf, s);
+    Gui::updateDisplay(display_buf);
+    setOp(Calc::OP_NONE);
+    value1 = 0;
+    value2 = 0;
+  }
+
   void replace(double value)
   {
     if(value == 0)
       just_cleared = true;
 
-    switch(mode)
+    if(value > 9007199254740992 || value < -9007199254740992)
+    {
+      replace("Result Out of Range");
+    }
+    else switch(mode)
     {
       case Calc::MODE_DEC:
         sprintf(display_buf, "%.16g", value);
@@ -190,19 +219,10 @@ namespace
         btoa((int64_t)value, display_buf);
         break;
     }
+
     op_started = false;
     Gui::updateDisplay(display_buf);
     Gui::setBinary(value);
-    setOp(Calc::OP_NONE);
-    value1 = 0;
-    value2 = 0;
-  }
-
-  void replace(const char *s)
-  {
-    op_started = false;
-    strcpy(display_buf, s);
-    Gui::updateDisplay(display_buf);
     setOp(Calc::OP_NONE);
     value1 = 0;
     value2 = 0;

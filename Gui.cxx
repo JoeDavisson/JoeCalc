@@ -380,24 +380,22 @@ void Gui::setBinary(double value)
   char buf[256];
   int count = 0;
   int index = 0;
-  uint64_t temp = value;
+  int64_t temp = value;
 
   for(int i = 63; i >= 0; i--)
   {
     if(((temp >> i) & 1) == 1)
-      buf[index] = '1';
+      buf[index++] = '1';
     else
-      buf[index] = '0';
+      buf[index++] = '0';
 
     count++;
 
     if(count > 7)
     {
       count = 0;
-      buf[index] = ' ';
+      buf[index++] = ' ';
     }
-
-    index++;
   }
 
   buf[index] = '\0';
