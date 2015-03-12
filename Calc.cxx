@@ -203,6 +203,7 @@ namespace
     if(value > 9007199254740992 || value < -9007199254740992)
     {
       replace("Result Out of Range");
+      value = 0;
     }
     else switch(mode)
     {
