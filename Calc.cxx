@@ -153,38 +153,6 @@ namespace
     }
   }
 
-  void append(const int c)
-  {
-    if(op_started)
-    {
-      strcpy(display_buf, "");
-      op_started = false;
-    }
-
-    int pos = strlen(display_buf);
-
-    if(c == FL_BackSpace)
-    {
-      if(pos > 0)
-      {
-        display_buf[pos - 1] = '\0';
-        display_buf[pos] = '\0';
-        update();
-      }
-      return;
-    }
-
-    if(!checkKey(c))
-      return;
-
-    if(pos < 32)
-    {
-      display_buf[pos] = (char)c;
-      display_buf[pos + 1] = '\0';
-      update();
-    } 
-  }
-
   void replace(const char *s)
   {
     op_started = false;
@@ -228,10 +196,99 @@ namespace
     value1 = 0;
     value2 = 0;
   }
+
+  void append(const int c)
+  {
+    if(op_started)
+    {
+      strcpy(display_buf, "");
+      op_started = false;
+    }
+
+    int pos = strlen(display_buf);
+
+    if(c == FL_BackSpace)
+    {
+      if(pos > 0)
+      {
+        display_buf[pos - 1] = '\0';
+        display_buf[pos] = '\0';
+        update();
+      }
+      return;
+    }
+
+    if(!checkKey(c))
+      return;
+
+    if(pos < 32)
+    {
+      display_buf[pos] = (char)c;
+      display_buf[pos + 1] = '\0';
+      update();
+    } 
+  }
 }
 
-void Calc::keypress(int c)
+void Calc::keypress(const int c, const bool shifted)
 {
+  switch(c)
+  {
+    case '=':
+      if(shifted)
+        key_add();
+      else
+        key_equals();
+      return;
+    case '-':
+      key_sub();
+      return;
+    case '8':
+      if(shifted)
+      {
+        key_mul();
+        return;
+      }
+      break;
+    case '/':
+      key_div();
+      return;
+    case FL_Enter:
+      key_equals();
+      return;
+    case FL_Escape:
+      key_clear();
+      return;
+    case '7':
+      if(shifted)
+      {
+        key_and();
+        return;
+      }
+      break;
+    case '\\':
+      if(shifted)
+      {
+        key_or();
+        return;
+      }
+      break;
+    case '6':
+      if(shifted)
+      {
+        key_xor();
+        return;
+      }
+      break;
+    case '5':
+      if(shifted)
+      {
+        key_mod();
+        return;
+      }
+      break;
+  }
+
   if(just_cleared)
   {
     just_cleared = false;

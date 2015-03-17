@@ -45,7 +45,7 @@ namespace Calc
     OP_POW
   };
 
-  void keypress(int);
+  void keypress(const int, const bool);
   void changed();
 
   void key_clear();

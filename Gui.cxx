@@ -52,8 +52,10 @@ public:
     {
       case FL_FOCUS:
         return 1;
-      case FL_KEYDOWN:
-        Calc::keypress(Fl::event_key());
+      case FL_UNFOCUS:
+        return 1;
+      case FL_KEYBOARD:
+        Calc::keypress(Fl::event_key(), Fl::event_shift() != 0 ? true : false);
         return 1;
       default:
         return Fl_Double_Window::handle(event);
