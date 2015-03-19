@@ -26,6 +26,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Input.H>
+#include <FL/Fl_PNG_Image.H>
+#include <FL/Fl_Return_Button.H>
+#include <FL/Fl_Shared_Image.H>
 #include <FL/Fl_Toggle_Button.H>
 #include <FL/Fl_Tooltip.H>
 #include <FL/Fl_Menu_Bar.H>
@@ -149,16 +152,55 @@ namespace
   {
       exit(0);
   }
+}
 
-  void about()
+namespace About
+{
+  namespace Items
   {
-    fl_message_title("About");
-    fl_message("JoeCalc\nCopyright (c) 2015 Joe Davisson");
+    Fl_Double_Window *dialog;
+    Fl_Return_Button *close;
+    Fl_Box *title;
+    Fl_Box *copyright;
+    Fl_PNG_Image *icon;
+    Fl_Box *icon_box;
+  }
+
+  void show()
+  {
+    Items::dialog->show();
+  }
+
+  void hide()
+  {
+    Items::dialog->hide();
+  }
+
+  void init()
+  {
+    Items::dialog = new Fl_Double_Window(344, 112, "About");
+    Items::dialog->set_modal();
+    Items::close = new Fl_Return_Button(124, 72, 96, 32, "Close");
+    Items::close->callback((Fl_Callback *)hide);
+    Items::title = new Fl_Box(FL_NO_BOX, 80, 8, 256, 32, "JoeCalc v0.1.0");
+    Items::title->align(FL_ALIGN_TOP_LEFT | FL_ALIGN_INSIDE);
+    Items::title->labelsize(24);
+    Items::title->labelfont(FL_HELVETICA_BOLD);
+    Items::copyright = new Fl_Box(FL_NO_BOX, 80, 40, 256, 32, "Copyright (c) 2015 Joe Davisson");
+    Items::copyright->align(FL_ALIGN_TOP_LEFT | FL_ALIGN_INSIDE);
+    Items::copyright->labelsize(14);
+    Items::icon = new Fl_PNG_Image("./joecalc64x64.png");
+    Items::icon_box = new Fl_Box(FL_NO_BOX, 8, 8, 64, 64, "");
+    Items::icon_box->labeltype(FL_NO_LABEL);
+    Items::icon_box->image(Items::icon);
+    Items::icon_box->align(FL_ALIGN_CENTER | FL_ALIGN_IMAGE_BACKDROP);
+    Items::dialog->end();
   }
 }
 
 void Gui::init()
 {
+  fl_register_images();
   // main window
   window = new Win(496, 376, "JoeCalc");
   window->callback(closeCallback);
@@ -170,7 +212,7 @@ void Gui::init()
   menubar->add("&File/&Quit", 0,
     (Fl_Callback *)quit, 0, 0);
   menubar->add("&Help/&About...", 0,
-    (Fl_Callback *)about, 0, 0);
+    (Fl_Callback *)About::show, 0, 0);
 
   display = new Fl_Box(8, 32, 376, 32, "");
   display->box(FL_DOWN_BOX);
@@ -326,6 +368,9 @@ void Gui::init()
   Fl_Tooltip::enable(1);
   Fl_Tooltip::color(fl_rgb_color(248, 224, 192));
   Fl_Tooltip::textcolor(FL_BLACK);
+
+  // init dialogs
+  About::init();
   
   window->show();
 

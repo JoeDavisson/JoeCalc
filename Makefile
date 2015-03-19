@@ -1,6 +1,6 @@
 
-INCLUDES=$(shell fltk-config --cflags)
-LIBS=$(shell fltk-config --ldflags)
+INCLUDES=$(shell fltk-config --use-images --cflags)
+LIBS=$(shell fltk-config --use-images --ldflags)
 CFLAGS=-O3 -Wall $(INCLUDES)
 LDFLAGS=$(LIBS)
 CPP=g++

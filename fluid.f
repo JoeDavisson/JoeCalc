@@ -2,11 +2,11 @@
 version 1.0302 
 header_name {.h} 
 code_name {.cxx}
-Function {make_window()} {open
+Function {make_window()} {open selected
 } {
   Fl_Window {} {
     label JoeCalc open
-    xywh {267 443 492 372} type Double align 80 visible
+    xywh {453 305 492 372} type Double align 80 visible
   } {
     Fl_Box {} {
       xywh {8 102 176 172} box ENGRAVED_FRAME align 6
@@ -169,7 +169,7 @@ Function {make_window()} {open
       label {xⁿ}
       xywh {200 328 64 32}
     }
-    Fl_Output {} {selected
+    Fl_Output {} {
       xywh {8 69 480 24} box NO_BOX
     }
     Fl_Button {} {
@@ -206,6 +206,26 @@ Function {make_window()} {open
     Fl_Button {} {
       label Clear
       xywh {400 32 80 32}
+    }
+  }
+  Fl_Window {} {
+    label About open
+    xywh {502 121 344 112} type Double visible
+  } {
+    Fl_Box {} {
+      label JoeCalc
+      xywh {80 8 256 32} labelfont 1 labelsize 24 align 21
+    }
+    Fl_Box {} {
+      label {Copyright (c) 2015 Joe Davisson}
+      xywh {80 40 256 32} labelfont 2 align 21
+    }
+    Fl_Box {} {
+      xywh {8 8 64 64} box DOWN_BOX labelfont 1 labelsize 24 align 21
+    }
+    Fl_Return_Button {} {
+      label button
+      xywh {124 72 96 32}
     }
   }
 } 
