@@ -2,7 +2,7 @@
 
 A simple programmer's calculator. There are buttons for decimal/hexadecimal/octal/and binary for easy conversion.
 
-Calculations are done in double-precision floating-point, therefore there is a range limit of -(1^53) to +(1^53). An error is displayed when the result goes out of this range. Integer operatons automatically reject the fractional part.
+Calculations are done in double-precision floating-point, therefore there is a range limit of -(2^53) to +(2^53). An error is displayed when the result goes out of this range. Integer operatons automatically reject the fractional part.
 
 Keyboard commands are similar to C operations:
 + add
