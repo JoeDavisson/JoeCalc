@@ -129,11 +129,11 @@ namespace
   Fl_Button *key_sqrt;
   Fl_Button *key_recip;
   Fl_Button *key_int;
-  Fl_Button *key_sin;
+  Fl_Button *key_incr;
   Fl_Button *key_pow;
   Fl_Button *key_pi;
   Fl_Button *key_frac;
-  Fl_Button *key_cos;
+  Fl_Button *key_decr;
 
   // prevent escape from closing main window
   void closeCallback(Fl_Widget *widget, void *)
@@ -349,9 +349,9 @@ void Gui::init()
   key_int = new Fl_Button(344, 288, 64, 32, "Int");
   key_int->callback((Fl_Callback *)Calc::key_int);
   key_int->tooltip("Integer Part");
-  key_sin = new Fl_Button(416, 288, 64, 32, "Sin");
-  key_sin->callback((Fl_Callback *)Calc::key_sin);
-  key_sin->tooltip("Sine");
+  key_incr = new Fl_Button(416, 288, 64, 32, "++");
+  key_incr->callback((Fl_Callback *)Calc::key_incr);
+  key_incr->tooltip("Increment");
   key_pow = new Fl_Button(200, 328, 64, 32, "xⁿ");
   key_pow->callback((Fl_Callback *)Calc::key_pow);
   key_pow->tooltip("Power");
@@ -361,9 +361,9 @@ void Gui::init()
   key_frac = new Fl_Button(344, 328, 64, 32, "Frac");
   key_frac->callback((Fl_Callback *)Calc::key_frac);
   key_frac->tooltip("Fractional Part");
-  key_cos = new Fl_Button(416, 328, 64, 32, "Cos");
-  key_cos->callback((Fl_Callback *)Calc::key_cos);
-  key_cos->tooltip("Cosine");
+  key_decr = new Fl_Button(416, 328, 64, 32, "--");
+  key_decr->callback((Fl_Callback *)Calc::key_decr);
+  key_decr->tooltip("Decrement");
   group_misc->end();
 
   window->end();

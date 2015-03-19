@@ -585,10 +585,13 @@ void Calc::key_int()
   replace(value1);
 }
 
-void Calc::key_sin()
+void Calc::key_incr()
 {
-  getValue(&value1);
-  value1 = sin(value1);
+  double temp = 0;
+  getValue(&temp);
+  temp = (int64_t)temp;
+  temp++;
+  value1 = temp;
   replace(value1);
 }
 
@@ -611,10 +614,13 @@ void Calc::key_frac()
   replace(value1);
 }
 
-void Calc::key_cos()
+void Calc::key_decr()
 {
-  getValue(&value1);
-  value1 = cos(value1);
+  double temp = 0;
+  getValue(&temp);
+  temp = (int64_t)temp;
+  temp--;
+  value1 = temp;
   replace(value1);
 }
 

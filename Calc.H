@@ -92,11 +92,11 @@ namespace Calc
   void key_sqrt();
   void key_recip();
   void key_int();
-  void key_sin();
+  void key_incr();
   void key_pow();
   void key_pi();
   void key_frac();
-  void key_cos();
+  void key_decr();
 }
 
 #endif
