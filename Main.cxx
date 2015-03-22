@@ -28,6 +28,12 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
 int main(int argc, char *argv[])
 {
+  Fl::set_color(FL_BACKGROUND_COLOR, 208, 208, 208);
+  Fl::set_color(FL_BACKGROUND2_COLOR, 224, 224, 224);
+  Fl::set_color(FL_FOREGROUND_COLOR, 0, 0, 0);
+  Fl::set_color(FL_INACTIVE_COLOR, 128, 128, 128);
+  Fl::set_color(FL_SELECTION_COLOR, 64, 64, 64);
+
   Fl::visual(FL_DOUBLE | FL_RGB);
   Fl::scheme("gtk+");
   fl_message_hotspot(0);
