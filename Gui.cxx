@@ -221,7 +221,7 @@ namespace About
     Items::dialog->set_modal();
     Items::close = new Fl_Return_Button(124, 72, 96, 32, "Close");
     Items::close->callback((Fl_Callback *)hide);
-    Items::title = new Fl_Box(FL_NO_BOX, 80, 8, 256, 32, "JoeCalc v0.1.0");
+    Items::title = new Fl_Box(FL_NO_BOX, 80, 8, 256, 32, "JoeCalc v0.1.1");
     Items::title->align(FL_ALIGN_TOP_LEFT | FL_ALIGN_INSIDE);
     Items::title->labelsize(24);
     Items::title->labelfont(FL_HELVETICA_BOLD);
