@@ -264,13 +264,13 @@ void Gui::init()
   binary->box(FL_FLAT_BOX);
   binary->labelsize(10);
   binary->labelfont(FL_COURIER);
-  binary->align(FL_ALIGN_LEFT | FL_ALIGN_INSIDE);
+  binary->align(FL_ALIGN_CENTER/* | FL_ALIGN_INSIDE*/);
   binary->color(FL_BACKGROUND_COLOR);
   hex = new Fl_Box(8, 84, 480, 12, "");
   hex->box(FL_FLAT_BOX);
   hex->labelsize(10);
   hex->labelfont(FL_COURIER);
-  hex->align(FL_ALIGN_LEFT | FL_ALIGN_INSIDE);
+  hex->align(FL_ALIGN_CENTER/* | FL_ALIGN_INSIDE*/);
   binary->color(FL_BACKGROUND_COLOR);
   key_clear = new Button(400, 32, 80, 32, "Clear", (Fl_Callback *)Calc::key_clear);
   key_clear->tooltip("Clear Output");
@@ -480,7 +480,8 @@ void Gui::setBinary(double value)
   }
 
   binary_buf[index] = '\0';
-  hex_buf[index - 1] = '\0';
+  hex_buf[index - 1] = ' ';
+  hex_buf[index] = '\0';
   binary->copy_label(binary_buf);
   hex->copy_label(hex_buf);
 }
