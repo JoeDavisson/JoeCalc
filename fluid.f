@@ -2,7 +2,7 @@
 version 1.0302 
 header_name {.h} 
 code_name {.cxx}
-Function {make_window()} {open selected
+Function {make_window()} {open
 } {
   Fl_Window {} {
     label JoeCalc open
@@ -170,7 +170,7 @@ Function {make_window()} {open selected
       xywh {200 328 64 32}
     }
     Fl_Output {} {
-      xywh {8 69 480 24} box NO_BOX
+      xywh {8 69 480 12} box NO_BOX textsize 10
     }
     Fl_Button {} {
       label {=}
@@ -206,6 +206,9 @@ Function {make_window()} {open selected
     Fl_Button {} {
       label Clear
       xywh {400 32 80 32}
+    }
+    Fl_Output {} {selected
+      xywh {8 84 480 12} box NO_BOX textsize 10
     }
   }
   Fl_Window {} {

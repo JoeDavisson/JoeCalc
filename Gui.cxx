@@ -117,6 +117,7 @@ namespace
   // stuff
   Fl_Box *display;
   Fl_Box *binary;
+  Fl_Box *hex;
   Button *key_clear;
 
   Fl_Group *group_num;
@@ -259,10 +260,17 @@ void Gui::init()
   display->labelsize(18);
   display->align(FL_ALIGN_RIGHT | FL_ALIGN_INSIDE);
   display->color(FL_WHITE);
-  binary = new Fl_Box(8, 68, 480, 24, "");
+  binary = new Fl_Box(8, 72, 480, 12, "");
   binary->box(FL_FLAT_BOX);
   binary->labelsize(10);
-  binary->align(FL_ALIGN_CENTER/* | FL_ALIGN_INSIDE*/);
+  binary->labelfont(FL_COURIER);
+  binary->align(FL_ALIGN_LEFT | FL_ALIGN_INSIDE);
+  binary->color(FL_BACKGROUND_COLOR);
+  hex = new Fl_Box(8, 84, 480, 12, "");
+  hex->box(FL_FLAT_BOX);
+  hex->labelsize(10);
+  hex->labelfont(FL_COURIER);
+  hex->align(FL_ALIGN_LEFT | FL_ALIGN_INSIDE);
   binary->color(FL_BACKGROUND_COLOR);
   key_clear = new Button(400, 32, 80, 32, "Clear", (Fl_Callback *)Calc::key_clear);
   key_clear->tooltip("Clear Output");
@@ -418,7 +426,8 @@ void Gui::setMode(int mode)
 
 void Gui::setBinary(double value)
 {
-  char buf[256];
+  char binary_buf[256];
+  char hex_buf[256];
   int count = 0;
   int index = 0;
   int64_t temp = value;
@@ -426,20 +435,53 @@ void Gui::setBinary(double value)
   for(int i = 63; i >= 0; i--)
   {
     if(((temp >> i) & 1) == 1)
-      buf[index++] = '1';
+    {
+      binary_buf[index++] = '1';
+    }
     else
-      buf[index++] = '0';
+    {
+      binary_buf[index++] = '0';
+    }
 
     count++;
 
     if(count > 7)
     {
       count = 0;
-      buf[index++] = ' ';
+      binary_buf[index++] = ' ';
     }
   }
 
-  buf[index] = '\0';
-  binary->copy_label(buf);
+  for(int i = index - 1; i > 0; i -= 9)
+  {
+    int shift = 0;
+    int num = 0;
+    char temp[8];
+
+    for(int j = 0; j < 8; j++)
+    {
+      if(binary_buf[i - j - 1] == '1')
+        num |= (1 << shift);
+
+      shift++;
+    }
+
+    snprintf(temp, 3, "%02X", num);
+
+    hex_buf[i - 1] = temp[1];
+    hex_buf[i - 2] = temp[0];
+    hex_buf[i - 3] = ' ';
+    hex_buf[i - 4] = ' ';
+    hex_buf[i - 5] = ' ';
+    hex_buf[i - 6] = ' ';
+    hex_buf[i - 7] = ' ';
+    hex_buf[i - 8] = ' ';
+    hex_buf[i - 9] = ' ';
+  }
+
+  binary_buf[index] = '\0';
+  hex_buf[index - 1] = '\0';
+  binary->copy_label(binary_buf);
+  hex->copy_label(hex_buf);
 }
 
