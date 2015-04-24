@@ -259,7 +259,7 @@ void Gui::init()
   display->box(FL_DOWN_BOX);
   display->labelsize(18);
   display->align(FL_ALIGN_RIGHT | FL_ALIGN_INSIDE);
-  display->color(FL_WHITE);
+  display->color(FL_BACKGROUND2_COLOR);
   binary = new Fl_Box(8, 72, 480, 12, "");
   binary->box(FL_FLAT_BOX);
   binary->labelsize(10);
@@ -396,7 +396,7 @@ void Gui::setMode(int mode)
   key_oct->color(FL_BACKGROUND2_COLOR);
   key_bin->color(FL_BACKGROUND2_COLOR);
 
-  Fl_Color highlight = fl_rgb_color(192, 192, 192);
+  Fl_Color highlight = FL_BACKGROUND_COLOR;
 
   switch(mode)
   {
