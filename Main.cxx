@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #include <getopt.h>
 #include <unistd.h>
 
-#include <Fl/Fl.H>
-#include <Fl/fl_ask.H>
+#include <FL/Fl.H>
+#include <FL/fl_ask.H>
 
 #include "Calc.H"
 #include "Gui.H"

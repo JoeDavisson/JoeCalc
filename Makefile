@@ -1,20 +1,18 @@
+# Makefile for Linux
 
 INCLUDES=$(shell fltk-config --use-images --cflags)
 LIBS=$(shell fltk-config --use-images --ldflags)
-CFLAGS=-O3 -Wall $(INCLUDES)
-LDFLAGS=$(LIBS)
-CPP=g++
-OBJECTS=Calc.o Gui.o
+CXXFLAGS=-O3 -Wall $(INCLUDES)
+CXX=g++
+OBJ=Calc.o Gui.o
 
-default: $(OBJECTS)
-	g++ -o joecalc Main.cxx \
-	   $(OBJECTS) \
-	   $(CFLAGS) \
-	   $(LDFLAGS)
+default: $(OBJ)
+	$(CXX) -o joecalc Main.cxx $(OBJ) $(CXXFLAGS) $(LIBS)
 
 %.o: %.cxx %.H
-	$(CPP) -c $< $(CFLAGS)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	@rm -f *.o joecalc
+	@echo "Clean!"
 
