@@ -78,9 +78,9 @@ int main(int argc, char *argv[])
     }
   }
 
-  int r = color & 0xFF;
+  int r = (color >> 16) & 0xFF;
   int g = (color >> 8) & 0xFF;
-  int b = (color >> 16) & 0xFF;
+  int b = color & 0xFF;
 
   int sr = r - 144;
   int sg = g - 144;
