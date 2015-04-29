@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #define GUI_H
 
 class Fl_Input;
+class Fl_Menu_Bar;
 
 namespace Gui
 {
@@ -29,6 +30,7 @@ namespace Gui
   void updateDisplay(const char *);
   void setMode(int);
   void setBinary(double);
+  Fl_Menu_Bar *getMenuBar();
 }
 
 #endif

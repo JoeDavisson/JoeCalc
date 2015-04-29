@@ -153,6 +153,13 @@ public:
       case FL_UNFOCUS:
         return 1;
       case FL_KEYBOARD:
+        // give focus to the main menu
+        if(Fl::event_alt() > 0)
+        {
+          Gui::getMenuBar()->take_focus();
+          return 0;
+        }
+
         Calc::keypress(Fl::event_key(), Fl::event_shift() != 0 ? true : false);
         return 1;
       default:
@@ -488,5 +495,10 @@ void Gui::setBinary(double value)
   hex_buf[index] = '\0';
   binary->copy_label(binary_buf);
   hex->copy_label(hex_buf);
+}
+
+Fl_Menu_Bar *Gui::getMenuBar()
+{
+  return menubar;
 }
 
