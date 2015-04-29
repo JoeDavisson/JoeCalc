@@ -38,77 +38,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #include "Gui.H"
 #include "joecalc64x64.xpm"
 
-class Win : public Fl_Double_Window
-{
-public:
-  Win(int w, int h, const char *label)
-  : Fl_Double_Window(w, h, label)
-  {
-  }
-
-  ~Win()
-  {
-  }
-  
-  int handle(int event)
-  {
-    switch(event)
-    {
-      case FL_FOCUS:
-        return 1;
-      case FL_UNFOCUS:
-        return 1;
-      case FL_KEYBOARD:
-        Calc::keypress(Fl::event_key(), Fl::event_shift() != 0 ? true : false);
-        return 1;
-      default:
-        return Fl_Double_Window::handle(event);
-    }
-  }
-};
-
-class Button : public Fl_Button
-{
-public:
-  Button(int x, int y, int w, int h, const char *label, Fl_Callback *cb)
-  : Fl_Button(x, y, w, h, label)
-  {
-    if(cb)
-      callback(cb);
-
-    color(FL_BACKGROUND2_COLOR, FL_WHITE);
-    box(FL_ROUND_UP_BOX);
-    down_box(FL_ROUND_DOWN_BOX);
-  }
-
-  ~Button()
-  {
-  }
-};
-
-class ToggleButton : public Fl_Toggle_Button
-{
-public:
-  ToggleButton(int x, int y, int w, int h, const char *label, Fl_Callback *cb)
-  : Fl_Toggle_Button(x, y, w, h, label)
-  {
-    if(cb)
-      callback(cb);
-
-    color(FL_BACKGROUND2_COLOR, FL_WHITE);
-    box(FL_ROUND_UP_BOX);
-    down_box(FL_ROUND_DOWN_BOX);
-  }
-
-  ~ToggleButton()
-  {
-  }
-};
+class MainWin;
+class Button;
+class ToggleButton;
 
 namespace
 {
   // window
-  Win *window;
+  MainWin *window;
   Fl_Pixmap *icon;
 
   // main menu
@@ -195,6 +132,73 @@ namespace
   }
 }
 
+class MainWin : public Fl_Double_Window
+{
+public:
+  MainWin(int w, int h, const char *label)
+  : Fl_Double_Window(w, h, label)
+  {
+  }
+
+  ~MainWin()
+  {
+  }
+  
+  int handle(int event)
+  {
+    switch(event)
+    {
+      case FL_FOCUS:
+        return 1;
+      case FL_UNFOCUS:
+        return 1;
+      case FL_KEYBOARD:
+        Calc::keypress(Fl::event_key(), Fl::event_shift() != 0 ? true : false);
+        return 1;
+      default:
+        return Fl_Double_Window::handle(event);
+    }
+  }
+};
+
+class Button : public Fl_Button
+{
+public:
+  Button(int x, int y, int w, int h, const char *label, Fl_Callback *cb)
+  : Fl_Button(x, y, w, h, label)
+  {
+    if(cb)
+      callback(cb);
+
+    color(FL_BACKGROUND2_COLOR, FL_WHITE);
+    box(FL_ROUND_UP_BOX);
+    down_box(FL_ROUND_DOWN_BOX);
+  }
+
+  ~Button()
+  {
+  }
+};
+
+class ToggleButton : public Fl_Toggle_Button
+{
+public:
+  ToggleButton(int x, int y, int w, int h, const char *label, Fl_Callback *cb)
+  : Fl_Toggle_Button(x, y, w, h, label)
+  {
+    if(cb)
+      callback(cb);
+
+    color(FL_BACKGROUND2_COLOR, FL_WHITE);
+    box(FL_ROUND_UP_BOX);
+    down_box(FL_ROUND_DOWN_BOX);
+  }
+
+  ~ToggleButton()
+  {
+  }
+};
+
 namespace About
 {
   namespace Items
@@ -242,7 +246,7 @@ void Gui::init()
   fl_register_images();
 
   // main window
-  window = new Win(496, 376, "JoeCalc");
+  window = new MainWin(496, 376, "JoeCalc");
   window->callback(closeCallback);
   icon = new Fl_Pixmap((char * const *)joecalc64x64_xpm);
 
