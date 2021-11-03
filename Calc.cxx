@@ -232,6 +232,10 @@ namespace
 
 void Calc::keypress(const int c, const bool shifted)
 {
+  // prevent leading zero
+  if(strcmp(display_buf, "") == 0)
+    Gui::updateDisplay("");
+    
   switch(c)
   {
     case '=':

@@ -177,9 +177,9 @@ public:
     if(cb)
       callback(cb);
 
-    color(FL_BACKGROUND2_COLOR, FL_WHITE);
-    box(FL_ROUND_UP_BOX);
-    down_box(FL_ROUND_DOWN_BOX);
+//    color(FL_BACKGROUND_COLOR, FL_WHITE);
+//    box(FL_ROUND_UP_BOX);
+//    down_box(FL_ROUND_DOWN_BOX);
   }
 
   ~Button()
@@ -196,9 +196,9 @@ public:
     if(cb)
       callback(cb);
 
-    color(FL_BACKGROUND2_COLOR, FL_WHITE);
-    box(FL_ROUND_UP_BOX);
-    down_box(FL_ROUND_DOWN_BOX);
+//    color(FL_BACKGROUND_COLOR, FL_WHITE);
+//    box(FL_ROUND_UP_BOX);
+//    down_box(FL_ROUND_DOWN_BOX);
   }
 
   ~ToggleButton()
@@ -233,11 +233,11 @@ namespace About
     Items::dialog->set_modal();
     Items::close = new Fl_Return_Button(124, 72, 96, 32, "Close");
     Items::close->callback((Fl_Callback *)hide);
-    Items::title = new Fl_Box(FL_NO_BOX, 80, 8, 256, 32, "JoeCalc v0.1.1");
+    Items::title = new Fl_Box(FL_NO_BOX, 80, 8, 256, 32, "JoeCalc");
     Items::title->align(FL_ALIGN_TOP_LEFT | FL_ALIGN_INSIDE);
     Items::title->labelsize(24);
     Items::title->labelfont(FL_HELVETICA_BOLD);
-    Items::copyright = new Fl_Box(FL_NO_BOX, 80, 40, 256, 32, "Copyright (c) 2015 Joe Davisson");
+    Items::copyright = new Fl_Box(FL_NO_BOX, 80, 40, 256, 32, "Copyright (c) 2021 Joe Davisson");
     Items::copyright->align(FL_ALIGN_TOP_LEFT | FL_ALIGN_INSIDE);
     Items::copyright->labelsize(14);
     Items::icon_box = new Fl_Box(FL_NO_BOX, 8, 8, 64, 64, "");
@@ -261,7 +261,7 @@ void Gui::init()
   menubar = new Fl_Menu_Bar(0, 0, window->w(), 24);
   menubar->box(FL_THIN_UP_BOX);
 
-  menubar->add("&File/&Quit", 0,
+  menubar->add("&File/E&xit", 0,
     (Fl_Callback *)quit, 0, 0);
   menubar->add("&Help/&About...", 0,
     (Fl_Callback *)About::show, 0, 0);
@@ -269,6 +269,7 @@ void Gui::init()
   display = new Fl_Box(8, 32, 376, 32, "");
   display->box(FL_DOWN_BOX);
   display->labelsize(18);
+  display->labelfont(FL_COURIER);
   display->align(FL_ALIGN_RIGHT | FL_ALIGN_INSIDE);
   display->color(FL_BACKGROUND2_COLOR);
   binary = new Fl_Box(8, 72, 480, 12, "");
@@ -284,10 +285,9 @@ void Gui::init()
   hex->align(FL_ALIGN_CENTER/* | FL_ALIGN_INSIDE*/);
   binary->color(FL_BACKGROUND_COLOR);
   key_clear = new Button(400, 32, 80, 32, "Clear", (Fl_Callback *)Calc::key_clear);
-  key_clear->tooltip("Clear Output");
 
   group_num = new Fl_Group(8, 102, 176, 172, "");
-  group_num->box(FL_ENGRAVED_FRAME);
+  group_num->box(FL_DOWN_FRAME);
   key_0 = new Button(72, 232, 48, 32, "0", (Fl_Callback *)Calc::key_0);
   key_1 = new Button(16, 192, 48, 32, "1", (Fl_Callback *)Calc::key_1);
   key_2 = new Button(72, 192, 48, 32, "2", (Fl_Callback *)Calc::key_2);
@@ -303,7 +303,7 @@ void Gui::init()
   group_num->end();
 
   group_hex = new Fl_Group(8, 280, 176, 88, "");
-  group_hex->box(FL_ENGRAVED_FRAME);
+  group_hex->box(FL_DOWN_FRAME);
   key_a = new Button(16, 288, 48, 32, "A", (Fl_Callback *)Calc::key_a);
   key_b = new Button(72, 288, 48, 32, "B", (Fl_Callback *)Calc::key_b);
   key_c = new Button(128, 288, 48, 32, "C", (Fl_Callback *)Calc::key_c);
@@ -313,7 +313,7 @@ void Gui::init()
   group_hex->end();
   
   group_arith = new Fl_Group(192, 102, 64, 172, "");
-  group_arith->box(FL_ENGRAVED_FRAME);
+  group_arith->box(FL_DOWN_FRAME);
   key_add = new Button(200, 112, 48, 32, "+", (Fl_Callback *)Calc::key_add);
   key_add->tooltip("Add");
   key_sub = new Button(200, 152, 48, 32, "-", (Fl_Callback *)Calc::key_sub);
@@ -325,7 +325,7 @@ void Gui::init()
   group_arith->end();
 
   group_logic = new Fl_Group(264, 102, 120, 172, "");
-  group_logic->box(FL_ENGRAVED_FRAME);
+  group_logic->box(FL_DOWN_FRAME);
   key_sign = new Button(272, 112, 48, 32, "+/-", (Fl_Callback *)Calc::key_sign);
   key_sign->tooltip("Toggle Sign\n");
   key_invert = new Button(328, 112, 48, 32, "~", (Fl_Callback *)Calc::key_invert);
@@ -344,7 +344,7 @@ void Gui::init()
   key_shr->tooltip("Shift Right"); group_logic->end();
 
   group_mode = new Fl_Group(392, 102, 96, 172, "");
-  group_mode->box(FL_ENGRAVED_FRAME);
+  group_mode->box(FL_DOWN_FRAME);
   key_dec = new ToggleButton(400, 112, 80, 32, "Dec", (Fl_Callback *)Calc::key_dec);
   key_dec->tooltip("Decimal Mode");
   key_hex = new ToggleButton(400, 152, 80, 32, "Hex", (Fl_Callback *)Calc::key_hex);
@@ -356,7 +356,7 @@ void Gui::init()
   group_mode->end();
 
   group_misc = new Fl_Group(192, 280, 296, 88, "");
-  group_misc->box(FL_ENGRAVED_FRAME);
+  group_misc->box(FL_DOWN_FRAME);
   key_sqrt = new Button(200, 288, 64, 32, "√", (Fl_Callback *)Calc::key_sqrt);
   key_sqrt->tooltip("Square Root");
   key_recip = new Button(272, 288, 64, 32, "1/x", (Fl_Callback *)Calc::key_recip);
