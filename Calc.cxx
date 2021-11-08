@@ -138,7 +138,7 @@ namespace
     if(temp_value > 9007199254740992 || temp_value < -9007199254740992)
     {
       Gui::setBinary(0);
-      Gui::updateDisplay("Result Out of Range");
+      Gui::updateDisplay("Out of Range");
       op_started = false;
       setOp(Calc::OP_NONE);
       value1 = 0;
@@ -147,7 +147,6 @@ namespace
     }
     else
     {
-
       Gui::setBinary(temp_value);
       Gui::updateDisplay(display_buf);
     }
@@ -170,7 +169,7 @@ namespace
 
     if(value > 9007199254740992 || value < -9007199254740992)
     {
-      replace("Result Out of Range");
+      replace("Out of Range");
       value = 0;
     }
     else switch(mode)
@@ -204,6 +203,10 @@ namespace
       strcpy(display_buf, "");
       op_started = false;
     }
+
+    if(strcmp(display_buf, "0") == 0)
+      if(c != '.')
+        strcpy(display_buf, "");
 
     int pos = strlen(display_buf);
 
@@ -311,7 +314,7 @@ void Calc::keypress(const int c, const bool shifted)
 
 void Calc::key_clear()
 {
-  replace("");
+  replace("0");
   value1 = 0;
   Gui::setBinary(value1);
   just_cleared = true;
