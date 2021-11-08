@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2015 Joe Davisson.
+Copyright (c) 2021 Joe Davisson.
 
 This file is part of JoeCalc.
 
@@ -47,11 +47,11 @@ namespace
 
   void setDarkTheme()
   {
-    Fl::set_color(FL_BACKGROUND_COLOR, 80, 80, 80);
-    Fl::set_color(FL_BACKGROUND2_COLOR, 64, 64, 64);
-    Fl::set_color(FL_FOREGROUND_COLOR, 248, 248, 248);
-    Fl::set_color(FL_INACTIVE_COLOR, 128, 128, 128);
-    Fl::set_color(FL_SELECTION_COLOR, 248, 248, 248);
+    Fl::set_color(FL_BACKGROUND_COLOR, 64, 64, 64);
+    Fl::set_color(FL_BACKGROUND2_COLOR, 48, 48, 48);
+    Fl::set_color(FL_FOREGROUND_COLOR, 208, 208, 208);
+    Fl::set_color(FL_INACTIVE_COLOR, 56, 56, 56);
+    Fl::set_color(FL_SELECTION_COLOR, 208, 208, 208);
   }
 
   void setLightTheme()
@@ -59,7 +59,7 @@ namespace
     Fl::set_color(FL_BACKGROUND_COLOR, 192, 192, 192);
     Fl::set_color(FL_BACKGROUND2_COLOR, 172, 172, 172);
     Fl::set_color(FL_FOREGROUND_COLOR, 8, 8, 8);
-    Fl::set_color(FL_INACTIVE_COLOR, 128, 128, 128);
+    Fl::set_color(FL_INACTIVE_COLOR, 172, 172, 172);
     Fl::set_color(FL_SELECTION_COLOR, 64, 64, 64);
   }
 

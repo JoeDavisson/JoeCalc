@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2015 Joe Davisson.
+Copyright (c) 2021 Joe Davisson.
 
 This file is part of JoeCalc.
 
@@ -260,6 +260,7 @@ void Gui::init()
   // menu
   menubar = new Fl_Menu_Bar(0, 0, window->w(), 24);
   menubar->box(FL_THIN_UP_BOX);
+  menubar->color(FL_INACTIVE_COLOR);
 
   menubar->add("&File/E&xit", 0,
     (Fl_Callback *)quit, 0, 0);
@@ -287,7 +288,7 @@ void Gui::init()
   key_clear = new Button(400, 32, 80, 32, "Clear", (Fl_Callback *)Calc::key_clear);
 
   group_num = new Fl_Group(8, 102, 176, 172, "");
-  group_num->box(FL_DOWN_FRAME);
+  group_num->box(FL_DOWN_BOX);
   key_0 = new Button(72, 232, 48, 32, "0", (Fl_Callback *)Calc::key_0);
   key_1 = new Button(16, 192, 48, 32, "1", (Fl_Callback *)Calc::key_1);
   key_2 = new Button(72, 192, 48, 32, "2", (Fl_Callback *)Calc::key_2);

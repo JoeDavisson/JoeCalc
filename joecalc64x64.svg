@@ -13,8 +13,11 @@
    height="64"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
-   sodipodi:docname="joecalc64x64.svg">
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="joecalc64x64.svg"
+   inkscape:export-filename="/home/joe/JoeCalc/joecalc64x64.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -25,8 +28,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="5.6"
-     inkscape:cx="32.111091"
-     inkscape:cy="52.263169"
+     inkscape:cx="13.97801"
+     inkscape:cy="41.277229"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -40,7 +43,9 @@
      inkscape:snap-object-midpoints="true"
      inkscape:object-nodes="true"
      showguides="true"
-     inkscape:guide-bbox="true">
+     inkscape:guide-bbox="true"
+     inkscape:bbox-nodes="false"
+     inkscape:snap-bbox-edge-midpoints="true">
     <inkscape:grid
        type="xygrid"
        id="grid2996"
@@ -48,8 +53,9 @@
        visible="true"
        enabled="true"
        snapvisiblegridlinesonly="true"
-       spacingx="0.25px"
-       spacingy="0.25px" />
+       spacingx="0.25"
+       spacingy="0.25"
+       units="px" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -69,150 +75,169 @@
      id="layer1"
      transform="translate(0,-988.36218)">
     <rect
-       style="fill:#808080;stroke:#000000;stroke-width:0.74999994000000003;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
-       id="rect3929-17-62"
-       width="63.250076"
-       height="63.250076"
-       x="0.37276456"
-       y="988.73932"
-       inkscape:export-filename="/home/joe/JoeCalc/icon64x64.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90"
-       ry="7.9999971"
-       rx="7.9999976" />
-    <rect
-       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.74999994000000003;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
-       id="rect3166"
-       width="55.343819"
-       height="11.859388"
-       x="4.3258924"
-       y="992.69244"
-       ry="3.9999974"
-       inkscape:export-filename="/home/joe/JoeCalc/icon64x64.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90"
-       rx="3.9999974" />
-    <rect
-       style="fill:#b3b3b3;fill-opacity:1;stroke:#000000;stroke-width:0.74999994000000003;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
-       id="rect3166-6"
-       width="15.812519"
-       height="9.8828239"
-       x="4.3258924"
-       y="1008.505"
-       ry="3.9999974"
-       inkscape:export-filename="/home/joe/JoeCalc/icon64x64.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90"
-       rx="3.9999974" />
-    <rect
-       rx="3.9999974"
-       style="fill:#b3b3b3;fill-opacity:1;stroke:#000000;stroke-width:0.74999994000000003;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
-       id="rect3166-6-6"
-       width="15.812519"
-       height="9.8828239"
-       x="24.091541"
-       y="1008.505"
-       ry="3.9999974"
-       inkscape:export-filename="/home/joe/JoeCalc/icon64x64.png"
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       id="rect8264"
+       width="64"
+       height="64"
+       x="0"
+       y="988.36218"
+       rx="0"
+       ry="0"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
-    <rect
-       rx="3.9999974"
-       style="fill:#b3b3b3;fill-opacity:1;stroke:#000000;stroke-width:0.74999994000000003;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
-       id="rect3166-6-0"
-       width="15.812519"
-       height="9.8828239"
-       x="43.857189"
-       y="1008.505"
-       ry="3.9999974"
-       inkscape:export-filename="/home/joe/JoeCalc/icon64x64.png"
+    <g
+       id="g8249"
+       transform="matrix(0.93670692,0,0,0.93672395,2.0274368,64.561383)"
        inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <rect
-       rx="3.9999974"
-       style="fill:#b3b3b3;fill-opacity:1;stroke:#000000;stroke-width:0.74999994000000003;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
-       id="rect3166-6-2"
-       width="15.812519"
-       height="9.8828239"
-       x="4.3258924"
-       y="1022.3409"
-       ry="3.9999974"
-       inkscape:export-filename="/home/joe/JoeCalc/icon64x64.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <rect
-       rx="3.9999974"
-       style="fill:#b3b3b3;fill-opacity:1;stroke:#000000;stroke-width:0.74999994000000003;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
-       id="rect3166-6-6-4"
-       width="15.812519"
-       height="9.8828239"
-       x="24.091541"
-       y="1022.3409"
-       ry="3.9999974"
-       inkscape:export-filename="/home/joe/JoeCalc/icon64x64.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <rect
-       rx="3.9999974"
-       style="fill:#b3b3b3;fill-opacity:1;stroke:#000000;stroke-width:0.74999994000000003;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
-       id="rect3166-6-0-4"
-       width="15.812519"
-       height="9.8828239"
-       x="43.857189"
-       y="1022.3409"
-       ry="3.9999974"
-       inkscape:export-filename="/home/joe/JoeCalc/icon64x64.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <rect
-       rx="3.9999974"
-       style="fill:#b3b3b3;fill-opacity:1;stroke:#000000;stroke-width:0.74999994000000003;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
-       id="rect3166-6-67"
-       width="15.812519"
-       height="9.8828239"
-       x="4.3258924"
-       y="1036.1769"
-       ry="3.9999974"
-       inkscape:export-filename="/home/joe/JoeCalc/icon64x64.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <rect
-       rx="3.9999974"
-       style="fill:#b3b3b3;fill-opacity:1;stroke:#000000;stroke-width:0.74999994000000003;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
-       id="rect3166-6-6-2"
-       width="15.812519"
-       height="9.8828239"
-       x="24.091541"
-       y="1036.1769"
-       ry="3.9999974"
-       inkscape:export-filename="/home/joe/JoeCalc/icon64x64.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <rect
-       rx="3.9999974"
-       style="fill:#b3b3b3;fill-opacity:1;stroke:#000000;stroke-width:0.74999994000000003;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
-       id="rect3166-6-0-2"
-       width="15.812519"
-       height="9.8828239"
-       x="43.857189"
-       y="1036.1769"
-       ry="3.9999974"
-       inkscape:export-filename="/home/joe/JoeCalc/icon64x64.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <text
-       xml:space="preserve"
-       style="font-size:7.90626049px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
-       x="31.557045"
-       y="1001.485"
-       id="text3345"
-       sodipodi:linespacing="125%"
-       inkscape:export-filename="/home/joe/JoeCalc/icon64x64.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90"><tspan
-         sodipodi:role="line"
-         id="tspan3351"
-         x="31.557045"
-         y="1001.485">12345</tspan></text>
+       inkscape:export-ydpi="90">
+      <rect
+         rx="3.8676355"
+         ry="3.8675869"
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/joe/JoeCalc/icon64x64.png"
+         y="988.73932"
+         x="0.37276456"
+         height="63.250076"
+         width="63.250076"
+         id="rect3929-17-62"
+         style="fill:#b3b3b3;fill-opacity:1;stroke:#1a1a1a;stroke-width:0.80067009;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" />
+      <rect
+         rx="2.1351395"
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/joe/JoeCalc/icon64x64.png"
+         ry="2.135098"
+         y="992.36218"
+         x="4"
+         height="11.999997"
+         width="56"
+         id="rect3166"
+         style="fill:#999999;fill-opacity:1;stroke:#1a1a1a;stroke-width:0.80067003;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" />
+      <text
+         transform="scale(1.0875048,0.91953621)"
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/joe/JoeCalc/icon64x64.png"
+         sodipodi:linespacing="125%"
+         id="text3345"
+         y="1088.8549"
+         x="26.828547"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.1005249px;line-height:125%;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#1a1a1a;fill-opacity:1;stroke:#1a1a1a;stroke-width:0.26689002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+         xml:space="preserve"><tspan
+           y="1088.8549"
+           x="26.828547"
+           id="tspan3351"
+           sodipodi:role="line"
+           style="stroke-width:0.26689002">12345</tspan></text>
+      <rect
+         rx="2.1351395"
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/joe/JoeCalc/icon64x64.png"
+         ry="2.135098"
+         y="1008.3622"
+         x="4"
+         height="9.9999971"
+         width="16"
+         id="rect3166-6"
+         style="fill:#cccccc;fill-opacity:1;stroke:#1a1a1a;stroke-width:0.80067003;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" />
+      <rect
+         rx="2.1351395"
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/joe/JoeCalc/icon64x64.png"
+         ry="2.135098"
+         y="1008.3622"
+         x="24"
+         height="9.9999971"
+         width="16"
+         id="rect3166-6-7"
+         style="fill:#cccccc;fill-opacity:1;stroke:#1a1a1a;stroke-width:0.80067003;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" />
+      <rect
+         rx="2.1351395"
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/joe/JoeCalc/icon64x64.png"
+         ry="2.135098"
+         y="1008.3622"
+         x="44"
+         height="9.9999971"
+         width="16"
+         id="rect3166-6-7-4"
+         style="fill:#cccccc;fill-opacity:1;stroke:#1a1a1a;stroke-width:0.80067003;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" />
+      <rect
+         rx="2.1351395"
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/joe/JoeCalc/icon64x64.png"
+         ry="2.135098"
+         y="1022.3622"
+         x="4"
+         height="9.9999971"
+         width="16"
+         id="rect3166-6-71"
+         style="fill:#cccccc;fill-opacity:1;stroke:#1a1a1a;stroke-width:0.80067003;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" />
+      <rect
+         rx="2.1351395"
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/joe/JoeCalc/icon64x64.png"
+         ry="2.135098"
+         y="1022.3622"
+         x="24"
+         height="9.9999971"
+         width="16"
+         id="rect3166-6-7-1"
+         style="fill:#cccccc;fill-opacity:1;stroke:#1a1a1a;stroke-width:0.80067003;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" />
+      <rect
+         rx="2.1351395"
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/joe/JoeCalc/icon64x64.png"
+         ry="2.135098"
+         y="1022.3622"
+         x="44"
+         height="9.9999971"
+         width="16"
+         id="rect3166-6-7-4-8"
+         style="fill:#cccccc;fill-opacity:1;stroke:#1a1a1a;stroke-width:0.80067003;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" />
+      <rect
+         rx="2.1351395"
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/joe/JoeCalc/icon64x64.png"
+         ry="2.135098"
+         y="1036.3622"
+         x="4"
+         height="9.9999971"
+         width="16"
+         id="rect3166-6-0"
+         style="fill:#cccccc;fill-opacity:1;stroke:#1a1a1a;stroke-width:0.80067003;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" />
+      <rect
+         rx="2.1351395"
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/joe/JoeCalc/icon64x64.png"
+         ry="2.135098"
+         y="1036.3622"
+         x="24"
+         height="9.9999971"
+         width="16"
+         id="rect3166-6-7-6"
+         style="fill:#cccccc;fill-opacity:1;stroke:#1a1a1a;stroke-width:0.80067003;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" />
+      <rect
+         rx="2.1351395"
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/joe/JoeCalc/icon64x64.png"
+         ry="2.135098"
+         y="1036.3622"
+         x="44"
+         height="9.9999971"
+         width="16"
+         id="rect3166-6-7-4-6"
+         style="fill:#cccccc;fill-opacity:1;stroke:#1a1a1a;stroke-width:0.80067003;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" />
+    </g>
   </g>
 </svg>
