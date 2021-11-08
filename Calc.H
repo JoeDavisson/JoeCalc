@@ -45,6 +45,9 @@ namespace Calc
     OP_POW
   };
 
+  void copyToClipboard();
+//  void pasteFromClipboard();
+
   void keypress(const int, const bool);
   void changed();
 

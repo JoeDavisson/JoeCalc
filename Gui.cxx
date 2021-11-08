@@ -269,6 +269,10 @@ void Gui::init()
 
   menubar->add("&File/E&xit", 0,
     (Fl_Callback *)quit, 0, 0);
+  menubar->add("&Edit/C&opy", 0,
+    (Fl_Callback *)Calc::copyToClipboard, 0, 0);
+//  menubar->add("&Edit/P&aste", 0,
+//    (Fl_Callback *)Calc::pasteFromClipboard, 0, 0);
   menubar->add("&Help/&About...", 0,
     (Fl_Callback *)About::show, 0, 0);
 
@@ -507,4 +511,11 @@ Fl_Menu_Bar *Gui::getMenuBar()
 {
   return menubar;
 }
+
+/*
+Fl_Box *Gui::getDisplay()
+{
+  return display;
+}
+*/
 

@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
 #include <FL/Fl.H>
 #include <FL/Fl_Input.H>
+#include <FL/Fl_Text_Buffer.H>
+#include <FL/Fl_Text_Display.H>
 
 #include "Calc.H"
 #include "Gui.H"
@@ -232,6 +234,28 @@ namespace
     } 
   }
 }
+
+void Calc::copyToClipboard()
+{
+  Fl::copy(display_buf, strlen(display_buf), 1, Fl::clipboard_plain_text);
+}
+
+/* only works within program
+void Calc::pasteFromClipboard()
+{
+  Fl_Input *in = new Fl_Input(0, 0, 8, 8, Fl::clipboard_plain_text);
+
+  if(Fl::clipboard_contains(Fl::clipboard_plain_text))
+     Fl::paste(*in, 1, Fl::clipboard_plain_text);
+
+printf("%s\n", in->value());
+
+  strncpy(display_buf, in->value(), sizeof(display_buf));
+  update();
+
+  delete in;
+}
+*/
 
 void Calc::keypress(const int c, const bool shifted)
 {
