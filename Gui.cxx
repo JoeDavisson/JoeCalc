@@ -214,6 +214,7 @@ namespace About
     Fl_Return_Button *close;
     Fl_Box *title;
     Fl_Box *copyright;
+    Fl_Box *info;
     Fl_Box *icon_box;
   }
 
@@ -229,9 +230,11 @@ namespace About
 
   void init()
   {
-    Items::dialog = new Fl_Double_Window(344, 112, "About");
+    const char *credits = "JoeCalc is based in part on the work\nof the FLTK project (http://www.fltk.org).";
+
+    Items::dialog = new Fl_Double_Window(344, 160, "About");
     Items::dialog->set_modal();
-    Items::close = new Fl_Return_Button(124, 72, 96, 32, "Close");
+    Items::close = new Fl_Return_Button(124, 112, 96, 32, "Close");
     Items::close->callback((Fl_Callback *)hide);
     Items::title = new Fl_Box(FL_NO_BOX, 80, 8, 256, 32, "JoeCalc");
     Items::title->align(FL_ALIGN_TOP_LEFT | FL_ALIGN_INSIDE);
@@ -239,7 +242,9 @@ namespace About
     Items::title->labelfont(FL_HELVETICA_BOLD);
     Items::copyright = new Fl_Box(FL_NO_BOX, 80, 40, 256, 32, "Copyright (c) 2021 Joe Davisson");
     Items::copyright->align(FL_ALIGN_TOP_LEFT | FL_ALIGN_INSIDE);
-    Items::copyright->labelsize(14);
+    Items::info = new Fl_Box(FL_NO_BOX, 80, 64, 256, 32, credits);
+    Items::info->align(FL_ALIGN_LEFT | FL_ALIGN_BOTTOM | FL_ALIGN_INSIDE);
+    Items::info->labelsize(12);
     Items::icon_box = new Fl_Box(FL_NO_BOX, 8, 8, 64, 64, "");
     Items::icon_box->labeltype(FL_NO_LABEL);
     Items::icon_box->image(icon);
