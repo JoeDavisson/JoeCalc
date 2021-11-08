@@ -1,4 +1,4 @@
-![Screenshot](https://raw.githubusercontent.com/Mortis69/JoeCalc/master/screenshots/screenshot.png)
+![Screenshot](https://raw.githubusercontent.com/JoeDavisson/JoeCalc/screenshots/screenshot.png)
 
 A simple programmer's calculator. There are buttons for decimal, hexadecimal, octal, and binary for easy conversion.
 
