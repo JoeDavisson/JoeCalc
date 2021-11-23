@@ -316,6 +316,9 @@ void Calc::keypress(const int c, const bool shifted)
       break;
   }
 
+  if(shifted)
+    return;
+
   if(just_cleared)
   {
     just_cleared = false;
