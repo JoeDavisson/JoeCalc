@@ -23,19 +23,19 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
 #include <FL/fl_ask.H>
 #include <FL/Fl_Box.H>
-#include <FL/Fl_Button.H>
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Pixmap.H>
 #include <FL/Fl_Return_Button.H>
 #include <FL/Fl_Shared_Image.H>
-#include <FL/Fl_Toggle_Button.H>
 #include <FL/Fl_Tooltip.H>
 #include <FL/Fl_Menu_Bar.H>
 #include <FL/Fl_Tooltip.H>
 
+#include "Button.H"
 #include "Calc.H"
 #include "Gui.H"
+#include "ToggleButton.H"
 #include "joecalc64x64.xpm"
 
 class MainWin;
@@ -168,50 +168,12 @@ public:
   }
 };
 
-class Button : public Fl_Button
-{
-public:
-  Button(int x, int y, int w, int h, const char *label, Fl_Callback *cb)
-  : Fl_Button(x, y, w, h, label)
-  {
-    if(cb)
-      callback(cb);
-
-//    color(FL_BACKGROUND_COLOR, FL_WHITE);
-//    box(FL_ROUND_UP_BOX);
-//    down_box(FL_ROUND_DOWN_BOX);
-  }
-
-  ~Button()
-  {
-  }
-};
-
-class ToggleButton : public Fl_Toggle_Button
-{
-public:
-  ToggleButton(int x, int y, int w, int h, const char *label, Fl_Callback *cb)
-  : Fl_Toggle_Button(x, y, w, h, label)
-  {
-    if(cb)
-      callback(cb);
-
-//    color(FL_BACKGROUND_COLOR, FL_WHITE);
-//    box(FL_ROUND_UP_BOX);
-//    down_box(FL_ROUND_DOWN_BOX);
-  }
-
-  ~ToggleButton()
-  {
-  }
-};
-
 namespace About
 {
   namespace Items
   {
     Fl_Double_Window *dialog;
-    Fl_Return_Button *close;
+    Button *close;
     Fl_Box *title;
     Fl_Box *copyright;
     Fl_Box *info;
@@ -234,8 +196,8 @@ namespace About
 
     Items::dialog = new Fl_Double_Window(344, 160, "About");
     Items::dialog->set_modal();
-    Items::close = new Fl_Return_Button(124, 112, 96, 32, "Close");
-    Items::close->callback((Fl_Callback *)hide);
+    Items::close = new Button(124, 112, 96, 32, "Dismiss", (Fl_Callback *)hide);
+//    Items::close->callback((Fl_Callback *)hide);
     Items::title = new Fl_Box(FL_NO_BOX, 80, 8, 256, 32, "JoeCalc");
     Items::title->align(FL_ALIGN_TOP_LEFT | FL_ALIGN_INSIDE);
     Items::title->labelsize(24);
@@ -355,13 +317,17 @@ void Gui::init()
 
   group_mode = new Fl_Group(392, 102, 96, 172, "");
   group_mode->box(FL_DOWN_FRAME);
-  key_dec = new ToggleButton(400, 112, 80, 32, "Dec", (Fl_Callback *)Calc::key_dec);
+  key_dec = new ToggleButton(400, 112, 80, 32, "Dec");
+  key_dec->callback((Fl_Callback *)Calc::key_dec);
   key_dec->tooltip("Decimal Mode");
-  key_hex = new ToggleButton(400, 152, 80, 32, "Hex", (Fl_Callback *)Calc::key_hex);
+  key_hex = new ToggleButton(400, 152, 80, 32, "Hex");
+  key_hex->callback((Fl_Callback *)Calc::key_hex);
   key_hex->tooltip("Hexadecimal Mode");
-  key_oct = new ToggleButton(400, 192, 80, 32, "Oct", (Fl_Callback *)Calc::key_oct);
+  key_oct = new ToggleButton(400, 192, 80, 32, "Oct");
+  key_oct->callback((Fl_Callback *)Calc::key_oct);
   key_oct->tooltip("Octal Mode");
-  key_bin = new ToggleButton(400, 232, 80, 32, "Bin", (Fl_Callback *)Calc::key_bin);
+  key_bin = new ToggleButton(400, 232, 80, 32, "Bin");
+  key_bin->callback((Fl_Callback *)Calc::key_bin);
   key_bin->tooltip("Binary Mode");
   group_mode->end();
 
@@ -412,30 +378,19 @@ void Gui::setMode(int mode)
   key_oct->value(0);
   key_bin->value(0);
 
-  key_dec->color(FL_BACKGROUND2_COLOR);
-  key_hex->color(FL_BACKGROUND2_COLOR);
-  key_oct->color(FL_BACKGROUND2_COLOR);
-  key_bin->color(FL_BACKGROUND2_COLOR);
-
-  Fl_Color highlight = FL_BACKGROUND_COLOR;
-
   switch(mode)
   {
     case Calc::MODE_DEC:
       key_dec->value(1);
-      key_dec->color(highlight, highlight);
       break;
     case Calc::MODE_HEX:
       key_hex->value(1);
-      key_hex->color(highlight, highlight);
       break;
     case Calc::MODE_OCT:
       key_oct->value(1);
-      key_oct->color(highlight, highlight);
       break;
     case Calc::MODE_BIN:
       key_bin->value(1);
-      key_bin->color(highlight, highlight);
       break;
   }
 
