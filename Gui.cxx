@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2021 Joe Davisson.
+Copyright (c) 2023 Joe Davisson.
 
 This file is part of JoeCalc.
 
@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #include <FL/Fl_Tooltip.H>
 
 #include "Button.H"
+#include "Expr.H"
 #include "Calc.H"
 #include "Gui.H"
 #include "ToggleButton.H"
@@ -112,8 +113,7 @@ namespace
   Button *key_decr;
 
   Fl_Group *group_bottom;
-  Fl_Input *equation;
-  Button *equation_calc;
+  Fl_Input *expression;
 
   // prevent escape from closing main window
   void closeCallback(Fl_Widget *widget, void *)
@@ -206,7 +206,7 @@ namespace About
     Items::title->align(FL_ALIGN_TOP_LEFT | FL_ALIGN_INSIDE);
     Items::title->labelsize(24);
     Items::title->labelfont(FL_HELVETICA_BOLD);
-    Items::copyright = new Fl_Box(FL_NO_BOX, 80, 40, 256, 32, "Copyright (c) 2021 Joe Davisson");
+    Items::copyright = new Fl_Box(FL_NO_BOX, 80, 40, 256, 32, "Copyright (c) 2023 Joe Davisson");
     Items::copyright->align(FL_ALIGN_TOP_LEFT | FL_ALIGN_INSIDE);
     Items::info = new Fl_Box(FL_NO_BOX, 80, 64, 256, 32, credits);
     Items::info->align(FL_ALIGN_LEFT | FL_ALIGN_BOTTOM | FL_ALIGN_INSIDE);
@@ -224,7 +224,8 @@ void Gui::init()
   fl_register_images();
 
   // main window
-  window = new MainWin(496, 424, "JoeCalc");
+//  window = new MainWin(496, 424, "JoeCalc");
+  window = new MainWin(496, 376, "JoeCalc");
   window->callback(closeCallback);
   icon = new Fl_Pixmap((char * const *)joecalc64x64_xpm);
 
@@ -248,6 +249,7 @@ void Gui::init()
   display->labelfont(FL_COURIER);
   display->align(FL_ALIGN_RIGHT | FL_ALIGN_INSIDE);
   display->color(FL_BACKGROUND2_COLOR);
+  display->set_visible_focus();
   binary = new Fl_Box(8, 72, 480, 12, "");
   binary->box(FL_FLAT_BOX);
   binary->labelsize(10);
@@ -355,13 +357,16 @@ void Gui::init()
   key_decr->tooltip("Decrement");
   group_misc->end();
 
+/*
   group_bottom = new Fl_Group(8, 376, 480, 40, "");
   group_bottom->box(FL_DOWN_FRAME);
-  equation = new Fl_Input(44, 384, 348, 24, "Expr:");
-  equation->labelsize(10);
-  equation->align(FL_ALIGN_LEFT);
-  equation_calc = new Button(400, 384, 80, 24, "Calc", 0);
+  expression = new Fl_Input(44, 384, 436, 24, "Expr:");
+  expression->labelsize(10);
+  expression->align(FL_ALIGN_LEFT);
+  expression->when(FL_WHEN_ENTER_KEY | FL_WHEN_NOT_CHANGED);
+  expression->callback((Fl_Callback *)Calc::expressionCalc);
   group_bottom->end();
+*/
 
   window->end();
 
@@ -480,10 +485,13 @@ Fl_Menu_Bar *Gui::getMenuBar()
   return menubar;
 }
 
-/*
 Fl_Box *Gui::getDisplay()
 {
   return display;
 }
-*/
+
+Fl_Input *Gui::getExpression()
+{
+  return expression;
+}
 

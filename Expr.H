@@ -18,20 +18,29 @@ along with Rendera; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 */
 
-#ifndef TOGGLE_BUTTON_H
-#define TOGGLE_BUTTON_H
-
-#include <FL/Fl_Toggle_Button.H>
-
-class ToggleButton : public Fl_Toggle_Button
+class Expr
 {
 public:
-  ToggleButton(int, int, int, int, const char *);
-  ~ToggleButton();
+  enum
+  {
+    TOKEN_NONE,
+    TOKEN_OP,
+    TOKEN_NUM
+  };
 
-protected:
-  void draw();
+  static double eval_exp(const char *);
+  static void eval_shift(double &);
+  static void eval_bitwise(double &);
+  static void eval_add_sub(double &);
+  static void eval_mul_div(double &);
+  static void eval_unary(double &);
+  static void eval_group(double &);
+  static void get_token();
+  static double parseString(const char *);
+
+private:
+  Expr() { }
+  ~Expr() { }
 };
 
-#endif
 

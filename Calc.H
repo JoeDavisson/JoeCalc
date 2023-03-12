@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2021 Joe Davisson.
+Copyright (c) 2023 Joe Davisson.
 
 This file is part of JoeCalc.
 
@@ -101,6 +101,8 @@ public:
   static void key_pi();
   static void key_frac();
   static void key_decr();
+
+  static void expressionCalc();
 
 private:
   Calc() { }

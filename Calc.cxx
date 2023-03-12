@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2021 Joe Davisson.
+Copyright (c) 2023 Joe Davisson.
 
 This file is part of JoeCalc.
 
@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #include <FL/Fl_Text_Buffer.H>
 #include <FL/Fl_Text_Display.H>
 
+#include "Expr.H"
 #include "Calc.H"
 #include "Gui.H"
 
@@ -653,4 +654,12 @@ void Calc::key_decr()
   value1 = temp;
   replace(value1);
 }
+
+void Calc::expressionCalc()
+{
+  double result = Expr::parseString(Gui::getExpression()->value());
+
+  replace(result);
+}
+
 

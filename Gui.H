@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2021 Joe Davisson.
+Copyright (c) 2023 Joe Davisson.
 
 This file is part of JoeCalc.
 
@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #define GUI_H
 
 class Fl_Box;
+class Fl_Input;
 class Fl_Menu_Bar;
 
 class Gui
@@ -32,7 +33,8 @@ public:
   static void setMode(int);
   static void setBinary(double);
   static Fl_Menu_Bar *getMenuBar();
-//  static Fl_Box *getDisplay();
+  static Fl_Box *getDisplay();
+  static Fl_Input *getExpression();
 
 private:
   Gui() { }
