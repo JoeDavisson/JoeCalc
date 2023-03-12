@@ -24,15 +24,20 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 class Fl_Box;
 class Fl_Menu_Bar;
 
-namespace Gui
+class Gui
 {
-  void init();
-  void updateDisplay(const char *);
-  void setMode(int);
-  void setBinary(double);
-  Fl_Menu_Bar *getMenuBar();
-//  Fl_Box *getDisplay();
-}
+public:
+  static void init();
+  static void updateDisplay(const char *);
+  static void setMode(int);
+  static void setBinary(double);
+  static Fl_Menu_Bar *getMenuBar();
+//  static Fl_Box *getDisplay();
+
+private:
+  Gui() { }
+  ~Gui() { }
+};
 
 #endif
 

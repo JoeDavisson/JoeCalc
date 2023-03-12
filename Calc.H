@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #ifndef CALC_H
 #define CALC_H
 
-namespace Calc
+class Calc
 {
+public:
   enum
   {
     MODE_DEC,
@@ -45,62 +46,66 @@ namespace Calc
     OP_POW
   };
 
-  void copyToClipboard();
+  static void copyToClipboard();
 //  void pasteFromClipboard();
 
-  void keypress(const int, const bool);
-  void changed();
+  static void keypress(const int, const bool);
+  static void changed();
 
-  void key_clear();
+  static void key_clear();
 
-  void key_0();
-  void key_1();
-  void key_2();
-  void key_3();
-  void key_4();
-  void key_5();
-  void key_6();
-  void key_7();
-  void key_8();
-  void key_9();
-  void key_equals();
-  void key_dot();
+  static void key_0();
+  static void key_1();
+  static void key_2();
+  static void key_3();
+  static void key_4();
+  static void key_5();
+  static void key_6();
+  static void key_7();
+  static void key_8();
+  static void key_9();
+  static void key_equals();
+  static void key_dot();
 
-  void key_a();
-  void key_b();
-  void key_c();
-  void key_d();
-  void key_e();
-  void key_f();
+  static void key_a();
+  static void key_b();
+  static void key_c();
+  static void key_d();
+  static void key_e();
+  static void key_f();
 
-  void key_add();
-  void key_sub();
-  void key_mul();
-  void key_div();
+  static void key_add();
+  static void key_sub();
+  static void key_mul();
+  static void key_div();
 
-  void key_sign();
-  void key_invert();
-  void key_and();
-  void key_or();
-  void key_xor();
-  void key_mod();
-  void key_shl();
-  void key_shr();
+  static void key_sign();
+  static void key_invert();
+  static void key_and();
+  static void key_or();
+  static void key_xor();
+  static void key_mod();
+  static void key_shl();
+  static void key_shr();
 
-  void key_dec();
-  void key_hex();
-  void key_oct();
-  void key_bin();
+  static void key_dec();
+  static void key_hex();
+  static void key_oct();
+  static void key_bin();
 
-  void key_sqrt();
-  void key_recip();
-  void key_int();
-  void key_incr();
-  void key_pow();
-  void key_pi();
-  void key_frac();
-  void key_decr();
-}
+  static void key_sqrt();
+  static void key_recip();
+  static void key_int();
+  static void key_incr();
+  static void key_pow();
+  static void key_pi();
+  static void key_frac();
+  static void key_decr();
+
+private:
+  Calc() { }
+  ~Calc() { }
+};
 
 #endif
 

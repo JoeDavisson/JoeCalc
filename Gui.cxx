@@ -51,7 +51,7 @@ namespace
   // main menu
   Fl_Menu_Bar *menubar;
 
-  // stuff
+  // widgets
   Fl_Box *display;
   Fl_Box *binary;
   Fl_Box *hex;
@@ -110,6 +110,10 @@ namespace
   Button *key_pi;
   Button *key_frac;
   Button *key_decr;
+
+  Fl_Group *group_bottom;
+  Fl_Input *equation;
+  Button *equation_calc;
 
   // prevent escape from closing main window
   void closeCallback(Fl_Widget *widget, void *)
@@ -196,7 +200,7 @@ namespace About
 
     Items::dialog = new Fl_Double_Window(344, 160, "About");
     Items::dialog->set_modal();
-    Items::close = new Button(124, 112, 96, 32, "Dismiss", (Fl_Callback *)hide);
+    Items::close = new Button(124, 112, 96, 32, "Ok", (Fl_Callback *)hide);
 //    Items::close->callback((Fl_Callback *)hide);
     Items::title = new Fl_Box(FL_NO_BOX, 80, 8, 256, 32, "JoeCalc");
     Items::title->align(FL_ALIGN_TOP_LEFT | FL_ALIGN_INSIDE);
@@ -220,7 +224,7 @@ void Gui::init()
   fl_register_images();
 
   // main window
-  window = new MainWin(496, 376, "JoeCalc");
+  window = new MainWin(496, 424, "JoeCalc");
   window->callback(closeCallback);
   icon = new Fl_Pixmap((char * const *)joecalc64x64_xpm);
 
@@ -256,7 +260,7 @@ void Gui::init()
   hex->labelfont(FL_COURIER);
   hex->align(FL_ALIGN_CENTER/* | FL_ALIGN_INSIDE*/);
   binary->color(FL_BACKGROUND_COLOR);
-  key_clear = new Button(400, 32, 80, 32, "Clear", (Fl_Callback *)Calc::key_clear);
+  key_clear = new Button(392, 32, 88, 32, "Clear", (Fl_Callback *)Calc::key_clear);
 
   group_num = new Fl_Group(8, 102, 176, 172, "");
   group_num->box(FL_DOWN_BOX);
@@ -351,7 +355,16 @@ void Gui::init()
   key_decr->tooltip("Decrement");
   group_misc->end();
 
+  group_bottom = new Fl_Group(8, 376, 480, 40, "");
+  group_bottom->box(FL_DOWN_FRAME);
+  equation = new Fl_Input(44, 384, 348, 24, "Expr:");
+  equation->labelsize(10);
+  equation->align(FL_ALIGN_LEFT);
+  equation_calc = new Button(400, 384, 80, 24, "Calc", 0);
+  group_bottom->end();
+
   window->end();
+
   Fl_Tooltip::enable(1);
   Fl_Tooltip::color(FL_WHITE);
   Fl_Tooltip::textcolor(FL_BLACK);
