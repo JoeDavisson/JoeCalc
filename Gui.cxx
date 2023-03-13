@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #include <FL/fl_ask.H>
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Double_Window.H>
-#include <FL/Fl_Input.H>
 #include <FL/Fl_Pixmap.H>
 #include <FL/Fl_Return_Button.H>
 #include <FL/Fl_Shared_Image.H>
@@ -33,7 +32,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #include <FL/Fl_Tooltip.H>
 
 #include "Button.H"
-#include "Expr.H"
 #include "Calc.H"
 #include "Gui.H"
 #include "ToggleButton.H"
@@ -111,9 +109,6 @@ namespace
   Button *key_pi;
   Button *key_frac;
   Button *key_decr;
-
-  Fl_Group *group_bottom;
-  Fl_Input *expression;
 
   // prevent escape from closing main window
   void closeCallback(Fl_Widget *widget, void *)
@@ -357,17 +352,6 @@ void Gui::init()
   key_decr->tooltip("Decrement");
   group_misc->end();
 
-/*
-  group_bottom = new Fl_Group(8, 376, 480, 40, "");
-  group_bottom->box(FL_DOWN_FRAME);
-  expression = new Fl_Input(44, 384, 436, 24, "Expr:");
-  expression->labelsize(10);
-  expression->align(FL_ALIGN_LEFT);
-  expression->when(FL_WHEN_ENTER_KEY | FL_WHEN_NOT_CHANGED);
-  expression->callback((Fl_Callback *)Calc::expressionCalc);
-  group_bottom->end();
-*/
-
   window->end();
 
   Fl_Tooltip::enable(1);
@@ -488,10 +472,5 @@ Fl_Menu_Bar *Gui::getMenuBar()
 Fl_Box *Gui::getDisplay()
 {
   return display;
-}
-
-Fl_Input *Gui::getExpression()
-{
-  return expression;
 }
 

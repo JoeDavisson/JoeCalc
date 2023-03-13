@@ -102,8 +102,6 @@ public:
   static void key_frac();
   static void key_decr();
 
-  static void expressionCalc();
-
 private:
   Calc() { }
   ~Calc() { }
