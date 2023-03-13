@@ -32,7 +32,6 @@ public:
   static void setMode(int);
   static void setBinary(double);
   static Fl_Menu_Bar *getMenuBar();
-  static Fl_Box *getDisplay();
 
 private:
   Gui() { }

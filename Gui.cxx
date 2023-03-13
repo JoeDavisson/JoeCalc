@@ -469,8 +469,3 @@ Fl_Menu_Bar *Gui::getMenuBar()
   return menubar;
 }
 
-Fl_Box *Gui::getDisplay()
-{
-  return display;
-}
-
