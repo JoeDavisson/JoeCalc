@@ -43,13 +43,6 @@ struct option long_options[] =
 
 void setDarkTheme()
 {
-  // 32 - 55
-  for(int i = 0; i < 24; i++)
-  { 
-    int v = i * 4;
-    Fl::set_color(8 + i, fl_rgb_color(v, v, v));
-  }
-  
   Fl::set_color(FL_BACKGROUND_COLOR, 56, 56, 56);
   Fl::set_color(FL_BACKGROUND2_COLOR, 48, 48, 48);
   Fl::set_color(FL_FOREGROUND_COLOR, 192, 192, 192);
@@ -103,7 +96,7 @@ int main(int argc, char *argv[])
                 setLightTheme();
                 break;
               }
-              printf("Unknown theme: \"%s\"\n\n", optarg);
+              printf("Unknown theme: '%s'\n\n", optarg);
               return 0;
 
           case OPTION_HELP:
