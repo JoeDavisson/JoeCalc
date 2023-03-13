@@ -19,8 +19,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 */
 
 #include <getopt.h>
-#include <iostream>
-//#include <unistd.h>
 
 #include <FL/Fl.H>
 #include <FL/fl_ask.H>
@@ -28,55 +26,51 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #include "Calc.H"
 #include "Gui.H"
 
-namespace
+enum
 {
-  enum
-  {
-    OPTION_THEME,
-    OPTION_HELP
-  };
+  OPTION_THEME,
+  OPTION_HELP
+};
 
-  int verbose_flag;
+int verbose_flag;
 
-  struct option long_options[] =
-  {
-    { "theme",   required_argument, &verbose_flag, OPTION_THEME },
-    { "help",    no_argument,       &verbose_flag, OPTION_HELP  },
-    { 0, 0, 0, 0 }
-  };
+struct option long_options[] =
+{
+  { "theme",   required_argument, &verbose_flag, OPTION_THEME },
+  { "help",    no_argument,       &verbose_flag, OPTION_HELP  },
+  { 0, 0, 0, 0 }
+};
 
-  void setDarkTheme()
-  {
-    Fl::set_color(FL_BACKGROUND_COLOR, 64, 64, 64);
-    Fl::set_color(FL_BACKGROUND2_COLOR, 48, 48, 48);
-    Fl::set_color(FL_FOREGROUND_COLOR, 208, 208, 208);
-    Fl::set_color(FL_INACTIVE_COLOR, 56, 56, 56);
-    Fl::set_color(FL_SELECTION_COLOR, 208, 208, 208);
+void setDarkTheme()
+{
+  // 32 - 55
+  for(int i = 0; i < 24; i++)
+  { 
+    int v = i * 4;
+    Fl::set_color(8 + i, fl_rgb_color(v, v, v));
   }
+  
+  Fl::set_color(FL_BACKGROUND_COLOR, 56, 56, 56);
+  Fl::set_color(FL_BACKGROUND2_COLOR, 48, 48, 48);
+  Fl::set_color(FL_FOREGROUND_COLOR, 192, 192, 192);
+  Fl::set_color(FL_INACTIVE_COLOR, 64, 64, 64);
+  Fl::set_color(FL_SELECTION_COLOR, 192, 192, 192);
+}
 
-  void setLightTheme()
-  {
-    Fl::set_color(FL_BACKGROUND_COLOR, 192, 192, 192);
-    Fl::set_color(FL_BACKGROUND2_COLOR, 172, 172, 172);
-    Fl::set_color(FL_FOREGROUND_COLOR, 8, 8, 8);
-    Fl::set_color(FL_INACTIVE_COLOR, 172, 172, 172);
-    Fl::set_color(FL_SELECTION_COLOR, 64, 64, 64);
-  }
+void setLightTheme()
+{
+  Fl::set_color(FL_BACKGROUND_COLOR, 192, 192, 192);
+  Fl::set_color(FL_BACKGROUND2_COLOR, 172, 172, 172);
+  Fl::set_color(FL_FOREGROUND_COLOR, 8, 8, 8);
+  Fl::set_color(FL_INACTIVE_COLOR, 160, 160, 160);
+  Fl::set_color(FL_SELECTION_COLOR, 64, 64, 64);
+}
 
-  struct _help_type {};
-
-  std::ostream &
-  operator << (std::ostream &os, _help_type const &)
-  {
-    return
-      os
-      << std::endl << "Usage: joecalc [OPTIONS]"
-      << std::endl
-      << std::endl << "Options:"
-      << std::endl << "  --theme=dark\t\t use dark theme"
-      << std::endl << "  --theme=light\t\t use light theme"
-      << std::endl << std::endl;
-  }
+void printHelp()
+{
+  printf("Usage: joecalc [OPTIONS] filename\n\n");
+  printf("--theme=dark\t\t use dark theme\n");
+  printf("--theme=light\t\t use light theme\n\n");
 }
 
 int main(int argc, char *argv[])
@@ -109,22 +103,16 @@ int main(int argc, char *argv[])
                 setLightTheme();
                 break;
               }
-              std::cerr
-                << "Unknown theme: \"" << optarg << "\"" << std::endl
-                << _help_type();
-              return EXIT_FAILURE;
+              printf("Unknown theme: \"%s\"\n\n", optarg);
+              return 0;
 
           case OPTION_HELP:
-            printf("Usage: joecalc [OPTIONS]\n");
-            printf("\n");
-            printf("Options:\n");
-            printf("  --theme=dark\t\t use dark theme\n");
-            printf("  --theme=light\t\t use light theme\n");
-            break;
+            printHelp();
+            return 0;
 
           default:
-            std::cout << _help_type();
-            return EXIT_SUCCESS;
+            printHelp();
+            return 0;
         }
       }
     }

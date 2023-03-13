@@ -41,7 +41,7 @@ void ToggleButton::draw()
   int lw, lh;
 
   if(value())
-    fl_draw_box(FL_DOWN_BOX, x(), y(), w(), h(), 50);
+    fl_draw_box(FL_DOWN_BOX, x(), y(), w(), h(), FL_INACTIVE_COLOR);
   else
     fl_draw_box(FL_UP_BOX, x(), y(), w(), h(), FL_BACKGROUND2_COLOR);
 
