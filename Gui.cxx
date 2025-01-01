@@ -197,7 +197,7 @@ namespace About
     Items::dialog->set_modal();
     Items::close = new Button(124, 112, 96, 32, "Ok", (Fl_Callback *)hide);
 //    Items::close->callback((Fl_Callback *)hide);
-    Items::title = new Fl_Box(FL_NO_BOX, 80, 8, 256, 32, "JoeCalc");
+    Items::title = new Fl_Box(FL_NO_BOX, 80, 8, 256, 32, "JoeCalc v0.1.1");
     Items::title->align(FL_ALIGN_TOP_LEFT | FL_ALIGN_INSIDE);
     Items::title->labelsize(24);
     Items::title->labelfont(FL_HELVETICA_BOLD);
@@ -222,6 +222,7 @@ void Gui::init()
 //  window = new MainWin(496, 424, "JoeCalc");
   window = new MainWin(496, 376, "JoeCalc");
   window->callback(closeCallback);
+  window->xclass("JoeCalc");
   icon = new Fl_Pixmap((char * const *)joecalc64x64_xpm);
 
   // menu
