@@ -20,6 +20,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
 #include <cfloat>
 #include <cmath>
+#include <cstring>
+#include <cstdlib>
+#include <cstdio>
 #include <stdint.h>
 #include <stdexcept>
 
@@ -73,6 +76,9 @@ namespace
   {
     switch(mode)
     {
+//      case Calc::MODE_DEC:
+//        *value = (double)atof(display_buf);
+//        break;
       case Calc::MODE_DEC:
         try
         {
@@ -87,43 +93,13 @@ namespace
 
         break;
       case Calc::MODE_HEX:
-        try
-        {
-          *value = (long double)std::stoull(display_buf, 0, 16);
-        }
-          catch (const std::invalid_argument& e)
-        {
-        }
-          catch (const std::out_of_range& e)
-        {
-        }
-
+        *value = (double)strtoull(display_buf, 0, 16);
         break;
       case Calc::MODE_OCT:
-        try
-        {
-          *value = (long double)std::stoull(display_buf, 0, 8);
-        }
-          catch (const std::invalid_argument& e)
-        {
-        }
-          catch (const std::out_of_range& e)
-        {
-        }
-
+        *value = (double)strtoull(display_buf, 0, 8);
         break;
       case Calc::MODE_BIN:
-        try
-        {
-          *value = (long double)std::stoull(display_buf, 0, 2);
-        }
-          catch (const std::invalid_argument& e)
-        {
-        }
-          catch (const std::out_of_range& e)
-        {
-        }
-
+        *value = (double)strtoull(display_buf, 0, 2);
         break;
     }
   }
