@@ -76,21 +76,8 @@ namespace
   {
     switch(mode)
     {
-//      case Calc::MODE_DEC:
-//        *value = (double)atof(display_buf);
-//        break;
       case Calc::MODE_DEC:
-        try
-        {
-          *value = (long double)std::stold(display_buf);
-        }
-          catch (const std::invalid_argument& e)
-        {
-        }
-          catch (const std::out_of_range& e)
-        {
-        }
-
+        *value = (long double)strtold(display_buf, 0);
         break;
       case Calc::MODE_HEX:
         *value = (double)strtoull(display_buf, 0, 16);
