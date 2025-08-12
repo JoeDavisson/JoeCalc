@@ -30,7 +30,7 @@ public:
   static void init();
   static void updateDisplay(const char *);
   static void setMode(int);
-  static void setBinary(double);
+  static void setBinary(long double);
   static Fl_Menu_Bar *getMenuBar();
 
 private:

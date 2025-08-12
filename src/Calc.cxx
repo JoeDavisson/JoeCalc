@@ -18,11 +18,10 @@ along with JoeCalc; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 */
 
+#include <cfloat>
 #include <cmath>
-#include <cstring>
-#include <cstdlib>
-#include <cstdio>
 #include <stdint.h>
+#include <stdexcept>
 
 #include <FL/Fl.H>
 #include <FL/Fl_Input.H>
@@ -38,8 +37,8 @@ namespace
   bool op_started = false;
   int op = Calc::OP_NONE;
   int mode = Calc::MODE_DEC;
-  double value1 = 0;
-  double value2 = 0;
+  long double value1 = 0;
+  long double value2 = 0;
   char display_buf[256];
 
   void btoa(int64_t value, char *buf)
@@ -70,21 +69,61 @@ namespace
     }
   }
 
-  void getValue(double *value)
+  void getValue(long double *value)
   {
     switch(mode)
     {
       case Calc::MODE_DEC:
-        *value = (double)atof(display_buf);
+        try
+        {
+          *value = (long double)std::stold(display_buf);
+        }
+          catch (const std::invalid_argument& e)
+        {
+        }
+          catch (const std::out_of_range& e)
+        {
+        }
+
         break;
       case Calc::MODE_HEX:
-        *value = (double)strtoull(display_buf, 0, 16);
+        try
+        {
+          *value = (long double)std::stoull(display_buf, 0, 16);
+        }
+          catch (const std::invalid_argument& e)
+        {
+        }
+          catch (const std::out_of_range& e)
+        {
+        }
+
         break;
       case Calc::MODE_OCT:
-        *value = (double)strtoull(display_buf, 0, 8);
+        try
+        {
+          *value = (long double)std::stoull(display_buf, 0, 8);
+        }
+          catch (const std::invalid_argument& e)
+        {
+        }
+          catch (const std::out_of_range& e)
+        {
+        }
+
         break;
       case Calc::MODE_BIN:
-        *value = (double)strtoull(display_buf, 0, 2);
+        try
+        {
+          *value = (long double)std::stoull(display_buf, 0, 2);
+        }
+          catch (const std::invalid_argument& e)
+        {
+        }
+          catch (const std::out_of_range& e)
+        {
+        }
+
         break;
     }
   }
@@ -134,10 +173,10 @@ namespace
 
   void update()
   {
-    double temp_value = 0;
+    long double temp_value = 0;
     getValue(&temp_value);
 
-    if(temp_value > 9007199254740992 || temp_value < -9007199254740992)
+    if(temp_value > LDBL_MAX || temp_value < LDBL_MIN)
     {
       Gui::setBinary(0);
       Gui::updateDisplay("Out of Range");
@@ -164,12 +203,12 @@ namespace
     value2 = 0;
   }
 
-  void replace(double value)
+  void replace(long double value)
   {
     if(value == 0)
       just_cleared = true;
 
-    if(value > 9007199254740992 || value < -9007199254740992)
+    if(value > LDBL_MAX || value < LDBL_MIN)
     {
       replace("Out of Range");
       value = 0;
@@ -177,7 +216,7 @@ namespace
     else switch(mode)
     {
       case Calc::MODE_DEC:
-        sprintf(display_buf, "%.16g", value);
+        sprintf(display_buf, "%.16Lg", value);
         break;
       case Calc::MODE_HEX:
         sprintf(display_buf, "%llX", (long long int)value);
@@ -434,13 +473,13 @@ void Calc::key_equals()
       replace(pow(value1, value2));
       break;
     case OP_AND:
-      replace((double)((int64_t)value1 & (int64_t)value2));
+      replace((long double)((int64_t)value1 & (int64_t)value2));
       break;
     case OP_OR:
-      replace((double)((int64_t)value1 | (int64_t)value2));
+      replace((long double)((int64_t)value1 | (int64_t)value2));
       break;
     case OP_XOR:
-      replace((double)((int64_t)value1 ^ (int64_t)value2));
+      replace((long double)((int64_t)value1 ^ (int64_t)value2));
       break;
     case OP_MOD:
       if(value2 != 0)
@@ -517,9 +556,9 @@ void Calc::key_sign()
 
 void Calc::key_invert()
 {
-  double temp = 0;
+  long double temp = 0;
   getValue(&temp);
-  value1 = (double)(~((int64_t)temp));
+  value1 = (long double)(~((int64_t)temp));
   replace(value1);
 }
 
@@ -545,17 +584,17 @@ void Calc::key_mod()
 
 void Calc::key_shl()
 {
-  double temp = 0;
+  long double temp = 0;
   getValue(&temp);
-  value1 = (double)((int64_t)temp << 1);
+  value1 = (long double)((int64_t)temp << 1);
   replace(value1);
 }
 
 void Calc::key_shr()
 {
-  double temp = 0;
+  long double temp = 0;
   getValue(&temp);
-  value1 = (double)((int64_t)temp >> 1);
+  value1 = (long double)((int64_t)temp >> 1);
   replace(value1);
 }
 
@@ -593,7 +632,7 @@ void Calc::key_bin()
 
 void Calc::key_sqrt()
 {
-  double temp = 0;
+  long double temp = 0;
   getValue(&temp);
   value1 = sqrt(temp);
   replace(value1);
@@ -601,7 +640,7 @@ void Calc::key_sqrt()
 
 void Calc::key_recip()
 {
-  double temp = 0;
+  long double temp = 0;
   getValue(&temp);
 
   if(temp != 0)
@@ -618,7 +657,7 @@ void Calc::key_recip()
 
 void Calc::key_int()
 {
-  double temp = 0;
+  long double temp = 0;
   getValue(&temp);
   value1 = (int64_t)temp;
   replace(value1);
@@ -626,7 +665,7 @@ void Calc::key_int()
 
 void Calc::key_incr()
 {
-  double temp = 0;
+  long double temp = 0;
   getValue(&temp);
   temp = (int64_t)temp;
   temp++;
@@ -647,7 +686,7 @@ void Calc::key_pi()
 
 void Calc::key_frac()
 {
-  double temp = 0;
+  long double temp = 0;
   getValue(&temp);
   value1 = temp - (int64_t)temp;
   replace(value1);
@@ -655,7 +694,7 @@ void Calc::key_frac()
 
 void Calc::key_decr()
 {
-  double temp = 0;
+  long double temp = 0;
   getValue(&temp);
   temp = (int64_t)temp;
   temp--;

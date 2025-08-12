@@ -411,7 +411,7 @@ void Gui::setMode(int mode)
   key_bin->redraw();
 }
 
-void Gui::setBinary(double value)
+void Gui::setBinary(long double value)
 {
   char binary_buf[256];
   char hex_buf[256];
