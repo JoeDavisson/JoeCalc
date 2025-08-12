@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2023 Joe Davisson.
+Copyright (c) 2025 Joe Davisson.
 
 This file is part of JoeCalc.
 
@@ -23,29 +23,27 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #include <FL/fl_ask.H>
 #include <FL/fl_draw.H>
 #include <FL/Fl.H>
-#include <FL/Fl_Button.H>
+#include <FL/Fl_Toggle_Button.H>
 
-#include "Button.H"
+#include "ToggleButton.H"
 
-Button::Button(int x, int y, int w, int h, const char *label, Fl_Callback *cb)
-: Fl_Button(x, y, w, h, label)
-{
-  if(cb)
-    callback(cb);
-}
-
-Button::~Button()
+ToggleButton::ToggleButton(int x, int y, int w, int h, const char *label)
+: Fl_Toggle_Button(x, y, w, h, label)
 {
 }
 
-void Button::draw()
+ToggleButton::~ToggleButton()
+{
+}
+
+void ToggleButton::draw()
 {
   int lw, lh;
 
   if(value())
-    fl_draw_box(FL_THIN_DOWN_BOX, x(), y(), w(), h(), FL_INACTIVE_COLOR);
+    fl_draw_box(FL_DOWN_BOX, x(), y(), w(), h(), FL_INACTIVE_COLOR);
   else
-    fl_draw_box(FL_THIN_UP_BOX, x(), y(), w(), h(), FL_BACKGROUND2_COLOR);
+    fl_draw_box(FL_UP_BOX, x(), y(), w(), h(), FL_BACKGROUND2_COLOR);
 
   if(strlen(label()) > 0)
   {

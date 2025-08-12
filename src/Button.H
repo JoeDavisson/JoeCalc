@@ -1,41 +1,36 @@
 /*
-Copyright (c) 2023 Joe Davisson.
+Copyright (c) 2025 Joe Davisson.
 
 This file is part of JoeCalc.
 
-JoeCalc is free software; you can redistribute it and/or modify
+Rendera is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or
 (at your option) any later version.
 
-JoeCalc is distributed in the hope that it will be useful,
+Rendera is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with JoeCalc; if not, write to the Free Software
+along with Rendera; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 */
 
-#ifndef GUI_H
-#define GUI_H
+#ifndef BUTTON_H
+#define BUTTON_H
 
-class Fl_Box;
-class Fl_Menu_Bar;
+#include <FL/Fl_Button.H>
 
-class Gui
+class Button : public Fl_Button
 {
 public:
-  static void init();
-  static void updateDisplay(const char *);
-  static void setMode(int);
-  static void setBinary(double);
-  static Fl_Menu_Bar *getMenuBar();
+  Button(int, int, int, int, const char *, Fl_Callback *);
+  ~Button();
 
-private:
-  Gui() { }
-  ~Gui() { }
+protected:
+  void draw();
 };
 
 #endif

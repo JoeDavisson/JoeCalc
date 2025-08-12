@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2023 Joe Davisson.
+Copyright (c) 2025 Joe Davisson.
 
 This file is part of JoeCalc.
 
@@ -18,16 +18,16 @@ along with Rendera; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 */
 
-#ifndef BUTTON_H
-#define BUTTON_H
+#ifndef TOGGLE_BUTTON_H
+#define TOGGLE_BUTTON_H
 
-#include <FL/Fl_Button.H>
+#include <FL/Fl_Toggle_Button.H>
 
-class Button : public Fl_Button
+class ToggleButton : public Fl_Toggle_Button
 {
 public:
-  Button(int, int, int, int, const char *, Fl_Callback *);
-  ~Button();
+  ToggleButton(int, int, int, int, const char *);
+  ~ToggleButton();
 
 protected:
   void draw();

@@ -1,25 +1,27 @@
+# JoeCalc
 # Makefile for Linux
 
-INCLUDES=$(shell ./fltk-1.3.7/fltk-config --use-images --cflags)
-LIBS=$(shell ./fltk-1.3.7/fltk-config --use-images --ldflags)
-CXXFLAGS=-O3 -Wall $(INCLUDES)
+VERSION=0.1.2
+SRC_DIR=src
+INCLUDES=$(shell fltk-config --use-images --cflags)
+LIBS=$(shell fltk-config --use-images --ldflags)
+CXXFLAGS=-O3 -Wall -DPACKAGE_STRING=\"$(VERSION)\" $(INCLUDES)
 CXX=g++
-OBJ=Button.o ToggleButton.o Calc.o Gui.o
+
+OBJ= \
+  $(SRC_DIR)/Button.o \
+  $(SRC_DIR)/ToggleButton.o \
+  $(SRC_DIR)/Calc.o \
+  $(SRC_DIR)/Gui.o
 
 default: $(OBJ)
-	$(CXX) -o joecalc Main.cxx $(OBJ) $(CXXFLAGS) $(LIBS)
-
-fltk:
-	@cd ./fltk-1.3.7; \
-	make clean; \
-	./configure --host=$(HOST) --enable-xft --enable-localjpeg --enable-localzlib --enable-localpng --disable-xdbe; \
-	cd ..
-	@echo "FLTK libs built!"
+	$(CXX) -o joecalc $(SRC_DIR)/Main.cxx $(OBJ) $(CXXFLAGS) $(LIBS)
 
 %.o: %.cxx %.H
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	@rm -f *.o joecalc
+	@rm -f $(SRC_DIR)/*.o
+	@rm -f ./joecalc
 	@echo "Clean!"
 

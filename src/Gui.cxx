@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2023 Joe Davisson.
+Copyright (c) 2025 Joe Davisson.
 
 This file is part of JoeCalc.
 
@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #include "Calc.H"
 #include "Gui.H"
 #include "ToggleButton.H"
-#include "joecalc64x64.xpm"
+#include "../icons/joecalc64x64.xpm"
 
 class MainWin;
 class Button;
@@ -145,6 +145,8 @@ public:
   
   int handle(int event)
   {
+    int ret = 0;
+
     switch(event)
     {
       case FL_FOCUS:
@@ -159,8 +161,15 @@ public:
           return 0;
         }
 
-        Calc::keypress(Fl::event_key(), Fl::event_shift() != 0 ? true : false);
-        return 1;
+        ret = Calc::keypress(Fl::event_key(),
+                             Fl::event_shift() ? true : false,
+                             Fl::event_ctrl() ? true : false);
+
+        // pass ctrl +/-/0 to allow DPI scaling
+        if (ret == -1)
+          return Fl_Double_Window::handle(event);
+        else
+          return 1;
       default:
         return Fl_Double_Window::handle(event);
     }
@@ -196,12 +205,11 @@ namespace About
     Items::dialog = new Fl_Double_Window(344, 160, "About");
     Items::dialog->set_modal();
     Items::close = new Button(124, 112, 96, 32, "Ok", (Fl_Callback *)hide);
-//    Items::close->callback((Fl_Callback *)hide);
-    Items::title = new Fl_Box(FL_NO_BOX, 80, 8, 256, 32, "JoeCalc v0.1.1");
+    Items::title = new Fl_Box(FL_NO_BOX, 80, 8, 256, 32, PACKAGE_STRING);
     Items::title->align(FL_ALIGN_TOP_LEFT | FL_ALIGN_INSIDE);
     Items::title->labelsize(24);
     Items::title->labelfont(FL_HELVETICA_BOLD);
-    Items::copyright = new Fl_Box(FL_NO_BOX, 80, 40, 256, 32, "Copyright (c) 2023 Joe Davisson");
+    Items::copyright = new Fl_Box(FL_NO_BOX, 80, 40, 256, 32, "Copyright (c) 2025 Joe Davisson");
     Items::copyright->align(FL_ALIGN_TOP_LEFT | FL_ALIGN_INSIDE);
     Items::info = new Fl_Box(FL_NO_BOX, 80, 64, 256, 32, credits);
     Items::info->align(FL_ALIGN_LEFT | FL_ALIGN_BOTTOM | FL_ALIGN_INSIDE);

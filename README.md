@@ -19,5 +19,5 @@ Backspace deletes last character
 Escape clears result
 ```
 
-Uses FLTK 1.3.7.
+Uses FLTK 1.4.x.
 

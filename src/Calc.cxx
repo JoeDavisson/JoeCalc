@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2023 Joe Davisson.
+Copyright (c) 2025 Joe Davisson.
 
 This file is part of JoeCalc.
 
@@ -257,67 +257,75 @@ printf("%s\n", in->value());
 }
 */
 
-void Calc::keypress(const int c, const bool shifted)
+int Calc::keypress(const int c, const bool shift, const bool ctrl)
 {
+  // pass ctrl on
+  if (ctrl)
+    return -1;
+
   switch(c)
   {
     case '=':
-      if(shifted)
+      if (shift)
+      {
         key_add();
-      else
+      }
+        else
+      {
         key_equals();
-      return;
+      }
+      return 0;
     case '-':
       key_sub();
-      return;
+      return 0;
     case '8':
-      if(shifted)
+      if(shift)
       {
         key_mul();
-        return;
+        return 0;
       }
       break;
     case '/':
       key_div();
-      return;
+      return 0;
     case FL_Enter:
       key_equals();
-      return;
+      return 0;
     case FL_Escape:
       key_clear();
-      return;
+      return 0;
     case '7':
-      if(shifted)
+      if(shift)
       {
         key_and();
-        return;
+        return 0;
       }
       break;
     case '\\':
-      if(shifted)
+      if(shift)
       {
         key_or();
-        return;
+        return 0;
       }
       break;
     case '6':
-      if(shifted)
+      if(shift)
       {
         key_xor();
-        return;
+        return 0;
       }
       break;
     case '5':
-      if(shifted)
+      if(shift)
       {
         key_mod();
-        return;
+        return 0;
       }
       break;
   }
 
-  if(shifted)
-    return;
+  if(shift)
+    return 0;
 
   if(just_cleared)
   {
@@ -337,8 +345,9 @@ void Calc::keypress(const int c, const bool shifted)
   {
     append(c);
   }
-}
 
+  return 0;
+}
 void Calc::key_clear()
 {
   replace("0");

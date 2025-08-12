@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2023 Joe Davisson.
+Copyright (c) 2025 Joe Davisson.
 
 This file is part of JoeCalc.
 
@@ -47,9 +47,7 @@ public:
   };
 
   static void copyToClipboard();
-//  void pasteFromClipboard();
-
-  static void keypress(const int, const bool);
+  static int keypress(const int, const bool, const bool);
   static void changed();
 
   static void key_clear();
