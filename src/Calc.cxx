@@ -139,10 +139,8 @@ namespace
     long double temp_value = 0;
     getValue(&temp_value);
 
-//    if(temp_value > LDBL_MAX || temp_value < LDBL_MIN)
-    if (temp_value > std::numeric_limits<double>::max() || temp_value < std::numeric_limits<double>::min())
+    if (temp_value > std::numeric_limits<double>::max() || temp_value < std::numeric_limits<double>::lowest())
     {
-/*
       Gui::setBinary(0);
       Gui::updateDisplay("Out of Range");
       op_started = false;
@@ -150,7 +148,6 @@ namespace
       value1 = 0;
       value2 = 0;
       return;
-*/
     }
       else
     {
@@ -174,11 +171,10 @@ namespace
     if (value == 0)
       just_cleared = true;
 
-//    if(value > LDBL_MAX || value < LDBL_MIN)
-    if (value > std::numeric_limits<double>::max() || value < std::numeric_limits<double>::min())
+    if (value > std::numeric_limits<double>::max() || value < std::numeric_limits<double>::lowest())
     {
-//      replace("Out of Range");
-//      value = 0;
+      replace("Out of Range");
+      value = 0;
     }
     else switch(mode)
     {
