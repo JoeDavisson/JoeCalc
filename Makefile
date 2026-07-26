@@ -15,10 +15,10 @@ SRC_DIR=src
 INCLUDE=-I$(SRC_DIR) -I$(FLTK_DIR)
 
 ifeq ($(PLATFORM),linux)
-  LIBS=$(shell ./$(FLTK_DIR)/fltk-config --use-cairo --use-images --ldstaticflags)
+  LIBS=$(shell ./$(FLTK_DIR)/fltk-config --use-images --ldstaticflags)
   HOST=
   CXX=g++
-  CXXFLAGS=$(shell pkg-config --cflags cairo)
+#  CXXFLAGS=$(shell pkg-config --cflags cairo)
   CXXFLAGS+=-O3 -Wall -Wunused-parameter -DPACKAGE_STRING=\"$(VERSION)\" $(INCLUDE)
   EXE=joecalc
 endif
@@ -46,7 +46,7 @@ default: $(OBJ)
 fltklib:
 	cd ./$(FLTK_DIR); \
 	make clean; \
-	./configure --host=$(HOST) --enable-cairo --enable-cairoext --enable-usecairo --enable-pango --enable-localjpeg --enable-localzlib --enable-localpng --disable-xdbe; \
+	./configure --host=$(HOST) --enable-localjpeg --enable-localzlib --enable-localpng --disable-xdbe; \
 	make -j20; \
 	cd ..; \
 	echo "FLTK lib built.";
