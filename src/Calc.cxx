@@ -350,6 +350,7 @@ int Calc::keypress(const int c, const bool shift, const bool ctrl)
 
   return 0;
 }
+
 void Calc::key_clear()
 {
   replace("0");

@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #include "Calc.H"
 #include "Gui.H"
 
+FL_EXPORT bool fl_disable_wayland = true;
+
 enum
 {
   OPTION_THEME,

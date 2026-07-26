@@ -164,15 +164,14 @@ public:
         ret = Calc::keypress(Fl::event_key(),
                              Fl::event_shift() ? true : false,
                              Fl::event_ctrl() ? true : false);
-
         // pass ctrl +/-/0 to allow DPI scaling
         if (ret == -1)
           return Fl_Double_Window::handle(event);
         else
           return 1;
-      default:
-        return Fl_Double_Window::handle(event);
     }
+
+    return Fl_Double_Window::handle(event);
   }
 };
 
