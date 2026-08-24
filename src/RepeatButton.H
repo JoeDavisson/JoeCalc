@@ -18,32 +18,25 @@ along with JoeCalc; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 */
 
-#ifndef GUI_H
-#define GUI_H
+#ifndef REPEAT_BUTTON_H
+#define REPEAT_BUTTON_H
 
-#include <quadmath.h>
+#include <FL/Fl_Repeat_Button.H>
 
-class Fl_Box;
-class Fl_Menu_Bar;
-
-class Gui
+class RepeatButton : public Fl_Repeat_Button
 {
 public:
-  static void init();
-  static void updateDisplay(const char *);
-  static void setDigits(__float128);
-  static Fl_Menu_Bar *getMenuBar();
-  static void setMenuItem(const char *);
-  static void clearMenuItem(const char *);
-  static void appendDec(__float128);
-  static void appendHex(__float128);
-  static void appendOct(__float128);
-  static void appendBin(__float128);
-  static void printResult(__float128, const bool);
+  RepeatButton(int, int, int, int, const char *, Fl_Callback *);
+  RepeatButton(int, int, int, int, const char *, int, Fl_Callback *);
+  ~RepeatButton();
+
+  void shade(int);
 
 private:
-  Gui() { }
-  ~Gui() { }
+  Fl_Color bgcolor1, bgcolor2;
+
+protected:
+  void draw();
 };
 
 #endif

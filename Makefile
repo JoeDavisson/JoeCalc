@@ -10,7 +10,7 @@ FLTK_DIR=fltk-1.4.5
 PLATFORM=linux
 #PLATFORM=mingw64
 
-VERSION=0.1.5
+VERSION=0.2.0
 SRC_DIR=src
 INCLUDE=-I$(SRC_DIR) -I$(FLTK_DIR)
 
@@ -18,8 +18,8 @@ ifeq ($(PLATFORM),linux)
   LIBS=$(shell ./$(FLTK_DIR)/fltk-config --use-images --ldstaticflags)
   HOST=
   CXX=g++
-#  CXXFLAGS=$(shell pkg-config --cflags cairo)
-  CXXFLAGS+=-O3 -Wall -Wunused-parameter -DPACKAGE_STRING=\"$(VERSION)\" $(INCLUDE)
+  LIBS+=-lquadmath
+  CXXFLAGS+=-O3 -s -Wall -Wunused-parameter -DPACKAGE_STRING=\"$(VERSION)\" $(INCLUDE)
   EXE=joecalc
 endif
 
@@ -33,10 +33,12 @@ ifeq ($(PLATFORM),mingw64)
 endif
 
 OBJ= \
+  $(SRC_DIR)/InputText.o \
   $(SRC_DIR)/Button.o \
-  $(SRC_DIR)/Calc.o \
-  $(SRC_DIR)/Gui.o \
-  $(SRC_DIR)/ToggleButton.o
+  $(SRC_DIR)/RepeatButton.o \
+  $(SRC_DIR)/StyledText.o \
+  $(SRC_DIR)/Parse.o \
+  $(SRC_DIR)/Gui.o
 
 # build program
 default: $(OBJ)
@@ -47,7 +49,7 @@ fltklib:
 	cd ./$(FLTK_DIR); \
 	make clean; \
 	./configure --host=$(HOST) --enable-localjpeg --enable-localzlib --enable-localpng --disable-xdbe; \
-	make -j20; \
+	make -j10; \
 	cd ..; \
 	echo "FLTK lib built.";
 

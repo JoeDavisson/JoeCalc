@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2025 Joe Davisson.
+Copyright (c) 2026 Joe Davisson.
 
 This file is part of JoeCalc.
 
@@ -23,14 +23,13 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #include <FL/Fl.H>
 #include <FL/fl_ask.H>
 
-#include "Calc.H"
 #include "Gui.H"
 
 FL_EXPORT bool fl_disable_wayland = true;
 
 enum
 {
-  OPTION_THEME,
+  OPTION_VERSION,
   OPTION_HELP
 };
 
@@ -38,19 +37,10 @@ int verbose_flag;
 
 struct option long_options[] =
 {
-  { "theme",   required_argument, &verbose_flag, OPTION_THEME },
-  { "help",    no_argument,       &verbose_flag, OPTION_HELP  },
+  { "version", no_argument, &verbose_flag, OPTION_VERSION },
+  { "help", no_argument, &verbose_flag, OPTION_HELP },
   { 0, 0, 0, 0 }
 };
-
-void setDarkTheme()
-{
-  Fl::set_color(FL_BACKGROUND_COLOR, 56, 56, 56);
-  Fl::set_color(FL_BACKGROUND2_COLOR, 48, 48, 48);
-  Fl::set_color(FL_FOREGROUND_COLOR, 192, 192, 192);
-  Fl::set_color(FL_INACTIVE_COLOR, 64, 64, 64);
-  Fl::set_color(FL_SELECTION_COLOR, 192, 192, 192);
-}
 
 void setLightTheme()
 {
@@ -63,9 +53,8 @@ void setLightTheme()
 
 void printHelp()
 {
-  printf("Usage: joecalc [OPTIONS] filename\n\n");
-  printf("--theme=dark\t\t use dark theme\n");
-  printf("--theme=light\t\t use light theme\n\n");
+  printf("Usage: funcalc [OPTIONS]\n");
+  printf("--version\t\t print version\n");
 }
 
 int main(int argc, char *argv[])
@@ -78,6 +67,7 @@ int main(int argc, char *argv[])
   while(true)
   {
     const int c = getopt_long(argc, argv, "", long_options, &option_index);
+
     if(c < 0)
       break;
 
@@ -87,19 +77,9 @@ int main(int argc, char *argv[])
       {
         switch(option_index)
         {
-          case OPTION_THEME:
-            if(strcmp(optarg, "dark") == 0)
-              {
-                setDarkTheme();
-                break;
-              }
-              if(strcmp(optarg, "light") == 0)
-              {
-                setLightTheme();
-                break;
-              }
-              printf("Unknown theme: '%s'\n\n", optarg);
-              return 0;
+          case OPTION_VERSION:
+            printf("%s\n", PACKAGE_STRING);
+            return 0;
 
           case OPTION_HELP:
             printHelp();
@@ -120,7 +100,6 @@ int main(int argc, char *argv[])
 
   Gui::init();
 
-  int ret = Fl::run();
-  return ret;
+  return Fl::run();
 }
 

@@ -18,32 +18,32 @@ along with JoeCalc; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 */
 
-#ifndef GUI_H
-#define GUI_H
+#ifndef STYLEDTEXT_H
+#define STYLEDTEXT_H
 
-#include <quadmath.h>
+#include <FL/Fl_Text_Buffer.H>
+#include <FL/Fl_Text_Display.H>
 
-class Fl_Box;
-class Fl_Menu_Bar;
-
-class Gui
+class StyledText : public Fl_Group
 {
 public:
-  static void init();
-  static void updateDisplay(const char *);
-  static void setDigits(__float128);
-  static Fl_Menu_Bar *getMenuBar();
-  static void setMenuItem(const char *);
-  static void clearMenuItem(const char *);
-  static void appendDec(__float128);
-  static void appendHex(__float128);
-  static void appendOct(__float128);
-  static void appendBin(__float128);
-  static void printResult(__float128, const bool);
+  StyledText(int, int, int, int, int);
+  ~StyledText();
+
+  void append(const char *, const char *, const char *, const char, const char);
+  void append(const char *, const char);
+  void append(const char *);
+  void clear();
+  void setFontSize(const int);
+  void bgColor(const Fl_Color);
+  void resize(int, int, int, int);
+  char *copySelected();
 
 private:
-  Gui() { }
-  ~Gui() { }
+  Fl_Text_Display *text_display;
+  Fl_Text_Buffer *text_buf;
+  Fl_Text_Buffer *style_buf;
+  int scrollback_limit;
 };
 
 #endif

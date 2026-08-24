@@ -18,33 +18,36 @@ along with JoeCalc; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 */
 
-#ifndef GUI_H
-#define GUI_H
+#include <cstdio>
+#include <cstdlib>
 
-#include <quadmath.h>
+#include <FL/Fl_Input.H>
 
-class Fl_Box;
-class Fl_Menu_Bar;
+#include "InputText.H"
 
-class Gui
+InputText::InputText(int x, int y, int w, int h, const char *text)
+: Fl_Input(x, y, w, h, 0)
 {
-public:
-  static void init();
-  static void updateDisplay(const char *);
-  static void setDigits(__float128);
-  static Fl_Menu_Bar *getMenuBar();
-  static void setMenuItem(const char *);
-  static void clearMenuItem(const char *);
-  static void appendDec(__float128);
-  static void appendHex(__float128);
-  static void appendOct(__float128);
-  static void appendBin(__float128);
-  static void printResult(__float128, const bool);
+  textsize(16);
+  copy_label(text);
+}
 
-private:
-  Gui() { }
-  ~Gui() { }
-};
+InputText::~InputText()
+{
+}
 
-#endif
+int InputText::handle(int event)
+{
+  int key;
+
+  if (event == FL_KEYBOARD)
+  {
+    key = Fl::event_key();
+
+    if (key == FL_Up) { undo(); return 1; }
+    else if (key == FL_Down) { redo(); return 1; }
+  }
+
+  return Fl_Input::handle(event);
+}
 

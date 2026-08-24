@@ -1,23 +1,32 @@
 ![Screenshot](https://github.com/JoeDavisson/JoeCalc/blob/master/screenshots/screenshot.png)
 
-A simple programmer's calculator. There are buttons for decimal, hexadecimal, octal, and binary for easy conversion.
+### Overview
 
-Calculations are done in double-precision floating-point, therefore there is a range limit of -(2^53) to +(2^53). An error is displayed when the result goes out of this range. Integer operatons automatically reject the fractional part.
+JoeCalc is a calculator with a C-style interface. Input equations may include a mix of number bases and bitwise operators: decimal, hexadecimal, octal, and binary are supported.
 
-Keyboard commands are similar to C operations:
-```
-+ add
-- subtract
-* multiply
-/ divide
-& and
-| or
-^ xor
-% modulus
-= (or Enter) get result
-Backspace deletes last character
-Escape clears result
-```
+### Using the Calculator
 
-Uses FLTK 1.4.x.
+The input field accepts numbers prefixed with 0x, 0o, 0b (hexadecimal, octal, binary). Hitting <kbd>return</kbd> calculates the result. The buttons to the right of the display work directly on the result.
 
+Text may be copied from the output display to the input field by either using cut/paste via the right-click menus, or <kbd>Ctrl-C</kbd> and <kbd>Ctrl-V</kbd> . The insert ins key copies selected text from the display to the input field at the current cursor position.
+
+The field supports undo/redo via <kbd>Ctrl-Z</kbd> and <kbd>Shift-Ctrl-Z</kbd>, or simply use the up/down arrow keys.
+
+Most of the buttons simply append their label text to the input. The same is true for items in the function menu, which basically serves as a list of what is available for now.
+
+FLTK 1.4.x supports DPI scaling with <kbd>Ctrl +</kbd>, <kbd>Ctrl -</kbd>. Reset to 100% with <kbd>Ctrl 0</kbd>.
+
+### Notes
+
+* Prefixes are required for hexadecimal, octal, and binary, regardless of the output mode.
+* Input may be signed or unsigned, but non-decimal results are always displayed as unsigned.
+* Bitwise operations truncate the immediate results of those operations.
+* Results are limited to the INT64_MIN / UINT64_MAX range.
+
+### Building
+
+Please see the Makefile for compilation instructions.
+
+### Dependencies
+
+* fltk-1.4.5 source

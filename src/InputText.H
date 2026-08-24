@@ -18,32 +18,20 @@ along with JoeCalc; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 */
 
-#ifndef GUI_H
-#define GUI_H
+#ifndef INPUT_TEXT_H
+#define INPUT_TEXT_H
 
-#include <quadmath.h>
+#include <FL/Fl_Input.H>
 
-class Fl_Box;
-class Fl_Menu_Bar;
+class Fl_Group;
 
-class Gui
+class InputText : public Fl_Input
 {
 public:
-  static void init();
-  static void updateDisplay(const char *);
-  static void setDigits(__float128);
-  static Fl_Menu_Bar *getMenuBar();
-  static void setMenuItem(const char *);
-  static void clearMenuItem(const char *);
-  static void appendDec(__float128);
-  static void appendHex(__float128);
-  static void appendOct(__float128);
-  static void appendBin(__float128);
-  static void printResult(__float128, const bool);
+  InputText(int, int, int, int, const char *);
+  ~InputText();
 
-private:
-  Gui() { }
-  ~Gui() { }
+  int handle(int);
 };
 
 #endif

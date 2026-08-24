@@ -1,36 +1,36 @@
 /*
-Copyright (c) 2025 Joe Davisson.
+Copyright (c) 2026 Joe Davisson.
 
 This file is part of JoeCalc.
 
-Rendera is free software; you can redistribute it and/or modify
+JoeCalc is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or
 (at your option) any later version.
 
-Rendera is distributed in the hope that it will be useful,
+JoeCalc is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with Rendera; if not, write to the Free Software
+along with JoeCalc; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 */
 
-#ifndef TOGGLE_BUTTON_H
-#define TOGGLE_BUTTON_H
+#ifndef PARSE_H
+#define PARSE_H
 
-#include <FL/Fl_Toggle_Button.H>
+#include <quadmath.h>
 
-class ToggleButton : public Fl_Toggle_Button
+class Parse
 {
 public:
-  ToggleButton(int, int, int, int, const char *);
-  ~ToggleButton();
+  static __float128 evalExpr(const char *);
 
-protected:
-  void draw();
+private:
+  Parse() { }
+  ~Parse() { }
 };
 
 #endif

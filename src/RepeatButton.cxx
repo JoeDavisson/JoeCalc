@@ -23,12 +23,12 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #include <FL/fl_ask.H>
 #include <FL/fl_draw.H>
 #include <FL/Fl.H>
-#include <FL/Fl_Button.H>
+#include <FL/Fl_Repeat_Button.H>
 
-#include "Button.H"
+#include "RepeatButton.H"
 
-Button::Button(int x, int y, int w, int h, const char *label, Fl_Callback *cb)
-: Fl_Button(x, y, w, h, label)
+RepeatButton::RepeatButton(int x, int y, int w, int h, const char *label, Fl_Callback *cb)
+: Fl_Repeat_Button(x, y, w, h, label)
 {
   if (cb) { callback(cb); }
 
@@ -36,20 +36,20 @@ Button::Button(int x, int y, int w, int h, const char *label, Fl_Callback *cb)
   bgcolor2 = FL_INACTIVE_COLOR;
 }
 
-Button::Button(int x, int y, int w, int h, const char *label,
+RepeatButton::RepeatButton(int x, int y, int w, int h, const char *label,
                int color, Fl_Callback *cb)
-: Fl_Button(x, y, w, h, label)
+: Fl_Repeat_Button(x, y, w, h, label)
 {
   if (cb) { callback(cb); }
 
   shade(color);
 }
 
-Button::~Button()
+RepeatButton::~RepeatButton()
 {
 }
 
-void Button::shade(int v)
+void RepeatButton::shade(int v)
 {
   if (v < 0) { v = 0; }
   if (v > 7) { v = 7; }
@@ -61,7 +61,7 @@ void Button::shade(int v)
   bgcolor2 = fl_rgb_color(v - 8, v - 8, v - 8);
 }
 
-void Button::draw()
+void RepeatButton::draw()
 {
   int lw, lh;
 
