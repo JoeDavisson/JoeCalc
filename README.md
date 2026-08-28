@@ -22,6 +22,7 @@ FLTK 1.4.x supports DPI scaling with <kbd>Ctrl +</kbd>, <kbd>Ctrl -</kbd>. Reset
 * Input may be signed or unsigned, but non-decimal results are always displayed as unsigned.
 * Bitwise operations truncate the immediate results of those operations.
 * Results are limited to the INT64_MIN / UINT64_MAX range.
+* The <kbd>++</kbd>, <kbd>--</kbd>, <kbd><< 1</kbd>, and <kbd>>> 1</kbd> buttons may be held down.
 
 ### Building
 
