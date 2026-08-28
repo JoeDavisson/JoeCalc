@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 */
 
 #include <cmath>
+#include <cstring>
 #include <stdint.h>
 #include <quadmath.h>
 
@@ -173,9 +174,37 @@ namespace
 
   void cb_insert_func(Fl_Widget *w, void *)
   {
+    char temp_buf[1024];
     Fl_Menu_ *menu = (Fl_Menu_*)w;
     const Fl_Menu_Item *item = menu->mvalue();
-    input->insert(item->label());
+
+    int start = std::min(input->insert_position(), input->mark());
+    int end = std::max(input->insert_position(), input->mark());
+    int index = 0;
+
+    if (start != end)
+    {
+      for (size_t i = 0; i < strlen(item->label()); i++)
+      {
+        temp_buf[index++] = item->label()[i];
+      }
+
+      temp_buf[index++] = '(';
+
+      for (int i = start; i < end; i++)
+      {
+        temp_buf[index++] = input->value()[i];
+      }
+
+      temp_buf[index++] = ')';
+      temp_buf[index++] = '\0';
+      input->insert(temp_buf);
+    }
+      else
+    {
+      input->insert(item->label());
+    }
+
     input->take_focus();
   }
 
