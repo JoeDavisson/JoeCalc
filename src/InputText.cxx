@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 InputText::InputText(int x, int y, int w, int h, const char *text)
 : Fl_Input(x, y, w, h, 0)
 {
+  maximum_size(256);
   textsize(16);
   copy_label(text);
 }

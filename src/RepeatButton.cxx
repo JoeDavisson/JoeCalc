@@ -63,7 +63,7 @@ void RepeatButton::shade(int v)
 
 void RepeatButton::draw()
 {
-  int lw, lh;
+  int lw = 0, lh = 0;
 
   fl_draw_box(FL_THIN_DOWN_FRAME, x(), y(), w(), h(), bgcolor1);
 

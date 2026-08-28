@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
 #include <cmath>
 #include <cstring>
+#include <string>
 #include <stdint.h>
 #include <quadmath.h>
 
@@ -174,7 +175,8 @@ namespace
 
   void cb_insert_func(Fl_Widget *w, void *)
   {
-    char temp_buf[1024];
+    std::string buf(1024, '\0');
+
     Fl_Menu_ *menu = (Fl_Menu_*)w;
     const Fl_Menu_Item *item = menu->mvalue();
 
@@ -186,19 +188,19 @@ namespace
     {
       for (size_t i = 0; i < strlen(item->label()); i++)
       {
-        temp_buf[index++] = item->label()[i];
+        buf[index++] = item->label()[i];
       }
 
-      temp_buf[index++] = '(';
+      buf[index++] = '(';
 
       for (int i = start; i < end; i++)
       {
-        temp_buf[index++] = input->value()[i];
+        buf[index++] = input->value()[i];
       }
 
-      temp_buf[index++] = ')';
-      temp_buf[index++] = '\0';
-      input->insert(temp_buf);
+      buf[index++] = ')';
+      buf[index++] = '\0';
+      input->insert(buf.data());
     }
       else
     {
@@ -588,12 +590,11 @@ void Gui::appendDec(const __float128 result)
 {
   if (mode != MODE_DEC) { return; };
 
-  char buf[1024];
-  const int len = sizeof(buf);
-  int bytes = 0;
+  std::string buf(1024, '\0');
 
-  // decimal
-  bytes = quadmath_snprintf(buf, len, "%.20Qf", result);
+  const int bytes = quadmath_snprintf(buf.data(), buf.length(), "%.20Qf", result);
+
+  if (bytes == 0) { return; }
 
   // trim trailing zeros
   for (int i = bytes - 1; i >= 0; i--)
@@ -613,9 +614,9 @@ void Gui::appendDec(const __float128 result)
     }
   }
 
-  display->append(buf, 'A');
+  display->append(buf.data(), 'A');
   display->append("\n");
-  input->replace(0, input->size(), buf);
+  input->replace(0, input->size(), buf.data());
 
   Gui::setDigits(result);
   old_result = result;
@@ -625,23 +626,23 @@ void Gui::appendHex(const __float128 result)
 {
   if (mode != MODE_HEX) { return; };
 
-  char buf[1024];
-  const int len = sizeof(buf);
+  std::string buf(1024, '\0');
+  const int len = buf.length();
 
   if (result >= 0)
   {
     const uint64_t temp = (uint64_t)result;
-    snprintf(buf, len, "0x%lx", temp & max_val);
+    snprintf(buf.data(), len, "0x%lx", temp & max_val);
   }
     else
   {
     const int64_t temp = (int64_t)result;
-    snprintf(buf, len, "0x%lx", temp & max_val);
+    snprintf(buf.data(), len, "0x%lx", temp & max_val);
   }
 
-  display->append(buf, "", "0x", 'B', 'A');
+  display->append(buf.data(), "", "0x", 'B', 'A');
   display->append("\n");
-  input->replace(0, input->size(), buf);
+  input->replace(0, input->size(), buf.data());
 
   Gui::setDigits(result);
   old_result = result;
@@ -651,23 +652,23 @@ void Gui::appendOct(const __float128 result)
 {
   if (mode != MODE_OCT) { return; };
 
-  char buf[1024];
-  const int len = sizeof(buf);
+  std::string buf(1024, '\0');
+  const int len = buf.length();
 
   if (result >= 0)
   {
     const uint64_t temp = (uint64_t)result;
-    snprintf(buf, len, "0o%lo", temp & max_val);
+    snprintf(buf.data(), len, "0o%lo", temp & max_val);
   }
     else
   {
     const int64_t temp = (int64_t)result;
-    snprintf(buf, len, "0o%lo", temp & max_val);
+    snprintf(buf.data(), len, "0o%lo", temp & max_val);
   }
 
-  display->append(buf, "", "0o", 'B', 'A');
+  display->append(buf.data(), "", "0o", 'B', 'A');
   display->append("\n");
-  input->replace(0, input->size(), buf);
+  input->replace(0, input->size(), buf.data());
 
   Gui::setDigits(result);
   old_result = result;
@@ -677,23 +678,23 @@ void Gui::appendBin(const __float128 result)
 {
   if (mode != MODE_BIN) { return; };
 
-  char buf[1024];
-  const int len = sizeof(buf);
+  std::string buf(1024, '\0');
+  const int len = buf.length();
 
   if (result >= 0)
   {
     const uint64_t temp = (uint64_t)result;
-    snprintf(buf, len, "0b%lb", temp & max_val);
+    snprintf(buf.data(), len, "0b%lb", temp & max_val);
   }
     else
   {
     const int64_t temp = (int64_t)result;
-    snprintf(buf, len, "0b%lb", temp & max_val);
+    snprintf(buf.data(), len, "0b%lb", temp & max_val);
   }
 
-  display->append(buf, "", "0b", 'B', 'A');
+  display->append(buf.data(), "", "0b", 'B', 'A');
   display->append("\n");
-  input->replace(0, input->size(), buf);
+  input->replace(0, input->size(), buf.data());
 
   Gui::setDigits(result);
   old_result = result;
@@ -734,9 +735,9 @@ void Gui::updateDisplay(const char *s)
 
 void Gui::setDigits(const __float128 value)
 {
-  char bin_buf[256];
-  char hex_buf[256];
-  char temp_buf[256];
+  std::string bin_buf(256, '\0');
+  std::string hex_buf(256, '\0');
+  std::string temp_buf(256, '\0');
   int count = 0;
   int index = 0;
   __int128 temp = (__int128)value;
@@ -763,38 +764,36 @@ void Gui::setDigits(const __float128 value)
   }
 
   bin_buf[index] = '\0';
-  bin_display->copy_label(bin_buf);
+  bin_display->copy_label(bin_buf.data());
 
   // hexadecimal
-  for(int i = index - 1; i > 0; i -= 9)
+  for (int i = 0; i < index; i += 9)
   {
-    int shift = 0;
+    int shift = 7;
     int num = 0;
 
-    for(int j = 0; j < 8; j++)
+    for (int j = 0; j < 8; j++)
     {
-      if(bin_buf[i - j - 1] == '1')
-        num |= (1 << shift);
+      if (bin_buf[i + j] == '1') { num |= (1 << shift); }
 
-      shift++;
+      shift--;
     }
 
-    snprintf(temp_buf, 3, "%02X", num);
+    snprintf(temp_buf.data(), 3, "%02X", num);
 
-    hex_buf[i - 1] = temp_buf[1];
-    hex_buf[i - 2] = temp_buf[0];
-    hex_buf[i - 3] = ' ';
-    hex_buf[i - 4] = ' ';
-    hex_buf[i - 5] = ' ';
-    hex_buf[i - 6] = ' ';
-    hex_buf[i - 7] = ' ';
-    hex_buf[i - 8] = ' ';
-    hex_buf[i - 9] = ' ';
+    hex_buf[i + 0] = ' ';
+    hex_buf[i + 1] = ' ';
+    hex_buf[i + 2] = ' ';
+    hex_buf[i + 3] = ' ';
+    hex_buf[i + 4] = ' ';
+    hex_buf[i + 5] = ' ';
+    hex_buf[i + 6] = temp_buf[0];
+    hex_buf[i + 7] = temp_buf[1];
+    hex_buf[i + 8] = ' ';
   }
 
-  hex_buf[index - 1] = ' ';
   hex_buf[index] = '\0';
-  hex_display->copy_label(hex_buf);
+  hex_display->copy_label(hex_buf.data());
 }
 
 Fl_Menu_Bar *Gui::getMenuBar()
