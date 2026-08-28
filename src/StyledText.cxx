@@ -47,13 +47,11 @@ StyledText::StyledText(int x, int y, int w, int h, int limit)
 {
   text_display = new Fl_Text_Display(x, y, w, h);
   text_display->box(FL_THIN_DOWN_BOX);
-//  text_display->color(FL_BACKGROUND_COLOR);
   text_display->color(fl_rgb_color(216, 216, 216));
   text_buf = new Fl_Text_Buffer();
   text_buf->canUndo(0);
   style_buf = new Fl_Text_Buffer();
   style_buf->canUndo(0);
-//  text_display->wrap_mode(Fl_Text_Display::WRAP_AT_BOUNDS, 0);
   text_display->scrollbar_size(16);
   text_display->textsize(16);
   text_display->buffer(text_buf);

@@ -53,7 +53,7 @@ void setLightTheme()
 
 void printHelp()
 {
-  printf("Usage: funcalc [OPTIONS]\n");
+  printf("Usage: joecalc [OPTIONS]\n");
   printf("--version\t\t print version\n");
 }
 
