@@ -59,30 +59,31 @@ namespace
     const int op;
     const char *token;
     const int size;
+    const bool is_func;
   };
 
   const struct table_entry table[] =
   {
-    { OP_FUNC_INT, "int", 3 },
-    { OP_FUNC_FRAC, "frac", 4 },
-    { OP_FUNC_ABS, "abs", 3 },
-    { OP_FUNC_RND, "rnd", 3 },
-    { OP_FUNC_SQRT, "sqrt", 4 },
-    { OP_UNARY, "", 1 },
-    { OP_SHIFT_LEFT, "<<", 2 },
-    { OP_SHIFT_RIGHT, ">>", 2 },
-    { OP_POWER, "**", 2 },
-    { OP_LEFT_PAREN, "(", 1},
-    { OP_RIGHT_PAREN, ")", 1 },
-    { OP_ADD, "+", 1 },
-    { OP_SUBTRACT, "-", 1 },
-    { OP_MULTIPLY, "*", 1 },
-    { OP_DIVIDE, "/", 1 },
-    { OP_MODULO, "%", 1 },
-    { OP_NOT, "~", 1},
-    { OP_AND, "&", 1 },
-    { OP_OR, "|", 1 },
-    { OP_XOR, "^", 1 }
+    { OP_FUNC_INT, "int", 3 , true },
+    { OP_FUNC_FRAC, "frac", 4 , true },
+    { OP_FUNC_ABS, "abs", 3 , true },
+    { OP_FUNC_RND, "rnd", 3 , true },
+    { OP_FUNC_SQRT, "sqrt", 4 , true },
+    { OP_UNARY, "", 1, false },
+    { OP_SHIFT_LEFT, "<<", 2, false },
+    { OP_SHIFT_RIGHT, ">>", 2, false },
+    { OP_POWER, "**", 2, false },
+    { OP_LEFT_PAREN, "(", 1, false},
+    { OP_RIGHT_PAREN, ")", 1, false },
+    { OP_ADD, "+", 1, false },
+    { OP_SUBTRACT, "-", 1, false },
+    { OP_MULTIPLY, "*", 1, false },
+    { OP_DIVIDE, "/", 1, false },
+    { OP_MODULO, "%", 1, false },
+    { OP_NOT, "~", 1, false},
+    { OP_AND, "&", 1, false },
+    { OP_OR, "|", 1, false },
+    { OP_XOR, "^", 1, false }
   };
 
   const int max = 1000;
@@ -167,8 +168,17 @@ namespace
 
   bool isFunc(const int op)
   {
-    if (op <= OP_FUNC_SQRT) { return true; }
-    else { return false; }
+    int length = sizeof(table) / sizeof(table[0]);
+
+    for (int i = 0; i < length; i++)
+    {
+       if (table[i].op == op)
+       {
+         return table[i].is_func;
+       }
+    }
+
+    return false;
   }
 
   int orderOfOps(const int op) 

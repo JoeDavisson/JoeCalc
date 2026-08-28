@@ -35,11 +35,11 @@ public:
   static Fl_Menu_Bar *getMenuBar();
   static void setMenuItem(const char *);
   static void clearMenuItem(const char *);
-  static void appendDec(__float128);
-  static void appendHex(__float128);
-  static void appendOct(__float128);
-  static void appendBin(__float128);
-  static void printResult(__float128, const bool);
+  static void appendDec(const __float128);
+  static void appendHex(const __float128);
+  static void appendOct(const __float128);
+  static void appendBin(const __float128);
+  static void printResult(const __float128, const bool);
 
 private:
   Gui() { }

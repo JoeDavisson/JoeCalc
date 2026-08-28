@@ -555,7 +555,7 @@ void Gui::init()
   setDigits(0);
 }
 
-void Gui::appendDec(__float128 result)
+void Gui::appendDec(const __float128 result)
 {
   if (mode != MODE_DEC) { return; };
 
@@ -592,7 +592,7 @@ void Gui::appendDec(__float128 result)
   old_result = result;
 }
 
-void Gui::appendHex(__float128 result)
+void Gui::appendHex(const __float128 result)
 {
   if (mode != MODE_HEX) { return; };
 
@@ -618,7 +618,7 @@ void Gui::appendHex(__float128 result)
   old_result = result;
 }
 
-void Gui::appendOct(__float128 result)
+void Gui::appendOct(const __float128 result)
 {
   if (mode != MODE_OCT) { return; };
 
@@ -644,7 +644,7 @@ void Gui::appendOct(__float128 result)
   old_result = result;
 }
 
-void Gui::appendBin(__float128 result)
+void Gui::appendBin(const __float128 result)
 {
   if (mode != MODE_BIN) { return; };
 
@@ -703,7 +703,7 @@ void Gui::updateDisplay(const char *s)
   display->copy_label(s);
 }
 
-void Gui::setDigits(__float128 value)
+void Gui::setDigits(const __float128 value)
 {
   char bin_buf[256];
   char hex_buf[256];
