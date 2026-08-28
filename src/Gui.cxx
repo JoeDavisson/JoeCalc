@@ -335,6 +335,8 @@ namespace
 
   void cb_reciprocal()
   {
+    if (old_result == 0) { return; }
+
     __float128 temp = (__float128)1 / old_result;
 
     if (temp > max_val) { temp = max_val; }
