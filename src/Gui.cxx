@@ -156,6 +156,8 @@ namespace
 
   void cb_input()
   {
+    if (input->size() == 0) { return; }
+
     const __float128 result = Parse::evalExpr(input->value());
     Gui::printResult(result, true);
   }
