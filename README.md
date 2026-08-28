@@ -12,7 +12,7 @@ Text may be copied from the output display to the input field by either using cu
 
 The field supports undo/redo via <kbd>Ctrl-Z</kbd> and <kbd>Shift-Ctrl-Z</kbd>, or simply use the up/down arrow keys.
 
-Most of the buttons simply append their label text to the input. The same is true for items in the function menu, which basically serves as a list of what is available for now.
+Adding a function will automatically surrounds any selected text in the input field.
 
 FLTK 1.4.x supports DPI scaling with <kbd>Ctrl +</kbd>, <kbd>Ctrl -</kbd>. Reset to 100% with <kbd>Ctrl 0</kbd>.
 
