@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 #include <cstring>
 #include <cmath>
 #include <cstdint>
+#include <array>
 #include <quadmath.h>
 
 #include "Parse.H"
@@ -89,8 +90,8 @@ namespace
   const int max = 1000;
   const int top = max - 1;
 
-  int stack_op[max + 1];
-  __float128 stack_val[max + 1];
+  std::array<int, max + 1> stack_op;
+  std::array<__float128, max + 1> stack_val;
   int sp_op = top;
   int sp_val = top;
 
